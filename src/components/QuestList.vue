@@ -1,64 +1,44 @@
 <template>
 <div>
-  <button @click="getDocuments()"> ADD </button>
-  <h2> Quest list {{ firebaseArray[0] }} </h2>
+  <button @click="addDocument()"> ADD </button>
+  <h2> Quest list </h2>
   <ul>
-    <li v-for="(quest, index) in questArray">
-      <Quest :id="index + 1" :title="quest.title" :desc="quest.desc" />
+    <li v-for="quest in dataArray">
+      <Quest :id="quest.id" :title="quest.title" :desc="quest.desc" />
     </li>
   </ul>
+
 </div>
 </template>
 
 <script>
 import Quest from "./Quest.vue";
-import {db} from "../firebase.js";
-import {addDoc, collection, getDocs} from "firebase/firestore";
+import { db } from "../firebase.js";
+import { addDoc, collection, getDocs, serverTimestamp } from "firebase/firestore";
 
 export default {
   name: "QuestList",
+
+  async setup(){//
+    const questSnapshot = await getDocs(collection(db, "quest"));
+    const dataArray = []
+    questSnapshot.forEach(e => {
+      dataArray.push({ id: e.id, ...e.data() })
+    })
+    return { dataArray }
+  },
   components: {
     Quest,
-  },
-  data() {
-    return {
-      questArray: [
-        {
-          title: "Quest title",
-          desc: "Quest desc "
-        },
-        {
-          title: "Quest title 2",
-          desc: "Quest desc 2 "
-        },
-        {
-          title: "Quest title 3",
-          desc: "Quest desc 3 "
-        }
-      ],
-      moje: "",
-      firebaseArray: []
-    }
   },
   methods: {
     async addDocument() {
       await addDoc(collection(db, "quest"), {
-            first: "Alan",
-            middle: "Mathison",
-            last: "Turing",
-            born: 1912
+            title: "Button added quest",
+            desc: "Button desc",
+            created: serverTimestamp()
         });
-    },
-    async getDocuments() {
-      const getData = collection(db, "quest")
-      const result = await getDocs(getData)
-      result.forEach(e => {
-        this.firebaseArray.push(e.data())
-      })
+      window.location.reload()
     }
-  },
-  mounted() {
-    this.getDocuments()
   }
 }
 </script>

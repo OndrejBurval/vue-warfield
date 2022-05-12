@@ -1,8 +1,7 @@
 <template>
   <div :data-quest="id">
     <h2>
-      {{ id }}. {{ title }}
-
+      {{ title }}
     </h2>
     <p>
       {{ desc }}
@@ -28,7 +27,6 @@ export default {
       type: String,
       default: "Desc"
     },
-
   },
 }
 </script>

@@ -5,7 +5,14 @@
 </script>
 
 <template>
-  <QuestList />
+  <Suspense>
+    <template #default>
+      <QuestList />
+    </template>
+    <template #fallback>
+      Loading ...
+    </template>
+  </Suspense>
   <Admin />
 </template>
 
