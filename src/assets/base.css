@@ -3,3 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+svg{
+  transition: .3s;
+}
+
+path{
+  transition: .3s;
+}

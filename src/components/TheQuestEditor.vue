@@ -1,13 +1,13 @@
 <template>
-  <section>
-    <div class="overlay" @click="$emit('stopEdit', false)" ></div>
-    <form @submit="alert()">
+  <section v-if="editing">
+    <div class="overlay" @click="$emit('stopEdit', !editing)" ></div>
+    <form @submit="addQuest()">
       <div class="form-group">
         <label for="quest_title"> Quest title</label>
         <input v-model="title" class="form-control" type="text" id="quest_title" placeholder="Title...">
       </div>
       <div class="form-group">
-        <label for="quest_desc"> Quest title</label>
+        <label for="quest_desc"> Quest description </label>
         <textarea v-model="desc" class="form-control" id="quest_desc" placeholder="Popis..."></textarea>
       </div>
 
@@ -29,17 +29,31 @@
 </template>
 
 <script>
+import {addDoc, collection, serverTimestamp} from "firebase/firestore";
+import {db} from "../firebase";
+
 export default {
   name: "QuestEditor",
   data() {
     return {
       title: "",
-      desc: ""
+      desc: "",
+      editing: true
     }
   },
   methods: {
     alert() {
       alert(`${this.title} : ${this.desc}`)
+    },
+    async addQuest() {
+      event.preventDefault()
+      await addDoc(collection(db, "quest"), {
+        title: this.title,
+        desc: this.desc,
+        created: serverTimestamp()
+      });
+      this.editing = !this.editing
+      window.location.reload()
     }
   },
 }
@@ -47,7 +61,7 @@ export default {
 
 <style lang="scss" scoped>
   section{
-    position: absolute;
+    position: fixed;
     inset: 0;
     display: grid;
     place-items: center;
