@@ -5,6 +5,7 @@
 </script>
 
 <template>
+
   <Suspense>
     <template #default>
       <QuestList />
@@ -18,6 +19,7 @@
 
 <style lang="scss">
 @import './assets/base.css';
+@import "./assets/transitions.css";
 
 
 

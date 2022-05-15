@@ -1,8 +1,6 @@
 <template>
-  <section v-if="editing">
-    <div class="overlay" @click="$emit('stopEdit', !editing)" ></div>
-    <form @submit="submitQuest()">
-      <h2> {{ update ? "Update" : "Add" }} </h2>
+    <form @submit.prevent="submitQuest()">
+      <h2> {{ update ? `Update (id: ${doc_id})` : "Add" }}  </h2>
       <div class="form-group">
         <label for="quest_title"> Quest title</label>
         <input v-model="title" class="form-control" type="text" id="quest_title" placeholder="Title...">
@@ -26,24 +24,21 @@
 
       <button type="submit" class="btn btn-primary w-100"> {{ update ? "Update" : "Save" }} </button>
     </form>
-  </section>
 </template>
 
 <script>
-import {addDoc, collection, serverTimestamp} from "firebase/firestore";
-import {db} from "../firebase";
+import { addQuest, updateQuest } from "../firebase";
 
 export default {
   name: "QuestEditor",
-  data() {
-    return {
-      editing: true
-    }
-  },
   props: {
     update: {
       type: Boolean,
       default: false
+    },
+    doc_id: {
+      type: String,
+      default: undefined
     },
     title: {
       type: String,
@@ -55,56 +50,27 @@ export default {
     },
   },
   methods: {
-    alert() {
-      alert(`${this.title} : ${this.desc}`)
-    },
     async submitQuest() {
       if (!this.update){
-        event.preventDefault()
-        await addDoc(collection(db, "quest"), {
-          title: this.title,
-          desc: this.desc,
-          created: serverTimestamp()
-        });
-        this.editing = !this.editing
+        await addQuest(this.title, this.desc)
         window.location.reload()
       } else{
-        console.log("Update")
+        await updateQuest(this.doc_id, this.title, this.desc)
+        window.location.reload()
       }
     }
-
-  },
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-  section{
-    position: fixed;
-    inset: 0;
-    display: grid;
-    place-items: center;
-    z-index: 99;
-  }
-
-  .overlay{
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.75);
-  }
-
   form{
-    padding: 50px;
-    position: absolute;
     width: min(98vw, 700px);
     height: min-content;
-    background: white;
-    border-radius: 20px;
-    z-index: 10;
     resize: both;
   }
 
   .row, .form-group, .form-row{
     margin-bottom: 30px;
   }
-
 </style>

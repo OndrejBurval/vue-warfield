@@ -1,50 +1,58 @@
 <template>
-  <div class="wrapper" :data-quest="id">
-    <div class="grid">
-      <div class="grid-item">
-        <h2>
-          {{ title }}
-        </h2>
-        <p>
-          {{ desc }}
-        </p>
-      </div>
-      <div class="grid-item utils">
-        <IconSettings @click="edit = !edit" />
-        <IconBin @click="deleteQuest()" />
+  <Transition name="slide-fade">
+    <div v-if="!removed" class="wrapper" :data-quest="id">
+      <div class="grid">
+        <div class="grid-item">
+          <h2>
+            {{ title }}
+          </h2>
+          <p>
+            {{ desc }}
+          </p>
+        </div>
+        <div class="grid-item utils">
+          <IconSettings @click="edit = !edit" />
+          <IconBin @click="removeQuest" />
+        </div>
       </div>
     </div>
-
-  </div>
-
-
-  <TheQuestEditorModal v-if="edit" :edit="edit" :update="true" :title="title" :desc="desc" @stopEdit="swapEdit()" />
+  </Transition>
 
 
+  <Transition name="fade">
+    <Modal v-if="edit" @closeModal="edit = !edit">
+      <QuestForm :update="true" :doc_id="id" :title="title" :desc="desc" />
+    </Modal>
+  </Transition>
 </template>
 
 <script>
 // Assets
 import IconBin from "../icons/IconBin.vue";
 import IconSettings from "../icons/IconSettings.vue";
-import TheQuestEditorModal from "./TheQuestEditorModal.vue";
 
+// Components
+import QuestForm from "./QuestForm.vue";
+import Modal from "./Modal.vue";
 
-//
-import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "../firebase.js";
+// Functions
+import { deleteQuest } from "../firebase.js";
 
 
 export default {
   name: "Quest",
+  setup(){
+    return { deleteQuest }
+  },
   data() {
     return {
-      edit: false
+      edit: false,
+      removed: false
     }
   },
   props: {
     id: {
-      type: Number,
+      type: String,
       default: 0
     },
     title: {
@@ -59,21 +67,20 @@ export default {
   components: {
     IconBin,
     IconSettings,
-    TheQuestEditorModal
+    QuestForm,
+    Modal
   },
   methods: {
-    async deleteQuest() {
-          await deleteDoc(doc(db, "quest", this.id));
-          window.location.reload()
-    },
-    swapEdit() {
-      this.edit = !this.edit
+    removeQuest() {
+      deleteQuest(this.id)
+      this.removed = true
     }
-  }
+  },
 }
 </script>
 
 <style lang="scss" scoped>
+
 
 
   .wrapper{

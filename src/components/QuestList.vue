@@ -13,32 +13,17 @@
 <script>
 import Quest from "./Quest.vue";
 
-import { db } from "../firebase.js";
-import { addDoc, collection, getDocs, serverTimestamp, query, orderBy } from "firebase/firestore";
+import { getQuestCollection } from "../firebase.js";
 
 export default {
   name: "QuestList",
 
   async setup(){//
-    const questSnapshot = await getDocs(query(collection(db, "quest"), orderBy("created", "asc")));
-    const dataArray = []
-    questSnapshot.forEach(e => {
-      dataArray.push({ id: e.id, ...e.data() })
-    })
+    const dataArray = await getQuestCollection()
     return { dataArray }
   },
   components: {
     Quest,
-  },
-  methods: {
-    async addDocument() {
-      await addDoc(collection(db, "quest"), {
-            title: "Button added quest",
-            desc: "Button desc",
-            created: serverTimestamp()
-        });
-      window.location.reload()
-    }
   }
 }
 </script>
