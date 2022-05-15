@@ -1,7 +1,8 @@
 <template>
   <section v-if="editing">
     <div class="overlay" @click="$emit('stopEdit', !editing)" ></div>
-    <form @submit="addQuest()">
+    <form @submit="submitQuest()">
+      <h2> {{ update ? "Update" : "Add" }} </h2>
       <div class="form-group">
         <label for="quest_title"> Quest title</label>
         <input v-model="title" class="form-control" type="text" id="quest_title" placeholder="Title...">
@@ -23,7 +24,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary w-100"> Save </button>
+      <button type="submit" class="btn btn-primary w-100"> {{ update ? "Update" : "Save" }} </button>
     </form>
   </section>
 </template>
@@ -36,25 +37,42 @@ export default {
   name: "QuestEditor",
   data() {
     return {
-      title: "",
-      desc: "",
       editing: true
     }
+  },
+  props: {
+    update: {
+      type: Boolean,
+      default: false
+    },
+    title: {
+      type: String,
+      default: ""
+    },
+    desc: {
+      type: String,
+      default: ""
+    },
   },
   methods: {
     alert() {
       alert(`${this.title} : ${this.desc}`)
     },
-    async addQuest() {
-      event.preventDefault()
-      await addDoc(collection(db, "quest"), {
-        title: this.title,
-        desc: this.desc,
-        created: serverTimestamp()
-      });
-      this.editing = !this.editing
-      window.location.reload()
+    async submitQuest() {
+      if (!this.update){
+        event.preventDefault()
+        await addDoc(collection(db, "quest"), {
+          title: this.title,
+          desc: this.desc,
+          created: serverTimestamp()
+        });
+        this.editing = !this.editing
+        window.location.reload()
+      } else{
+        console.log("Update")
+      }
     }
+
   },
 }
 </script>
@@ -65,6 +83,7 @@ export default {
     inset: 0;
     display: grid;
     place-items: center;
+    z-index: 99;
   }
 
   .overlay{

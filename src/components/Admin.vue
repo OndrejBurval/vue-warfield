@@ -1,11 +1,11 @@
 <template>
   <button class="btn btn-primary btn-edit" @click="swapEdit()"> {{ edit ? "Close edit" : "Edit" }} </button>
 
-  <QuestEditor v-if="edit" :edit="edit" @stopEdit="swapEdit()" />
+  <TheQuestEditorModal v-if="edit" :edit="edit" @stopEdit="swapEdit()" />
 </template>
 
 <script>
-import QuestEditor from "./TheQuestEditor.vue";
+import TheQuestEditorModal from "./TheQuestEditorModal.vue";
 
 export default {
   name: "Admin",
@@ -15,7 +15,7 @@ export default {
     }
   },
   components: {
-    QuestEditor
+    TheQuestEditorModal
   },
   methods: {
     swapEdit() {

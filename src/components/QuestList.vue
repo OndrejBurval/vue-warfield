@@ -12,14 +12,15 @@
 
 <script>
 import Quest from "./Quest.vue";
+
 import { db } from "../firebase.js";
-import { addDoc, collection, getDocs, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, getDocs, serverTimestamp, query, orderBy } from "firebase/firestore";
 
 export default {
   name: "QuestList",
 
   async setup(){//
-    const questSnapshot = await getDocs(collection(db, "quest"));
+    const questSnapshot = await getDocs(query(collection(db, "quest"), orderBy("created", "asc")));
     const dataArray = []
     questSnapshot.forEach(e => {
       dataArray.push({ id: e.id, ...e.data() })
@@ -58,15 +59,6 @@ export default {
     padding: 0;
     list-style: none;
 
-
-
-    li{
-      margin-bottom: 10px;
-      background: #D31027;  /* fallback for old browsers */
-      background: -webkit-linear-gradient(to right, #EA384D, #D31027);  /* Chrome 10-25, Safari 5.1-6 */
-      background: linear-gradient(to right, #EA384D, #D31027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-    }
   }
 
   .list{
