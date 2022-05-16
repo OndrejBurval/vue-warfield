@@ -85,7 +85,6 @@ export default {
 
   .wrapper{
     margin-bottom: 10px;
-    background-color: #74EBD5;
     background-image: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
     border-radius: 15px;
     padding: 10px 20px;

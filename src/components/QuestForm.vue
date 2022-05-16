@@ -1,17 +1,17 @@
 <template>
     <form @submit.prevent="submitQuest()">
-      <h2> {{ update ? `Update (id: ${doc_id})` : "Add" }}  </h2>
+      <h2> {{ update ? `Upravit (id: ${doc_id})` : "Přidat" }}  </h2>
       <div class="form-group">
-        <label for="quest_title"> Quest title</label>
-        <input v-model="title" class="form-control" type="text" id="quest_title" placeholder="Title...">
+        <label for="quest_title"> Název úkolu </label>
+        <input  required v-model="title" class="form-control" type="text" id="quest_title" placeholder="Title...">
       </div>
       <div class="form-group">
-        <label for="quest_desc"> Quest description </label>
-        <textarea v-model="desc" class="form-control" id="quest_desc" placeholder="Popis..."></textarea>
+        <label for="quest_desc"> Popis úkolu </label>
+        <textarea required v-model="desc" class="form-control" id="quest_desc" placeholder="Popis..."></textarea>
       </div>
 
       <div class="form-row">
-        <button class="btn btn-secondary col-md-12"> Add marker </button>
+        <button class="btn btn-secondary col-md-12"> Přidat marker </button>
         <div class="col-md-6">
           <label for="lat_input"> Lat: </label>
           <input class="form-control" type="text" id="lat_input" placeholder="lat...">
@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary w-100"> {{ update ? "Update" : "Save" }} </button>
+      <button type="submit" class="btn btn-primary w-100"> {{ update ? "Update" : "Uložit" }} </button>
     </form>
 </template>
 

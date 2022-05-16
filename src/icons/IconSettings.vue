@@ -33,6 +33,7 @@ svg:hover{
     path{
       fill: #d33e3e;
     }
+  transform: rotate(90deg);
   }
 
 </style>

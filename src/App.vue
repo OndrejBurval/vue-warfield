@@ -1,10 +1,14 @@
 <script setup>
   import Admin from "./components/Admin.vue";
   import QuestList from "./components/QuestList.vue";
+  import GoogleMap from "./components/GoogleMap.vue";
+  import VueGoogleMap from "./components/VueGoogleMap.vue";
 
 </script>
 
 <template>
+
+  <VueGoogleMap />
 
   <Suspense>
     <template #default>

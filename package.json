@@ -7,8 +7,13 @@
     "preview": "vite preview --port 5050"
   },
   "dependencies": {
+    "@fawmi/vue-google-maps": "^0.9.67",
+    "@googlemaps/js-api-loader": "^1.14.2",
+    "@popperjs/core": "^2.11.5",
+    "bootstrap": "^5.1.3",
     "firebase": "^9.8.0",
     "vue": "^3.2.33",
+    "vue-plugin-load-script": "^2.x.x",
     "yarn": "^1.22.18"
   },
   "devDependencies": {
