@@ -8,7 +8,7 @@
       </Suspense>
     </li>
   </ul>
-  <h3 class="text-center opacity-50" v-else>
+  <h3 class="text-center opacity-50 my-4" v-else>
     Aktuálně nejsou žádné úkoly
   </h3>
 

@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       options: {
-       // mapId: "c8dda2d6001c33e7",
+        mapId: "c8dda2d6001c33e7",
         zoomControl: false,
         mapTypeControl: false,
         scaleControl: false,

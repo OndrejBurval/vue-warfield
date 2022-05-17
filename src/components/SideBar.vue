@@ -49,6 +49,11 @@ export default {
     pointer-events: auto;
   }
 
+  .header{
+    position: sticky;
+    top: 0;
+  }
+
   .overlay{
     position: absolute;
     inset: 0;
@@ -67,6 +72,8 @@ export default {
     padding: 0 30px 40px 30px;
     height: 100vh;
     min-width: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
 
   .exit{

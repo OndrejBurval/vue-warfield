@@ -2,7 +2,9 @@
   <h3>
     Team list
     <Popper hover arrow content="Přidat tým">
-      <BIconPlusCircle @click="addTeam"/>
+      <ButtonFormTeam>
+        <BIconPlusCircle />
+      </ButtonFormTeam>
     </Popper>
   </h3>
   <hr>
@@ -20,7 +22,11 @@
         <a class="dropdown-item" @click="removeTeamQuests(team.id)"> Odebrat úkoly </a>
       </li>
       <li>
-        <a class="dropdown-item" @click="editTeam(team.name, team.id)"> Upravit </a>
+        <ButtonFormTeam :update="true" :team-name="team.name" :team-id="team.id">
+          <a class="dropdown-item">
+            Upravit
+          </a>
+        </ButtonFormTeam>
       </li>
       <li>
         <a class="dropdown-item" @click="removeTeam(team.id)"> Odebrat </a>
@@ -39,16 +45,6 @@
     </Transition>
   </Teleport>
 
-  <!-- Team Modal -->
-  <Teleport to="body">
-    <Transition name="fade">
-      <Modal v-if="teamModal" @closeModal="teamModal = !teamModal; updateTeam = !updateTeam">
-        <FormTeam :update="updateTeam" :teamName="teamName" :teamId="teamId" />
-      </Modal>
-    </Transition>
-  </Teleport>
-
-
 </template>
 
 <script>
@@ -57,6 +53,7 @@ import { getTeamsCollection, deleteTeam, deleteTeamQuests } from "../firebase.js
 import Modal from "./Modal.vue";
 import FormQuest from "./FormQuest.vue";
 import FormTeam from "./FormTeam.vue";
+import ButtonFormTeam from "./ButtonFormTeam.vue";
 
 export default {
   name: "ListTeams",
@@ -77,7 +74,8 @@ export default {
   components: {
     FormQuest,
     FormTeam,
-    Modal
+    Modal,
+    ButtonFormTeam
   },
   methods: {
     setTeamInfo(teamName,teamId){
