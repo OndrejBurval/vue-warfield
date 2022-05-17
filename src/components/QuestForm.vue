@@ -1,6 +1,7 @@
 <template>
     <form @submit.prevent="submitQuest()">
-      <h2> {{ update ? `Upravit (id: ${doc_id})` : "Přidat" }}  </h2>
+      <h2> {{ teamName + ' -' }} {{ update ? `Upravit (id: ${doc_id})` : "Přidat úkol" }}  </h2>
+      <span class="badge bg-dark"> {{ teamId }}</span>
       <div class="form-group">
         <label for="quest_title"> Název úkolu </label>
         <input  required v-model="title" class="form-control" type="text" id="quest_title" placeholder="Title...">
@@ -32,6 +33,14 @@ import { addQuest, updateQuest } from "../firebase";
 export default {
   name: "QuestEditor",
   props: {
+    teamName: {
+      type: String,
+      default: undefined
+    },
+    teamId: {
+      type: String,
+      default: undefined
+    },
     update: {
       type: Boolean,
       default: false
@@ -51,11 +60,11 @@ export default {
   },
   methods: {
     async submitQuest() {
-      if (!this.update){
-        await addQuest(this.title, this.desc)
+      if (this.update){
+        await updateQuest(this.doc_id, this.title, this.desc)
         window.location.reload()
       } else{
-        await updateQuest(this.doc_id, this.title, this.desc)
+        await addQuest(this.title, this.desc, this.teamId)
         window.location.reload()
       }
     }

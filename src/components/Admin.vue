@@ -3,15 +3,13 @@
 
   <Transition name="slide-right">
     <SideBar v-if="sidebar" :title="'Admin module'" @closeSidebar="sidebarToggle">
-      <button class="btn btn-primary btn-edit w-100" @click="edit = !edit"> Přidat úkol </button>
+
+      <h3> Team list </h3>
+      <hr>
+      <Suspense>
+        <TeamList />
+      </Suspense>
     </SideBar>
-  </Transition>
-
-
-  <Transition name="fade">
-    <Modal v-if="edit" @closeModal="edit = !edit">
-      <QuestForm />
-    </Modal>
   </Transition>
 </template>
 
@@ -20,6 +18,7 @@ import QuestForm from "./QuestForm.vue";
 import Modal from "./Modal.vue";
 import SideBar from "./SideBar.vue";
 import IconSettings from "../icons/IconSettings.vue";
+import TeamList from "./TeamList.vue";
 
 export default {
   name: "Admin",
@@ -33,7 +32,8 @@ export default {
     QuestForm,
     Modal,
     SideBar,
-    IconSettings
+    IconSettings,
+    TeamList
   },
   methods: {
     sidebarToggle() {

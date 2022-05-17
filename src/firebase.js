@@ -18,17 +18,18 @@ export const db = getFirestore(firebaseApp);
 
 export const getQuestCollection = async () => {
     const questSnapshot = await getDocs(query(collection(db, "quest"), orderBy("created", "asc")));
-    const questArray = []
+    const data = []
     questSnapshot.forEach(e => {
-        questArray.push({ id: e.id, ...e.data() })
+        data.push({ id: e.id, ...e.data() })
     })
-    return questArray
+    return data
 }
 
-export const addQuest = async (questTitle, questDesc) => {
+export const addQuest = async (questTitle, questDesc, team) => {
     await addDoc(collection(db, "quest"), {
         title: questTitle,
         desc: questDesc,
+        team: team,
         created: serverTimestamp()
     });
 }
@@ -43,4 +44,14 @@ export const updateQuest = async ( questId, questTitle, questDesc ) => {
 
 export const deleteQuest = async ( questId ) => {
     await deleteDoc(doc(db, "quest", questId));
+}
+
+
+export const getTeamsCollection = async () => {
+    const questSnapshot = await getDocs(query(collection(db, "teams"), orderBy("created", "asc")));
+    const data = []
+    questSnapshot.forEach(e => {
+        data.push({ id: e.id, ...e.data() })
+    })
+    return data
 }
