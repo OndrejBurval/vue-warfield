@@ -2,6 +2,7 @@
     <form @submit.prevent="submitQuest()">
       <h2> {{ teamName + ' - ' }} {{ update ? `Upravit (id: ${doc_id})` : "Přidat úkol" }}  </h2>
       <span class="badge bg-dark"> {{ teamId }}</span>
+
       <div class="form-group">
         <label for="quest_title"> Název úkolu </label>
         <input  required v-model="title" class="form-control" type="text" id="quest_title" placeholder="Title...">
@@ -23,7 +24,7 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary w-100"> {{ update ? "Update" : "Uložit" }} </button>
+      <button type="submit" class="btn btn-primary w-100"> {{ update ? "Uložit" : "Přidat" }} </button>
     </form>
 </template>
 

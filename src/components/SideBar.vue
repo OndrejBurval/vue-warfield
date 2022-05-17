@@ -1,10 +1,11 @@
 <template>
   <section>
-    <div class="overlay" @click="$emit('closeSidebar')"></div>
+    <div v-if="!overlay" class="overlay" @click="$emit('closeSidebar')"></div>
 
     <div class="content">
       <div class="header">
         <h2> {{ title }}</h2>
+        <BIconXLg class="exit" v-if="overlay" @click="$emit('closeSidebar')" />
       </div>
 
       <slot></slot>
@@ -20,12 +21,16 @@ export default {
     title: {
       type: String,
       default: "Sidebar"
+    },
+    overlay: {
+      type: Boolean,
+      default: true
     }
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
   svg{
     cursor: pointer;
@@ -37,6 +42,11 @@ export default {
     z-index: 10;
     display: grid;
     place-items: start end;
+    pointer-events: none;
+  }
+
+  section *{
+    pointer-events: auto;
   }
 
   .overlay{
@@ -57,6 +67,11 @@ export default {
     padding: 0 30px 40px 30px;
     height: 100vh;
     min-width: 300px;
+  }
+
+  .exit{
+    position: absolute;
+    inset: 10px 10px auto auto;
   }
 
   h2{

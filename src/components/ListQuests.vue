@@ -1,13 +1,16 @@
 <template>
 <div class="list">
-  <h2> Quest list </h2>
-  <ul>
+
+  <ul v-if="dataArray.length > 0">
     <li v-for="quest in dataArray">
       <Suspense>
         <Quest :id="quest.id" :title="quest.title" :desc="quest.desc" :teamId="quest.teamId" />
       </Suspense>
     </li>
   </ul>
+  <h3 class="text-center opacity-50" v-else>
+    Aktuálně nejsou žádné úkoly
+  </h3>
 
 </div>
 </template>
@@ -15,14 +18,26 @@
 <script>
 import Quest from "./Quest.vue";
 
-import { getQuestCollection } from "../firebase.js";
+import { getQuestCollection, getTeamQuestCollection } from "../firebase.js";
 
 export default {
   name: "ListQuest",
 
-  async setup(){//
-    const dataArray = await getQuestCollection()
-    return { dataArray }
+  async setup(props){//
+
+    if (props.filterTeam !== undefined){
+      const dataArray = await getTeamQuestCollection(props.filterTeam)
+      return { dataArray }
+    } else{
+      const dataArray = await getQuestCollection()
+      return { dataArray }
+    }
+  },
+  props: {
+    filterTeam: {
+      type: String,
+      default: undefined
+    },
   },
   components: {
     Quest,

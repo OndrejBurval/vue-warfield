@@ -1,8 +1,6 @@
 <template>
   <Transition name="slide-fade">
     <div v-if="!removed" class="wrapper" :data-quest="id">
-      {{ team.name }}
-
       <div class="grid">
         <div class="grid-item">
           <h2>

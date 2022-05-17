@@ -6,23 +6,17 @@
 </script>
 
 <template>
+
   <NavBar />
 
   <VueGoogleMap />
 
-  <Suspense>
-    <template #default>
-      <ListQuest />
-    </template>
-    <template #fallback>
-      Loading ...
-    </template>
-  </Suspense>
 </template>
 
 <style lang="scss">
 @import './assets/base.css';
 @import "./assets/transitions.css";
+@import "./assets/keyframes.css";
 
 
 

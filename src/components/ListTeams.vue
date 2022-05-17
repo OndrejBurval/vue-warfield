@@ -1,5 +1,10 @@
 <template>
-  <h3> Team list <BIconPlusCircle @click="addTeam"/> </h3>
+  <h3>
+    Team list
+    <Popper hover arrow content="Přidat tým">
+      <BIconPlusCircle @click="addTeam"/>
+    </Popper>
+  </h3>
   <hr>
 
   <div v-for="team in teams" class="dropdown" >
@@ -9,7 +14,7 @@
     </button>
     <ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="dropdownMenuButton">
       <li>
-        <a class="dropdown-item" @click="openQuestEditor(team.name, team.id)"> Přidat úkol </a>
+        <a class="dropdown-item" @click="addQuest(team.name, team.id)"> Přidat úkol </a>
       </li>
       <li>
         <a class="dropdown-item" @click="removeTeamQuests(team.id)"> Odebrat úkoly </a>
@@ -25,6 +30,7 @@
 
 
 
+  <!-- Quest Modal -->
   <Teleport to="body">
     <Transition name="fade">
       <Modal v-if="edit" @closeModal="edit = !edit">
@@ -33,6 +39,7 @@
     </Transition>
   </Teleport>
 
+  <!-- Team Modal -->
   <Teleport to="body">
     <Transition name="fade">
       <Modal v-if="teamModal" @closeModal="teamModal = !teamModal; updateTeam = !updateTeam">
@@ -77,7 +84,7 @@ export default {
       this.teamName = teamName
       this.teamId = teamId
     },
-    openQuestEditor(teamName, teamId) {
+    addQuest(teamName, teamId) {
       this.edit = !this.edit
       this.setTeamInfo(teamName, teamId)
     },
@@ -91,14 +98,14 @@ export default {
     },
     async removeTeam(teamId){
       console.log(teamId)
-      if (confirm("Pravdu chcete odebrat tým ? (Odebere i všechny úkoly)")){
+      if (confirm("Opravdu chcete odebrat tým ? (Odebere i všechny úkoly)")){
         await deleteTeam(teamId)
         await deleteTeamQuests(teamId)
         window.location.reload()
       }
     },
     async removeTeamQuests(teamId){
-      if (confirm("Pravdu chcete všechny úkoly?")){
+      if (confirm("Opravdu chcete všechny úkoly?")){
         await deleteTeamQuests(teamId)
         window.location.reload()
       }

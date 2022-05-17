@@ -417,7 +417,7 @@
     protobufjs "^6.10.0"
     yargs "^16.2.0"
 
-"@popperjs/core@^2.10.1", "@popperjs/core@^2.11.5":
+"@popperjs/core@^2.10.1", "@popperjs/core@^2.11.5", "@popperjs/core@^2.9.2":
   version "2.11.5"
   resolved "https://registry.npmjs.org/@popperjs/core/-/core-2.11.5.tgz"
   integrity sha512-9X2obfABZuDVLCgPK9aX0a/x4jaOEweTTWE2+9sr0Qqqevj2Uv5XorvusThmc9XGYpS9yI+fhh8RTafBtGposw==
@@ -705,6 +705,11 @@ csstype@^2.6.8:
   version "2.6.20"
   resolved "https://registry.npmjs.org/csstype/-/csstype-2.6.20.tgz"
   integrity sha512-/WwNkdXfckNgw6S5R125rrW8ez139lBHWouiBvX8dfMFtcn6V81REDqnH7+CRpRipfYlyU1CmOnOxrmGcFOjeA==
+
+debounce@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/debounce/-/debounce-1.2.1.tgz#38881d8f4166a5c5848020c11827b834bcb3e0a5"
+  integrity sha512-XRRe6Glud4rd/ZGQfiV1ruXSfbvfJedlV9Y6zOlP+2K04vBYiJEte6stfFkCP03aMnY5tsipamumUjL14fofug==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -1407,6 +1412,14 @@ vue3-normal-library@^0.1.6:
     raf "^3.4.1"
     vue "^3.2.6"
     vue-types "^4.1.0"
+
+vue3-popper@^1.4.2:
+  version "1.4.2"
+  resolved "https://registry.yarnpkg.com/vue3-popper/-/vue3-popper-1.4.2.tgz#2a15d92e3787c34d335efe3a61fd12ca960bbda1"
+  integrity sha512-nc5vM//AJ8/DyNetjrrgkkLv7aKVdSsljvqlQ1tWhAV2lgA8tkn8xE6icDd0/kBt0Yo5Li8Pftf0H0C/hNmu1Q==
+  dependencies:
+    "@popperjs/core" "^2.9.2"
+    debounce "^1.2.1"
 
 vue@^3.2.33, vue@^3.2.6:
   version "3.2.33"

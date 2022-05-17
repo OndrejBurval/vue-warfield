@@ -1,5 +1,5 @@
 <template>
-    <section>
+    <section class="modal">
       <div class="overlay" @click="$emit('closeModal')"></div>
       <div class="content">
         <slot></slot>
@@ -14,7 +14,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  section{
+  .modal{
     position: fixed;
     inset: 0;
     z-index: 10;
