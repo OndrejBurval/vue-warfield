@@ -1,16 +1,18 @@
 <template>
   <section>
     <div class="overlay" @click="$emit('closeSidebar')"></div>
+
     <div class="content">
-      <h2> {{ title }}</h2>
-      <hr>
+      <div class="header">
+        <h2> {{ title }}</h2>
+      </div>
+
       <slot></slot>
     </div>
   </section>
 </template>
 
 <script>
-import IconSettings from "../icons/IconSettings.vue";
 
 export default {
   name: "SideBar",
@@ -19,18 +21,13 @@ export default {
       type: String,
       default: "Sidebar"
     }
-  },
-  components: {
-    IconSettings,
-  },
+  }
 }
 </script>
 
 <style scoped>
 
   svg{
-    width: 30px;
-    height: 30px;
     cursor: pointer;
   }
 
@@ -57,8 +54,7 @@ export default {
     position: relative;
     z-index: 12;
     background: white;
-    padding: 40px 30px;
-    border-radius: 20px 0 0 20px;
+    padding: 0 30px 40px 30px;
     height: 100vh;
     min-width: 300px;
   }
@@ -66,6 +62,15 @@ export default {
   h2{
     width: 100%;
     text-align: center;
+  }
+
+  .header{
+    background: #2a2f34;
+    width: calc(100% + 60px);
+    margin-left: -30px;
+    padding-block: 20px;
+    margin-bottom: 15px;
+    color: white;
   }
 
 </style>

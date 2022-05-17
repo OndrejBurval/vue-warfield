@@ -11,9 +11,11 @@
     "@googlemaps/js-api-loader": "^1.14.2",
     "@popperjs/core": "^2.11.5",
     "bootstrap": "^5.1.3",
+    "bootstrap-icons-vue": "^1.8.1",
     "firebase": "^9.8.0",
     "vue": "^3.2.33",
     "vue-plugin-load-script": "^2.x.x",
+    "vue3-colorpicker": "^2.0.4",
     "yarn": "^1.22.18"
   },
   "devDependencies": {

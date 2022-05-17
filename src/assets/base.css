@@ -6,10 +6,21 @@
 
 svg{
   transition: .3s;
+  width: 30px;
+  height: auto;
+  aspect-ratio: 1;
+}
+
+.hover-rotate:hover{
+  transform: rotate(-90deg);
 }
 
 path{
   transition: .3s;
 }
 
+
+svg:hover path{
+  fill: #d33e3e;
+}
 

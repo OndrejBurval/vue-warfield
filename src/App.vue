@@ -1,24 +1,23 @@
 <script setup>
-  import Admin from "./components/Admin.vue";
-  import QuestList from "./components/QuestList.vue";
-  import GoogleMap from "./components/GoogleMap.vue";
+  import NavBar from "./components/NavBar.vue";
+  import ListQuest from "./components/ListQuests.vue";
   import VueGoogleMap from "./components/VueGoogleMap.vue";
 
 </script>
 
 <template>
+  <NavBar />
 
   <VueGoogleMap />
 
   <Suspense>
     <template #default>
-      <QuestList />
+      <ListQuest />
     </template>
     <template #fallback>
       Loading ...
     </template>
   </Suspense>
-  <Admin />
 </template>
 
 <style lang="scss">

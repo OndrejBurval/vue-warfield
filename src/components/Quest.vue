@@ -1,6 +1,8 @@
 <template>
   <Transition name="slide-fade">
     <div v-if="!removed" class="wrapper" :data-quest="id">
+      {{ team.name }}
+
       <div class="grid">
         <div class="grid-item">
           <h2>
@@ -11,8 +13,8 @@
           </p>
         </div>
         <div class="grid-item utils">
-          <IconSettings @click="edit = !edit" />
-          <IconBin @click="removeQuest" />
+          <BIconGear class="hover-rotate" @click="edit = !edit" />
+          <BIconTrash @click="removeQuest" />
         </div>
       </div>
     </div>
@@ -21,39 +23,41 @@
 
   <Transition name="fade">
     <Modal v-if="edit" @closeModal="edit = !edit">
-      <QuestForm :update="true" :doc_id="id" :title="title" :desc="desc" />
+      <FormQuest :update="true" :doc_id="id" :title="title" :desc="desc" />
     </Modal>
   </Transition>
 </template>
 
 <script>
-// Assets
-import IconBin from "../icons/IconBin.vue";
-import IconSettings from "../icons/IconSettings.vue";
-
 // Components
-import QuestForm from "./QuestForm.vue";
+import FormQuest from "./FormQuest.vue";
 import Modal from "./Modal.vue";
 
 // Functions
-import { deleteQuest } from "../firebase.js";
+import { deleteQuest, getTeam } from "../firebase.js";
 
 
 export default {
   name: "Quest",
-  setup(){
-    return { deleteQuest }
+  async setup(props){
+    const team = await getTeam(props.teamId)
+    return { deleteQuest, team }
   },
   data() {
     return {
       edit: false,
-      removed: false
+      removed: false,
+      testId: this.testId
     }
   },
   props: {
     id: {
       type: String,
       default: 0
+    },
+    teamId: {
+      type: String,
+      default: undefined
     },
     title: {
       type: String,
@@ -65,9 +69,7 @@ export default {
     }
   },
   components: {
-    IconBin,
-    IconSettings,
-    QuestForm,
+    FormQuest,
     Modal
   },
   methods: {
@@ -100,9 +102,6 @@ export default {
   }
 
   svg{
-    width: 24px;
-    height: auto;
-    aspect-ratio: 1;
     cursor: pointer;
   }
 

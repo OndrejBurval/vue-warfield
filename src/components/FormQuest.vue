@@ -1,6 +1,6 @@
 <template>
     <form @submit.prevent="submitQuest()">
-      <h2> {{ teamName + ' -' }} {{ update ? `Upravit (id: ${doc_id})` : "Přidat úkol" }}  </h2>
+      <h2> {{ teamName + ' - ' }} {{ update ? `Upravit (id: ${doc_id})` : "Přidat úkol" }}  </h2>
       <span class="badge bg-dark"> {{ teamId }}</span>
       <div class="form-group">
         <label for="quest_title"> Název úkolu </label>

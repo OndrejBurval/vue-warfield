@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore,collection,getDocs, addDoc,doc, deleteDoc, query, where, orderBy, serverTimestamp, updateDoc, onSnapshot } from 'firebase/firestore'
+import { getFirestore,collection,getDocs, addDoc,doc, deleteDoc, query, where, orderBy, serverTimestamp, updateDoc, onSnapshot, getDoc } from 'firebase/firestore'
 import { ref, onUnmounted} from "vue";
 
 const firebaseConfig = {
@@ -25,11 +25,11 @@ export const getQuestCollection = async () => {
     return data
 }
 
-export const addQuest = async (questTitle, questDesc, team) => {
+export const addQuest = async (questTitle, questDesc, teamId) => {
     await addDoc(collection(db, "quest"), {
         title: questTitle,
         desc: questDesc,
-        team: team,
+        teamId: teamId,
         created: serverTimestamp()
     });
 }
@@ -54,4 +54,39 @@ export const getTeamsCollection = async () => {
         data.push({ id: e.id, ...e.data() })
     })
     return data
+}
+
+
+export const getTeam = async (id) => {
+    const docRef = doc(db, "teams", id);
+    const document = await getDoc(docRef);
+    return document.data()
+}
+
+export const addTeam = async (teamName, teamColor) => {
+    await addDoc(collection(db, "teams"), {
+        name: teamName,
+        color: teamColor,
+        created: serverTimestamp()
+    });
+}
+
+export const updateTeam = async ( teamId, teamName, teamColor ) => {
+    const docRef = doc(db, "teams", teamId)
+    await updateDoc(docRef, {
+        name: teamName,
+        color: teamColor
+    })
+}
+
+export const deleteTeam = async ( teamId ) => {
+    await deleteDoc(doc(db, "teams", teamId));
+}
+
+export const deleteTeamQuests = async (teamId) => {
+    console.log("Delete")
+    const questSnapshot = await getDocs(query(collection(db, "quest"), where("teamId","==", teamId)));
+    questSnapshot.forEach(e => {
+        deleteDoc(e.ref)
+    })
 }

@@ -3,7 +3,9 @@
   <h2> Quest list </h2>
   <ul>
     <li v-for="quest in dataArray">
-      <Quest :id="quest.id" :title="quest.title" :desc="quest.desc" />
+      <Suspense>
+        <Quest :id="quest.id" :title="quest.title" :desc="quest.desc" :teamId="quest.teamId" />
+      </Suspense>
     </li>
   </ul>
 
@@ -16,7 +18,7 @@ import Quest from "./Quest.vue";
 import { getQuestCollection } from "../firebase.js";
 
 export default {
-  name: "QuestList",
+  name: "ListQuest",
 
   async setup(){//
     const dataArray = await getQuestCollection()
