@@ -1,6 +1,6 @@
 <template>
   <Transition name="slide-fade">
-    <div v-if="!removed" class="wrapper" :data-quest="id">
+    <div v-if="!removed" class="wrapper" ref="reference" :class="focused" @click="getClickedQuest(id)" :data-quest="id">
       <div class="grid">
         <div class="grid-item">
           <h2>
@@ -45,7 +45,8 @@ export default {
     return {
       edit: false,
       removed: false,
-      testId: this.testId
+      testId: this.testId,
+      focused: false
     }
   },
   props: {
@@ -74,6 +75,11 @@ export default {
     removeQuest() {
       deleteQuest(this.id)
       this.removed = true
+    },
+    getClickedQuest(id){
+      this.focused === false ? this.focused = "focused" : this.focused = false
+      const associatedMarker = document.querySelector("[data-marker="+ JSON.stringify(id) +"]")
+      associatedMarker.classList.add("selected")
     }
   },
 }
@@ -81,13 +87,17 @@ export default {
 
 <style lang="scss" scoped>
 
-
-
   .wrapper{
     margin-bottom: 10px;
     background-image: linear-gradient(90deg, #74EBD5 0%, #9FACE6 100%);
     border-radius: 15px;
     padding: 10px 20px;
+    cursor: pointer;
+    transition: .3s;
+
+    &:hover{
+      box-shadow: rgba(0, 0, 0, 0.2) 0 0 10px;
+    }
   }
 
   .utils{
@@ -97,6 +107,11 @@ export default {
     justify-content: flex-start;
     align-items: flex-start;
     gap: 10px;
+  }
+
+  .focused{
+    transform: scale(1.025);
+    background: orange;
   }
 
   svg{

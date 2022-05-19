@@ -1,10 +1,14 @@
 <template>
-    <section class="modal">
-      <div class="overlay" @click="$emit('closeModal')"></div>
-      <div class="content">
-        <slot></slot>
-      </div>
-    </section>
+  <Teleport to="body">
+    <Transition name="fade">
+      <section class="modal">
+        <div class="overlay" @click="$emit('closeModal')"></div>
+        <div class="content">
+          <slot></slot>
+        </div>
+      </section>
+    </Transition>
+  </Teleport>
 </template>
 
 <script>
@@ -16,15 +20,20 @@ export default {
 <style lang="scss" scoped>
   .modal{
     position: fixed;
-    inset: 0;
+    min-width: 100vw;
+    min-height: 100vh;
+    height: 100%;
     z-index: 10;
     display: grid;
     place-items: center;
   }
 
   .overlay{
-    position: absolute;
+    position: fixed;
+    height: 100%;
+    width: 100%;
     inset: 0;
+
     background: black;
     opacity: .5;
     z-index: 11;

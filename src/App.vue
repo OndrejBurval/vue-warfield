@@ -1,13 +1,16 @@
 <script setup>
   import NavBar from "./components/NavBar.vue";
   import VueGoogleMap from "./components/VueGoogleMap.vue";
-  import ButtonTeam from "./components/ButtonFormTeam.vue";
+  import ButtonTeam from "./components/buttons/ButtonFormTeam.vue";
 
 </script>
 
 <template>
   <NavBar />
-  <VueGoogleMap />
+
+  <Suspense>
+    <VueGoogleMap />
+  </Suspense>
 </template>
 
 <style lang="scss">

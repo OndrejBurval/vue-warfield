@@ -7,7 +7,9 @@
       </Popper>
 
       <Popper class="ms-0" hover arrow content="Odebere všechny úkoly">
-        <BIconTrash :cursor="'pointer'" @click="removeTeamQuests(teamId)" />
+        <ButtonRemoveTeamQuests :team-id="teamId">
+          <BIconTrash />
+        </ButtonRemoveTeamQuests>
       </Popper>
 
     </div>
@@ -24,9 +26,9 @@
 </template>
 
 <script>
-import { deleteTeamQuests } from "../firebase";
 import Modal from "./Modal.vue";
 import FormQuest from "./FormQuest.vue";
+import ButtonRemoveTeamQuests from "./buttons/ButtonRemoveTeamQuests.vue";
 
 export default {
   name: "AdminSmallPanel",
@@ -50,17 +52,12 @@ export default {
       this.addModal = !this.addModal
       this.teamName = teamName
       this.teamId = teamId
-    },
-    async removeTeamQuests(teamId){
-      if (confirm("Opravdu chcete všechny úkoly?")){
-        await deleteTeamQuests(teamId)
-        window.location.reload()
-      }
     }
   },
   components: {
     Modal,
-    FormQuest
+    FormQuest,
+    ButtonRemoveTeamQuests
   },
 }
 </script>

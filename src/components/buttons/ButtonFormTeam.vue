@@ -1,24 +1,22 @@
 <template>
 
-  <div @click="modalToggle" style="cursor: pointer">
+  <div @click="modalToggle">
     <slot>
     </slot>
   </div>
 
 
   <!-- Team Modal -->
-  <Teleport to="body">
-    <Transition name="fade">
-      <Modal v-if="teamModal" @closeModal="modalToggle">
-        <FormTeam :update="updateTeam" :team-name="teamName" :team-id="teamId" />
-      </Modal>
-    </Transition>
-  </Teleport>
+  <Modal v-if="teamModal" @closeModal="modalToggle">
+    <FormTeam :update="updateTeam" :team-name="teamName" :team-id="teamId" />
+  </Modal>
+
+
 </template>
 
 <script>
-import Modal from "./Modal.vue";
-import FormTeam from "./FormTeam.vue";
+import Modal from "../Modal.vue";
+import FormTeam from "../FormTeam.vue";
 
 
 export default {
@@ -58,5 +56,8 @@ export default {
 </script>
 
 <style scoped>
+  div{
+    cursor: pointer;
+  }
 
 </style>

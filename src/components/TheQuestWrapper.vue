@@ -1,22 +1,30 @@
 <template>
 
   <div class="adminFilter">
-    <AdminFilterPanel />
+    <Suspense>
+      <AdminFilterPanel />
+    </Suspense>
   </div>
 
   <Suspense>
 
     <template #default>
 
-      <div v-for="team in teamsCollection">
+      <div v-for="team in teamsCollection" :id="team.id" class="teamContainer">
         <h3>
           <span class="badge" :style="'background: ' + team.color + ' !important; color: ' + team.color+ ';'"> . </span>
           {{ team.name }}
 
           <Popper hover arrow content="Upravit tým">
-            <ButtonFormTeam :update="true" :team-id="team.id" :team-name="team.name">
+            <ButtonFormTeam update :team-id="team.id" :team-name="team.name">
               <BIconPencil />
             </ButtonFormTeam>
+          </Popper>
+
+          <Popper hover arrow content="Odebrat tým">
+            <ButtonRemoveTeam :team-id="team.id">
+              <BIconTrash />
+            </ButtonRemoveTeam>
           </Popper>
 
         </h3>
@@ -40,7 +48,8 @@
 import ListQuests from "./ListQuests.vue";
 import AdminSmallPanel from "./AdminSmallPanel.vue";
 import AdminFilterPanel from "./AdminFilterPanel.vue";
-import ButtonFormTeam from "./ButtonFormTeam.vue";
+import ButtonFormTeam from "./buttons/ButtonFormTeam.vue";
+import ButtonRemoveTeam from "./buttons/ButtonRemoveTeam.vue";
 import { getTeamsCollection } from "../firebase.js";
 
 export default {
@@ -61,7 +70,8 @@ export default {
     ListQuests,
     AdminSmallPanel,
     AdminFilterPanel,
-    ButtonFormTeam
+    ButtonFormTeam,
+    ButtonRemoveTeam
   },
 }
 </script>

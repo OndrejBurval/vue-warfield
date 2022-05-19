@@ -19,17 +19,25 @@
         <a class="dropdown-item" @click="addQuest(team.name, team.id)"> Přidat úkol </a>
       </li>
       <li>
-        <a class="dropdown-item" @click="removeTeamQuests(team.id)"> Odebrat úkoly </a>
+        <ButtonRemoveTeamQuests :team-id="team.id">
+          <a class="dropdown-item">
+            Odebrat úkoly
+          </a>
+        </ButtonRemoveTeamQuests>
       </li>
       <li>
-        <ButtonFormTeam :update="true" :team-name="team.name" :team-id="team.id">
+        <ButtonFormTeam update :team-name="team.name" :team-id="team.id">
           <a class="dropdown-item">
             Upravit
           </a>
         </ButtonFormTeam>
       </li>
       <li>
-        <a class="dropdown-item" @click="removeTeam(team.id)"> Odebrat </a>
+        <ButtonRemoveTeam :team-id="team.id">
+          <a class="dropdown-item">
+            Odebrat
+          </a>
+        </ButtonRemoveTeam>
       </li>
     </ul>
   </div>
@@ -48,12 +56,14 @@
 </template>
 
 <script>
-import { getTeamsCollection, deleteTeam, deleteTeamQuests } from "../firebase.js";
+import { getTeamsCollection } from "../firebase.js";
 
 import Modal from "./Modal.vue";
 import FormQuest from "./FormQuest.vue";
 import FormTeam from "./FormTeam.vue";
-import ButtonFormTeam from "./ButtonFormTeam.vue";
+import ButtonFormTeam from "./buttons/ButtonFormTeam.vue";
+import ButtonRemoveTeamQuests from "./buttons/ButtonRemoveTeamQuests.vue";
+import ButtonRemoveTeam from "./buttons/ButtonRemoveTeam.vue";
 
 export default {
   name: "ListTeams",
@@ -75,7 +85,9 @@ export default {
     FormQuest,
     FormTeam,
     Modal,
-    ButtonFormTeam
+    ButtonFormTeam,
+    ButtonRemoveTeamQuests,
+    ButtonRemoveTeam
   },
   methods: {
     setTeamInfo(teamName,teamId){
@@ -85,30 +97,7 @@ export default {
     addQuest(teamName, teamId) {
       this.edit = !this.edit
       this.setTeamInfo(teamName, teamId)
-    },
-    editTeam(teamName, teamId){
-      this.updateTeam = !this.updateTeam
-      this.teamModal = !this.teamModal
-      this.setTeamInfo(teamName, teamId)
-    },
-    addTeam(){
-      this.teamModal = !this.teamModal
-    },
-    async removeTeam(teamId){
-      console.log(teamId)
-      if (confirm("Opravdu chcete odebrat tým ? (Odebere i všechny úkoly)")){
-        await deleteTeam(teamId)
-        await deleteTeamQuests(teamId)
-        window.location.reload()
-      }
-    },
-    async removeTeamQuests(teamId){
-      if (confirm("Opravdu chcete všechny úkoly?")){
-        await deleteTeamQuests(teamId)
-        window.location.reload()
-      }
     }
-
   },
 }
 </script>

@@ -51,6 +51,7 @@ export default {
 
   .header{
     position: sticky;
+    z-index: 99;
     top: 0;
   }
 
