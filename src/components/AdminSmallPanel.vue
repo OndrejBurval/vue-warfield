@@ -29,31 +29,20 @@
 import Modal from "./Modal.vue";
 import FormQuest from "./FormQuest.vue";
 import ButtonRemoveTeamQuests from "./buttons/ButtonRemoveTeamQuests.vue";
+import {ref} from "vue";
 
 export default {
   name: "AdminSmallPanel",
-  data() {
-    return {
-      addModal: false,
+  setup(){
+    const addModal = ref()
+
+    const addModalToggle = () => {
+      addModal.value = !addModal.value
     }
+
+    return { addModal, addModalToggle }
   },
-  props: {
-    teamName: {
-      type: String,
-      default: undefined
-    },
-    teamId: {
-      type: String,
-      default: undefined
-    }
-  },
-  methods: {
-    addModalToggle(teamName, teamId) {
-      this.addModal = !this.addModal
-      this.teamName = teamName
-      this.teamId = teamId
-    }
-  },
+  props: ["teamId", "teamName"],
   components: {
     Modal,
     FormQuest,

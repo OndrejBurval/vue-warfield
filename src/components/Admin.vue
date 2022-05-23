@@ -16,33 +16,30 @@ import FormQuest from "./FormQuest.vue";
 import Modal from "./Modal.vue";
 import SideBar from "./SideBar.vue";
 import ListTeams from "./ListTeams.vue";
+import {ref} from "vue";
 
 export default {
   name: "Admin",
-  data() {
-    return {
-      sidebar: false,
-      edit: false
+  setup(){
+    const sidebar = ref(false)
+
+    const sidebarToggle = () => {
+      sidebar.value = !sidebar.value
     }
+
+    return { sidebar, sidebarToggle }
   },
   components: {
     FormQuest,
     Modal,
     SideBar,
     ListTeams
-  },
-  methods: {
-    sidebarToggle() {
-      this.sidebar = !this.sidebar
-    }
-  },
+  }
 }
 </script>
 
 <style scoped>
-
-svg{
-  cursor: pointer;
-}
-
+  svg{
+    cursor: pointer;
+  }
 </style>

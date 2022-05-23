@@ -51,20 +51,18 @@ import AdminFilterPanel from "./AdminFilterPanel.vue";
 import ButtonFormTeam from "./buttons/ButtonFormTeam.vue";
 import ButtonRemoveTeam from "./buttons/ButtonRemoveTeam.vue";
 import { getTeamsCollection } from "../firebase.js";
+import {ref} from "vue";
 
 export default {
   name: "TheQuestWrapper",
   async setup (){
+    const addModal = ref()
+    const teamName = ref()
+    const teamId = ref()
+
     const teamsCollection = await getTeamsCollection()
 
-    return { teamsCollection }
-  },
-  data() {
-    return {
-      addModal: false,
-      teamName: "",
-      teamId: ""
-    }
+    return { teamsCollection, addModal, teamName, teamId }
   },
   components: {
     ListQuests,

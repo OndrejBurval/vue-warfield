@@ -1,14 +1,15 @@
 <template>
   <Transition name="slide-fade">
-    <div v-if="!removed" class="wrapper" ref="reference" :class="focused" @click="getClickedQuest(id)" :data-quest="id">
+    <div v-if="!removed" class="wrapper" ref="reference" :class="focused" @click="getClickedQuest" :data-quest="id">
       <div class="grid">
         <div class="grid-item">
           <h2>
-            {{ title }}
+            {{ index }}. {{ title }}
           </h2>
           <p>
             {{ desc }}
           </p>
+          <span v-if="lat && lng"> Lat: {{lat}}, Lng: {{ lng }}  </span>
         </div>
         <div class="grid-item utils">
           <BIconGear class="hover-rotate" @click="edit = !edit" />
@@ -33,55 +34,35 @@ import Modal from "./Modal.vue";
 
 // Functions
 import { deleteQuest, getTeam } from "../firebase.js";
-
+import { ref } from "vue";
 
 export default {
   name: "Quest",
   async setup(props){
+    const edit = ref();
+    const removed = ref();
+    const focused = ref();
+
     const team = await getTeam(props.teamId)
-    return { deleteQuest, team }
-  },
-  data() {
-    return {
-      edit: false,
-      removed: false,
-      testId: this.testId,
-      focused: false
+
+    const removeQuest = () => {
+      deleteQuest(props.id)
+      removed.value = true
     }
-  },
-  props: {
-    id: {
-      type: String,
-      default: 0
-    },
-    teamId: {
-      type: String,
-      default: undefined
-    },
-    title: {
-      type: String,
-      default: "Title"
-    },
-    desc: {
-      type: String,
-      default: "Desc"
+
+    const getClickedQuest = () => {
+      focused.value === false ? focused.value = "focused" : focused.value = false
+      const associatedMarker = document.querySelector("[data-marker="+ JSON.stringify(props.id) +"]")
+      associatedMarker.classList.add("selected")
     }
+
+    return { getClickedQuest, removeQuest, team, edit, removed, focused }
   },
+  props: ["id", "teamId", "title", "desc", "index", "lat", "lng"],
   components: {
     FormQuest,
     Modal
-  },
-  methods: {
-    removeQuest() {
-      deleteQuest(this.id)
-      this.removed = true
-    },
-    getClickedQuest(id){
-      this.focused === false ? this.focused = "focused" : this.focused = false
-      const associatedMarker = document.querySelector("[data-marker="+ JSON.stringify(id) +"]")
-      associatedMarker.classList.add("selected")
-    }
-  },
+  }
 }
 </script>
 

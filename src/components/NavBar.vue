@@ -26,24 +26,25 @@ import SideBar from "./SideBar.vue";
 import ListQuests from "./ListQuests.vue";
 import TheQuestWrapper from "./TheQuestWrapper.vue";
 
+import {ref} from "vue";
+
 export default {
   name: "NavBar",
-  data() {
-    return {
-      questBar: false
+  setup(){
+    const questBar = ref()
+
+    const questBarToggle = () => {
+      questBar.value = !questBar.value
     }
+
+    return { questBar, questBarToggle }
   },
   components: {
     Admin,
     SideBar,
     ListQuests,
     TheQuestWrapper
-  },
-  methods: {
-    questBarToggle() {
-      this.questBar = !this.questBar
-    }
-  },
+  }
 }
 </script>
 

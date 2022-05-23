@@ -10,13 +10,15 @@ import { deleteAllQuests } from "../../firebase.js";
 
 export default {
   name: "ButtonRemoveAllQuests",
-  methods: {
-    async removeAllQuests() {
+  async setup(){
+    const removeAllQuests = async () => {
       if(confirm("Opravdu chcete odebrat úplně všechny úkoly ? ")){
-        deleteAllQuests()
+        await deleteAllQuests()
       }
     }
-  },
+
+    return { removeAllQuests }
+  }
 }
 </script>
 

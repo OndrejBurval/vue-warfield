@@ -18,40 +18,27 @@
 import Modal from "../Modal.vue";
 import FormTeam from "../FormTeam.vue";
 
+import {ref} from "vue";
+
 
 export default {
   name: "ButtonTeam",
-  data() {
-    return {
-      teamModal: false,
-      updateTeam: false
+  setup(props){
+    const teamModal = ref();
+    const updateTeam = ref();
+
+    const modalToggle = () => {
+      if (props.update) updateTeam.value = !updateTeam.value
+      teamModal.value = !teamModal.value
     }
+
+    return { teamModal, updateTeam, modalToggle }
   },
-  props: {
-    teamName: {
-      type: String,
-      default: undefined
-    },
-    teamId: {
-      type: String,
-      default: undefined
-    },
-    update: {
-      type: Boolean,
-      default: false
-    }
-  },
-  methods: {
-    modalToggle() {
-      if (this.update) this.updateTeam = !this.updateTeam
-      this.teamModal = !this.teamModal
-    }
-  },
+  props: ["teamId", "teamName", "update"],
   components: {
     Modal,
     FormTeam
-  },
-
+  }
 }
 </script>
 

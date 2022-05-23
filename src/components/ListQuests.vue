@@ -2,9 +2,9 @@
 <div class="list">
 
   <ul v-if="dataArray.length > 0">
-    <li v-for="quest in dataArray">
+    <li v-for="(quest, index) in dataArray">
       <Suspense>
-        <Quest :id="quest.id" :title="quest.title" :desc="quest.desc" :teamId="quest.teamId" />
+        <Quest :id="quest.id" :title="quest.title" :desc="quest.desc" :team-id="quest.teamId" :index="quest.order" :lat="quest.marker.lat" :lng="quest.marker.lng" />
       </Suspense>
     </li>
   </ul>
@@ -19,26 +19,22 @@
 import Quest from "./Quest.vue";
 
 import { getQuestCollection, getTeamQuestCollection } from "../firebase.js";
+import { ref } from "vue";
 
 export default {
   name: "ListQuest",
 
-  async setup(props){//
+  async setup(props){
 
     if (props.filterTeam !== undefined){
-      const dataArray = await getTeamQuestCollection(props.filterTeam)
+      const dataArray = ref(await getTeamQuestCollection(props.filterTeam))
       return { dataArray }
     } else{
-      const dataArray = await getQuestCollection()
+      const dataArray = ref(await getQuestCollection())
       return { dataArray }
     }
   },
-  props: {
-    filterTeam: {
-      type: String,
-      default: undefined
-    },
-  },
+  props: ["filterTeam"],
   components: {
     Quest,
   }

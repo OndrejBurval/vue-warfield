@@ -40,54 +40,23 @@
 
 <script>
 import { addQuest, updateQuest } from "../firebase";
+import { ref } from "vue";
+
 import VueGoogleMap from "./VueGoogleMap.vue";
 
 export default {
   name: "QuestEditor",
-  data() {
-    return {
-      getClickedCoords: false,
-      lng: 0,
-      lat: 0,
-    }
+  setup(){
+    const getClickedCoords = ref(null);
+    const lng = ref(null)
+    const lat = ref(null)
+
+    return { getClickedCoords, lng, lat }
   },
   components: {
     VueGoogleMap,
   },
-  props: {
-    teamName: {
-      type: String,
-      default: undefined
-    },
-    teamId: {
-      type: String,
-      default: undefined
-    },
-    update: {
-      type: Boolean,
-      default: false
-    },
-    doc_id: {
-      type: String,
-      default: undefined
-    },
-    title: {
-      type: String,
-      default: ""
-    },
-    desc: {
-      type: String,
-      default: ""
-    },
-    passedLat: {
-      type: String,
-      default: null
-    },
-    passedLng: {
-      type: String,
-      default: null
-    }
-  },
+  props: ["teamId", "teamName", "update", "doc_id", "title", "desc", "passedLat", "passedLng"],
   methods: {
     async submitQuest() {
       if (this.update){

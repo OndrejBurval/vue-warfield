@@ -31,18 +31,16 @@
 <script>
 import ButtonRemoveAllQuests from "./buttons/ButtonRemoveAllQuests.vue";
 import { getTeamsCollection, filterTeamCollection } from "../firebase.js";
+import {ref} from "vue";
 
 export default {
   name: "AdminFilterPanel",
-  data() {
-    return {
-      filter: false,
-      filteredTeams: []
-    }
-  },
   async setup() {
+    const filter = ref();
+    const filteredTeams = ref([]);
+
     const teams = await getTeamsCollection()
-    return { teams }
+    return { teams, filter, filteredTeams }
   },
   watch: {
     filteredTeams(newValue, oldValue) {

@@ -17,16 +17,7 @@
 
 export default {
   name: "SideBar",
-  props: {
-    title: {
-      type: String,
-      default: "Sidebar"
-    },
-    overlay: {
-      type: Boolean,
-      default: true
-    }
-  }
+  props:["title", "overlay"]
 }
 </script>
 

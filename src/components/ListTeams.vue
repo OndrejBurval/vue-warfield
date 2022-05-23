@@ -57,6 +57,7 @@
 
 <script>
 import { getTeamsCollection } from "../firebase.js";
+import {ref} from "vue";
 
 import Modal from "./Modal.vue";
 import FormQuest from "./FormQuest.vue";
@@ -68,18 +69,21 @@ import ButtonRemoveTeam from "./buttons/ButtonRemoveTeam.vue";
 export default {
   name: "ListTeams",
   async setup () {
+    const edit = ref();
+    const teamModal = ref();
+    const updateTeam = ref();
+    const teamName = ref();
+    const teamId = ref();
+
     const teams = await getTeamsCollection()
 
-    return { teams }
-  },
-  data() {
-    return {
-      edit: false,
-      teamModal: false,
-      updateTeam: false,
-      teamName: undefined,
-      teamId: undefined
+    const addQuest = (selectedTeam, selectedTeamId) => {
+      edit.value = !edit.value
+      teamName.value = selectedTeam
+      teamId.value = selectedTeamId
     }
+
+    return { teams, edit, teamModal, updateTeam, teamName, teamId, addQuest }
   },
   components: {
     FormQuest,
@@ -88,17 +92,7 @@ export default {
     ButtonFormTeam,
     ButtonRemoveTeamQuests,
     ButtonRemoveTeam
-  },
-  methods: {
-    setTeamInfo(teamName,teamId){
-      this.teamName = teamName
-      this.teamId = teamId
-    },
-    addQuest(teamName, teamId) {
-      this.edit = !this.edit
-      this.setTeamInfo(teamName, teamId)
-    }
-  },
+  }
 }
 </script>
 

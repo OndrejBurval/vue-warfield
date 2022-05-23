@@ -1,7 +1,6 @@
 <script setup>
   import NavBar from "./components/NavBar.vue";
   import VueGoogleMap from "./components/VueGoogleMap.vue";
-  import ButtonTeam from "./components/buttons/ButtonFormTeam.vue";
 
 </script>
 

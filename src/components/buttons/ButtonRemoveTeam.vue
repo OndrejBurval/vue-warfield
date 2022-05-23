@@ -11,20 +11,18 @@ import { deleteTeam, deleteTeamQuests } from "../../firebase";
 
 export default {
   name: "ButtonRemoveTeam",
-  props: {
-    teamId: {
-      type: String,
-      default: undefined
-    }
-  },
-  methods: {
-    async removeTeam(){
+  async setup(props){
+
+    const removeTeam = async () => {
       if (confirm("Opravdu chcete odebrat tým ? (Odebere i všechny úkoly)")){
-        await deleteTeam(this.teamId)
-        await deleteTeamQuests(this.teamId)
+        await deleteTeam(props.teamId)
+        await deleteTeamQuests(props.teamId)
       }
     }
-  }
+
+    return { removeTeam }
+  },
+  props: ["teamId"]
 }
 </script>
 

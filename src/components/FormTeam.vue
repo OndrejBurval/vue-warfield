@@ -25,25 +25,7 @@ export default {
 
     return { pureColor, gradientColor }
   },
-  data() {
-    return {
-      name: "",
-    }
-  },
-  props: {
-    update: {
-      type: Boolean,
-      default: false
-    },
-    teamName: {
-      type: String,
-      default: undefined
-    },
-    teamId: {
-      type: String,
-      default: undefined
-    }
-  },
+  props: ["update", "teamName", "teamId"],
   methods: {
     async submit() {
       try {
