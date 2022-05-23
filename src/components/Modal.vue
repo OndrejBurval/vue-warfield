@@ -2,7 +2,7 @@
   <Teleport to="body">
     <Transition name="fade">
       <section class="modal">
-        <div class="overlay" @click="$emit('closeModal')"></div>
+        <div class="overlay" @click="toggle"></div>
         <div class="content">
           <slot></slot>
         </div>
@@ -13,7 +13,8 @@
 
 <script>
 export default {
-  name: "Modal"
+  name: "Modal",
+  props: ["toggle"]
 }
 </script>
 

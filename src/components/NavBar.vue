@@ -1,13 +1,13 @@
 <template>
   <nav class="navbar d-flex justify-content-end px-4 navbar-dark bg-dark">
-    <BIconQuestionDiamond :cursor="'pointer'" :fill="'#ffffff'" @click="questBarToggle" class="me-3"/>
+    <BIconQuestionDiamond :cursor="'pointer'" :fill="'#ffffff'" @click="sidebarToggle" class="me-3"/>
     <Admin />
   </nav>
 
 
 
   <Transition name="slide-right">
-    <SideBar v-if="questBar" :title="'Úkoly'" @closeSidebar="questBarToggle">
+    <SideBar v-if="questBar" :title="'Úkoly'" :toggle="sidebarToggle">
       <Suspense>
         <template #default>
           <TheQuestWrapper />
@@ -33,11 +33,11 @@ export default {
   setup(){
     const questBar = ref()
 
-    const questBarToggle = () => {
+    const sidebarToggle = () => {
       questBar.value = !questBar.value
     }
 
-    return { questBar, questBarToggle }
+    return { questBar, sidebarToggle }
   },
   components: {
     Admin,

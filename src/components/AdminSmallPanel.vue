@@ -3,7 +3,7 @@
     <div class="panel-inner">
 
       <Popper hover arrow content="Přidat úkol">
-        <BIconPlusCircle :cursor="'pointer'" @click="addModalToggle(teamName, teamId)"/>
+        <BIconPlusCircle :cursor="'pointer'" @click="modalToggle(teamName, teamId)"/>
       </Popper>
 
       <Popper class="ms-0" hover arrow content="Odebere všechny úkoly">
@@ -18,7 +18,7 @@
   <!-- Quest Modal -->
   <Teleport to="body">
     <Transition name="fade">
-      <Modal v-if="addModal" @closeModal="addModalToggle">
+      <Modal v-if="addModal" :toggle="modalToggle">
         <FormQuest :teamName="teamName" :teamId="teamId" />
       </Modal>
     </Transition>
@@ -36,11 +36,11 @@ export default {
   setup(){
     const addModal = ref()
 
-    const addModalToggle = () => {
+    const modalToggle = () => {
       addModal.value = !addModal.value
     }
 
-    return { addModal, addModalToggle }
+    return { addModal, modalToggle }
   },
   props: ["teamId", "teamName"],
   components: {

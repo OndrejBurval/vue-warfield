@@ -12,7 +12,7 @@
           <span v-if="lat && lng"> Lat: {{lat}}, Lng: {{ lng }}  </span>
         </div>
         <div class="grid-item utils">
-          <BIconGear class="hover-rotate" @click="edit = !edit" />
+          <BIconGear class="hover-rotate" @click="toggleModal" />
           <BIconTrash @click="removeQuest" />
         </div>
       </div>
@@ -21,7 +21,7 @@
 
 
   <Transition name="fade">
-    <Modal v-if="edit" @closeModal="edit = !edit">
+    <Modal v-if="edit" :toggle="toggleModal">
       <FormQuest :update="true" :doc_id="id" :title="title" :desc="desc" />
     </Modal>
   </Transition>
@@ -45,6 +45,10 @@ export default {
 
     const team = await getTeam(props.teamId)
 
+    const toggleModal = () => {
+      edit.value = !edit.value
+    }
+
     const removeQuest = () => {
       deleteQuest(props.id)
       removed.value = true
@@ -56,7 +60,7 @@ export default {
       associatedMarker.classList.add("selected")
     }
 
-    return { getClickedQuest, removeQuest, team, edit, removed, focused }
+    return { getClickedQuest, removeQuest, toggleModal, team, edit, removed, focused }
   },
   props: ["id", "teamId", "title", "desc", "index", "lat", "lng"],
   components: {

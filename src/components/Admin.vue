@@ -3,7 +3,7 @@
   <BIconGear class="hover-rotate" :fill="'#ffffff'" @click="sidebarToggle" />
 
   <Transition name="slide-right">
-    <SideBar v-if="sidebar" :title="'Admin module'" :overlay="false" @closeSidebar="sidebarToggle">
+    <SideBar v-if="sidebar" :title="'Admin module'" :overlay="false" :toggle="sidebarToggle">
       <Suspense>
         <ListTeams />
       </Suspense>

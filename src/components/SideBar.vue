@@ -1,11 +1,11 @@
 <template>
   <section>
-    <div v-if="!overlay" class="overlay" @click="$emit('closeSidebar')"></div>
+    <div v-if="!overlay" class="overlay" @click="toggle"></div>
 
     <div class="content">
       <div class="header">
         <h2> {{ title }}</h2>
-        <BIconXLg class="exit" v-if="overlay" @click="$emit('closeSidebar')" />
+        <BIconXLg class="exit" v-if="overlay" @click="toggle" />
       </div>
 
       <slot></slot>
@@ -17,7 +17,7 @@
 
 export default {
   name: "SideBar",
-  props:["title", "overlay"]
+  props:["title", "overlay", "toggle"]
 }
 </script>
 

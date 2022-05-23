@@ -47,7 +47,7 @@
   <!-- Quest Modal -->
   <Teleport to="body">
     <Transition name="fade">
-      <Modal v-if="edit" @closeModal="edit = !edit">
+      <Modal v-if="edit" :toggle="toggleModal">
         <FormQuest :teamName="teamName" :teamId="teamId" />
       </Modal>
     </Transition>
@@ -77,13 +77,17 @@ export default {
 
     const teams = await getTeamsCollection()
 
+    const toggleModal = () => {
+      edit.value = !edit.value
+    }
+
     const addQuest = (selectedTeam, selectedTeamId) => {
       edit.value = !edit.value
       teamName.value = selectedTeam
       teamId.value = selectedTeamId
     }
 
-    return { teams, edit, teamModal, updateTeam, teamName, teamId, addQuest }
+    return { teams, edit, teamModal, updateTeam, teamName, teamId, addQuest, toggleModal }
   },
   components: {
     FormQuest,
