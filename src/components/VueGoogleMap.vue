@@ -6,7 +6,7 @@
       :zoom="13"
       :options="options"
       class="map"
-      :class="classka"
+      :class="watchClickClass"
       @click="returnClickedCoords"
   >
     <GMapMarker
@@ -38,22 +38,25 @@
 </template>
 
 <script>
-import { useGeolocation } from "../useGeolocation.js";
 import { getQuestCollection } from "../firebase.js";
+import { toggleQuestSidebar, getQuestSidebar,getWatchMapClick, toggleWatchMapClick } from "../global/stateManagement.js";
+import { setMapClickedCoords } from "../global/storage.js";
 import { computed } from "vue";
 
 export default {
   name: "VueGoogleMap",
   async setup () {
     const quests = await getQuestCollection()
+    const watchClick = getWatchMapClick()
+    const questSidebar = getQuestSidebar()
 
-    const { coords } = useGeolocation()
-    const currPos = computed(() => ({
-      lat: coords.value.latitude,
-      lng: coords.value.longitude
-    }))
 
-    return { currPos, quests }
+
+    const watchClickClass = computed(() => {
+      return watchClick.value ? 'watching' : 'nowatch'
+    })
+
+    return { quests, toggleQuestSidebar, questSidebar, watchClick, toggleWatchMapClick, watchClickClass }
   },
   data() {
     return {
@@ -71,27 +74,21 @@ export default {
       iconURL: 'src/assets/arrow-down.svg'
     }
   },
-  props: {
-    getClickCoords: {
-      type: Boolean,
-      default: false
-    },
-  },
   methods: {
     openMarker(id) {
       this.openedMarkerID = id
+      if (!this.questSidebar) toggleQuestSidebar()
     },
     returnClickedCoords(event) {
-      if (this.getClickCoords){
-        this.coords = {lat: event.latLng.lat(), lng: event.latLng.lng()}
-        localStorage.setItem("lat", this.coords.lat)
-        localStorage.setItem("lng", this.coords.lng)
+      if (this.watchClick){
+        setMapClickedCoords(event.latLng.lat(), event.latLng.lng())
+        toggleWatchMapClick()
       }
     },
     getClickedQuest(id){
       this.openMarker(id)
-      const associatedQuest = document.querySelector("[data-quest="+ JSON.stringify(id) +"]")
-      associatedQuest.classList.contains("focused") ? associatedQuest.classList.remove("focused") : associatedQuest.classList.add("focused")
+      //const associatedQuest = document.querySelector("[data-quest="+ JSON.stringify(id) +"]")
+      //associatedQuest.classList.contains("focused") ? associatedQuest.classList.remove("focused") : associatedQuest.classList.add("focused")
     }
   },
 }
@@ -107,6 +104,10 @@ export default {
 .selected{
   transform: scale(2);
   display: none !important;
+}
+
+.watching{
+  z-index: 99999999;
 }
 
 </style>

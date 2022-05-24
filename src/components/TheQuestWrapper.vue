@@ -10,13 +10,13 @@
 
     <template #default>
 
-      <div v-for="team in teamsCollection" :id="team.id" class="teamContainer">
+      <div v-if="teamsCollection.length > 0" v-for="team in teamsCollection" :id="team.id" class="teamContainer">
         <h3>
           <span class="badge" :style="'background: ' + team.color + ' !important; color: ' + team.color+ ';'"> . </span>
           {{ team.name }}
 
           <Popper hover arrow content="Upravit tým">
-            <ButtonFormTeam update :team-id="team.id" :team-name="team.name">
+            <ButtonFormTeam update="true" :team-id="team.id" :team-name="team.name">
               <BIconPencil />
             </ButtonFormTeam>
           </Popper>
@@ -37,6 +37,18 @@
 
         <hr>
       </div>
+
+      <div v-else class="d-flex align-items-center flex-column">
+        <h3 class="text-center opacity-50 my-4" >
+          Aktuálně nejsou žádné týmy
+        </h3>
+        <ButtonFormTeam>
+          <Popper hover arrow content="Přidat tým">
+            <BIconPlusCircle />
+          </Popper>
+        </ButtonFormTeam>
+      </div>
+
     </template>
     <template #fallback>
       <BIconArrowClockwise class="loading" />

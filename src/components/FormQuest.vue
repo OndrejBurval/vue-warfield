@@ -1,8 +1,8 @@
 <template>
 
 
-  <form :id="idChange" @submit.prevent="submitQuest()" v-if="!getClickedCoords">
-      <h2> {{ teamName + ' - ' }} {{ update ? `Upravit (id: ${doc_id})` : "Přidat úkol" }}  </h2>
+  <form @submit.prevent="submitQuest()" v-if="!watchClick">
+      <h2> {{ status.title }}  </h2>
 
       <div class="form-group">
         <label for="quest_title"> Název úkolu </label>
@@ -14,44 +14,52 @@
       </div>
 
       <div class="form-row form-coords">
-        <div class="btn btn-secondary w-100 mb-3">
-          <BIconPinMap @click.prevent="getClickedCoords = !getClickedCoords" />
+        <div class="btn btn-secondary w-100 mb-3" @click.prevent="toggleWatchMapClick()">
+          <BIconPinMap  />
         </div>
         <div class="d-flex justify-content-between">
           <div class="col-md-6">
             <label for="lat_input"> Lat: </label>
-            <input class="form-control" v-model="lat" type="number" step="any" id="lat_input" placeholder="lat...">
+            <input class="form-control" v-model="markerCoords.lat" type="number" step="any" id="lat_input" placeholder="lat...">
           </div>
           <div class="col-md-6">
             <label for="lng_input"> Lat: </label>
-            <input class="form-control" v-model="lng" type="number" step="any" id="lng_input" placeholder="lng...">
+            <input class="form-control" v-model="markerCoords.lng" type="number" step="any" id="lng_input" placeholder="lng...">
           </div>
         </div>
 
       </div>
 
-      <button type="submit" class="btn btn-primary w-100"> {{ update ? "Uložit" : "Přidat" }} </button>
+      <button type="submit" class="btn btn-primary w-100"> {{ status.button}} </button>
   </form>
-
-
-  <VueGoogleMap get-click-coords v-if="getClickedCoords" @click="loadClickedCoords" />
 
 </template>
 
 <script>
 import { addQuest, updateQuest } from "../firebase";
-import { ref } from "vue";
+import { ref, computed } from "vue";
+import { toggleWatchMapClick, getWatchMapClick } from "../global/stateManagement.js";
+import { getMapClickedCoords, resetMapClickedCoords } from "../global/storage.js";
 
 import VueGoogleMap from "./VueGoogleMap.vue";
 
 export default {
   name: "QuestEditor",
-  setup(){
-    const getClickedCoords = ref(null);
-    const lng = ref(null)
-    const lat = ref(null)
+  setup(props){
+    const watchClick = getWatchMapClick();
 
-    return { getClickedCoords, lng, lat }
+    const coords = getMapClickedCoords()
+    const markerCoords = computed(() => ({
+      lat: coords.value.lat,
+      lng: coords.value.lng
+    }))
+
+    const status = computed(() => ({
+      title: props.update ? "Upravit" : props.teamName + " - Přidat úkol",
+      button: props.update ? "Uložit" : "Přidat"
+    }))
+
+    return { markerCoords, watchClick, toggleWatchMapClick, status }
   },
   components: {
     VueGoogleMap,
@@ -61,20 +69,13 @@ export default {
     async submitQuest() {
       if (this.update){
         await updateQuest(this.doc_id, this.title, this.desc)
+        resetMapClickedCoords()
         window.location.reload()
       } else{
-        const marker = {lat: parseFloat(this.lat), lng: parseFloat(this.lng)}
-        await addQuest(this.title, this.desc, this.teamId, marker)
+        await addQuest(this.title, this.desc, this.teamId, this.markerCoords)
+        resetMapClickedCoords()
         window.location.reload()
       }
-    },
-    loadClickedCoords(){
-      this.lat = localStorage.getItem("lat")
-      this.lng = localStorage.getItem("lng")
-      localStorage.removeItem("lat")
-      localStorage.removeItem("lng")
-      this.getClickedCoords = !this.getClickedCoords
-
     }
   }
 }

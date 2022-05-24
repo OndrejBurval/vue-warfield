@@ -25,7 +25,9 @@ export const getQuestCollection = async () => {
 }
 
 export const getTeamQuestCollection = async (teamId) => {
-    const questSnapshot = await getDocs(query(collection(db, "quest"), where("teamId","==", teamId)), orderBy("created", "asc"));
+    const questRef = collection(db, "quest");
+    const questSnapshot = await getDocs(query(questRef, where("teamId","==", teamId), orderBy("order")));
+
     const data = []
     questSnapshot.forEach(e => {
         data.push({ id: e.id, ...e.data() })

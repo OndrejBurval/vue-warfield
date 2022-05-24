@@ -20,11 +20,9 @@
   </Transition>
 
 
-  <Transition name="fade">
     <Modal v-if="edit" :toggle="toggleModal">
-      <FormQuest :update="true" :doc_id="id" :title="title" :desc="desc" />
+      <FormQuest update="true" :doc_id="id" :title="title" :desc="desc" />
     </Modal>
-  </Transition>
 </template>
 
 <script>
@@ -35,6 +33,7 @@ import Modal from "./Modal.vue";
 // Functions
 import { deleteQuest, getTeam } from "../firebase.js";
 import { ref } from "vue";
+
 
 export default {
   name: "Quest",

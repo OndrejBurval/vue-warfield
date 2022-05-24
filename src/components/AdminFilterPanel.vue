@@ -13,7 +13,6 @@
     </Popper>
 
 
-    <Transition name="fade">
       <div v-if="filter" class="filter-options d-flex flex-wrap">
         <div v-for="team in teams"  class="me-3 badge" style="background: #8495a6;">
           <div class="badge me-1" :style="'background: ' + team.color + ';'">
@@ -23,7 +22,6 @@
 
         </div>
       </div>
-    </Transition>
   </section>
 
 </template>

@@ -1,13 +1,11 @@
 <template>
   <Teleport to="body">
-    <Transition name="fade">
       <section class="modal">
         <div class="overlay" @click="toggle"></div>
         <div class="content">
           <slot></slot>
         </div>
       </section>
-    </Transition>
   </Teleport>
 </template>
 

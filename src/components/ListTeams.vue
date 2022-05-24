@@ -26,7 +26,7 @@
         </ButtonRemoveTeamQuests>
       </li>
       <li>
-        <ButtonFormTeam update :team-name="team.name" :team-id="team.id">
+        <ButtonFormTeam update="true" :team-name="team.name" :team-id="team.id">
           <a class="dropdown-item">
             Upravit
           </a>
@@ -46,11 +46,9 @@
 
   <!-- Quest Modal -->
   <Teleport to="body">
-    <Transition name="fade">
       <Modal v-if="edit" :toggle="toggleModal">
         <FormQuest :teamName="teamName" :teamId="teamId" />
       </Modal>
-    </Transition>
   </Teleport>
 
 </template>

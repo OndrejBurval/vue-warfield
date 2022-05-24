@@ -17,11 +17,9 @@
 
   <!-- Quest Modal -->
   <Teleport to="body">
-    <Transition name="fade">
       <Modal v-if="addModal" :toggle="modalToggle">
         <FormQuest :teamName="teamName" :teamId="teamId" />
       </Modal>
-    </Transition>
   </Teleport>
 </template>
 

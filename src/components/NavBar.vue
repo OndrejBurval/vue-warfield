@@ -1,13 +1,13 @@
 <template>
   <nav class="navbar d-flex justify-content-end px-4 navbar-dark bg-dark">
-    <BIconQuestionDiamond :cursor="'pointer'" :fill="'#ffffff'" @click="sidebarToggle" class="me-3"/>
+    <BIconQuestionDiamond :cursor="'pointer'" :fill="'#ffffff'" @click="toggleQuestSidebar" class="me-3"/>
     <Admin />
   </nav>
 
 
 
   <Transition name="slide-right">
-    <SideBar v-if="questBar" :title="'Úkoly'" :toggle="sidebarToggle">
+    <SideBar v-if="questBar" :title="'Úkoly'" overlay="false" :toggle="toggleQuestSidebar">
       <Suspense>
         <template #default>
           <TheQuestWrapper />
@@ -26,18 +26,14 @@ import SideBar from "./SideBar.vue";
 import ListQuests from "./ListQuests.vue";
 import TheQuestWrapper from "./TheQuestWrapper.vue";
 
-import {ref} from "vue";
+import { getQuestSidebar, toggleQuestSidebar } from "../global/stateManagement.js";
 
 export default {
   name: "NavBar",
   setup(){
-    const questBar = ref()
+    const questBar = getQuestSidebar()
 
-    const sidebarToggle = () => {
-      questBar.value = !questBar.value
-    }
-
-    return { questBar, sidebarToggle }
+    return { questBar, toggleQuestSidebar }
   },
   components: {
     Admin,
