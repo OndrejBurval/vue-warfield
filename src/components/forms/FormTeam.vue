@@ -38,11 +38,17 @@ export default {
           return
         }
         if (this.update){
-          await updateTeam(this.teamId, this.teamName, this.pureColor)
-          window.location.reload()
+          try {
+            await updateTeam(this.teamId, this.teamName, this.pureColor)
+          } catch (e){
+            console.log(e)
+          }
         } else{
-          await addTeam(this.teamName, this.pureColor)
-          window.location.reload()
+          try {
+            await addTeam(this.teamName, this.pureColor)
+          } catch (e){
+            console.log(e)
+          }
         }
       } catch (e){
         console.error(e)

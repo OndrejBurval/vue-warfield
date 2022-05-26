@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore,collection,getDocs, addDoc,doc, deleteDoc, query, where, orderBy, serverTimestamp, updateDoc, getDoc, limit } from 'firebase/firestore'
+import { getFirestore,collection,getDocs, addDoc,doc, deleteDoc, query, where, orderBy, serverTimestamp, updateDoc, getDoc, onSnapshot } from 'firebase/firestore'
+import { ref, onUnmounted } from "vue";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAN84ywv3l5nlrntQ6KFaHOYJBh2KBXEW0",
@@ -13,30 +14,15 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 export const db = getFirestore(firebaseApp);
 
+const teamCollection = collection(db,"teams")
+const questCollection = collection(db, "quest")
 
-export const getQuestCollection = async () => {
-    const questRef = collection(db, "quest");
-    const questSnapshot = await getDocs(query(questRef, orderBy("order", "asc")));
-    const data = []
-    questSnapshot.forEach(e => {
-        data.push({ id: e.id, ...e.data() })
-    })
-    return data
-}
 
-export const getTeamQuestCollection = async (teamId) => {
-    const questRef = collection(db, "quest");
-    const questSnapshot = await getDocs(query(questRef, where("teamId","==", teamId), orderBy("order")));
 
-    const data = []
-    questSnapshot.forEach(e => {
-        data.push({ id: e.id, ...e.data() })
-    })
-    return data
-}
+
 
 export const filterTeamCollection = async (teamArray) => {
-    const questSnapshot = await getDocs(query(collection(db, "teams")));
+    const questSnapshot = await getDocs(query(teamCollection));
     const data = []
     questSnapshot.forEach(e => {
         teamArray.forEach(team => {
@@ -47,13 +33,13 @@ export const filterTeamCollection = async (teamArray) => {
 }
 
 export const addQuest = async (questTitle, questDesc, teamId, questStatus,marker) => {
-    const questSnapshot = await getDocs(query(collection(db, "quest"), where("teamId", "==", teamId)));
+    const questSnapshot = await getDocs(query(questCollection, where("teamId", "==", teamId)));
     let orderId = 1
     questSnapshot.forEach(e => {
         if (e.data().order >= orderId) orderId = e.data().order + 1
     })
 
-    await addDoc(collection(db, "quest"), {
+    await addDoc(questCollection, {
         order: orderId,
         title: questTitle,
         desc: questDesc,
@@ -89,16 +75,6 @@ export const deleteQuest = async ( questId ) => {
     await reAlignQuestOrder(docData.data().teamId)
 }
 
-export const getTeamsCollection = async () => {
-    const questSnapshot = await getDocs(query(collection(db, "teams"), orderBy("created", "asc")));
-    const data = []
-    questSnapshot.forEach(e => {
-        data.push({ id: e.id, ...e.data() })
-    })
-    return data
-}
-
-
 export const getTeam = async (id) => {
     const docRef = doc(db, "teams", id);
     const document = await getDoc(docRef);
@@ -106,7 +82,7 @@ export const getTeam = async (id) => {
 }
 
 export const addTeam = async (teamName, teamColor) => {
-    await addDoc(collection(db, "teams"), {
+    await addDoc(teamCollection, {
         name: teamName,
         color: teamColor,
         created: serverTimestamp()
@@ -126,14 +102,14 @@ export const deleteTeam = async ( teamId ) => {
 }
 
 export const deleteTeamQuests = async (teamId) => {
-    const questSnapshot = await getDocs(query(collection(db, "quest"), where("teamId","==", teamId)));
+    const questSnapshot = await getDocs(query(questCollection, where("teamId","==", teamId)));
     questSnapshot.forEach(e => {
         deleteDoc(e.ref)
     })
 }
 
 export const deleteAllQuests = async () => {
-    const questSnapshot = await getDocs(query(collection(db, "quest")));
+    const questSnapshot = await getDocs(query(questCollection));
     questSnapshot.forEach(e => {
         deleteDoc(e.ref)
     })
@@ -149,10 +125,40 @@ const updateOrder = async (questId, orderValue) => {
 
 
 const reAlignQuestOrder = async (team) => {
-    const questSnapshot = await getDocs(query(collection(db, "quest"), where("teamId", "==", team)));
+    const questSnapshot = await getDocs(query(questCollection, where("teamId", "==", team)));
     let orderId = 1
     questSnapshot.forEach((e, index) => {
         if (e.data().order !== (index + 1)) updateOrder(e.id, orderId)
         orderId++;
     })
 }
+
+
+// LIVE DATA
+const snapshotLoop = (query) => {
+    const liveData = ref([])
+    const unsubscribe = onSnapshot(query, (snapshot) => {
+        liveData.value = []
+        snapshot.forEach((e) => {
+            liveData.value.push({ id: e.id, ...e.data() })
+        })
+    })
+    onUnmounted(close)
+    return liveData
+}
+
+export const getTeamsCollection = async () => {
+    const q = query(teamCollection, orderBy("created", "asc"))
+    return snapshotLoop(q)
+}
+
+export const getTeamQuestCollection = async (teamId) => {
+    const q = query(questCollection, where("teamId","==", teamId), orderBy("order"))
+    return snapshotLoop(q)
+}
+
+export const getQuestCollection = async () => {
+    const q = query(questCollection, orderBy("order", "asc"))
+    return snapshotLoop(q)
+}
+

@@ -1,19 +1,19 @@
 <template>
   <Transition name="slide-fade">
-    <div v-if="!removed" class="wrapper" :class="questFocused" :data-quest="id" :data-focused="clicked">
+    <div class="wrapper" :class="questFocused" :data-quest="data_id" :data-focused="focused">
 
       <div class="grid">
         <div class="grid-item" @click="questClicked">
           <h2>
-            {{ index }}. {{ title }} <span class="badge bg-secondary" :data-status="status" > {{ questStatus }} </span>
+            {{ data_index }}. {{ data_title }} <span class="badge bg-secondary" :data-status="data_status" > {{ questStatus }} </span>
           </h2>
           <p>
-            {{ desc }}
+            {{ data_desc }}
           </p>
-          <span v-if="lat && lng"> Lat: {{lat}}, Lng: {{ lng }}  </span>
+          <span v-if="lat && lng"> Lat: {{ data_lat }}, Lng: {{ data_lng }}  </span>
         </div>
         <div class="grid-item utils">
-          <ButtonEditQuestStatus :quest-id="id">
+          <ButtonEditQuestStatus :quest-id="data_id">
             <BIconFlag />
           </ButtonEditQuestStatus>
           <BIconGear class="hover-rotate" @click="toggleModal" />
@@ -29,6 +29,7 @@
     </Modal>
 </template>
 
+
 <script>
 // Components
 import FormQuest from "./forms/FormQuest.vue";
@@ -38,19 +39,26 @@ import ButtonEditQuestStatus from "./buttons/ButtonEditQuestStatus.vue"
 // Functions
 import { deleteQuest, getTeam } from "../firebase.js";
 import { getSelectedQuest,setSelectedQuest } from "../global/storage.js";
-import { getQuestSidebar } from "../global/stateManagement.js";
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, toRefs } from "vue";
 
 
 export default {
   name: "Quest",
   async setup(props){
     const edit = ref();
-    const removed = ref();
     const focused = ref(false);
     const selectedQuest = ref(getSelectedQuest())
 
-    const team = await getTeam(props.teamId)
+    const {
+      id: data_id,
+      title: data_title,
+      desc: data_desc,
+      index: data_index,
+      lat: data_lat,
+      lng: data_lng,
+      status: data_status,
+    } = toRefs(props)
+
 
     const toggleModal = () => {
       edit.value = !edit.value
@@ -58,7 +66,6 @@ export default {
 
     const removeQuest = () => {
       deleteQuest(props.id)
-      removed.value = true
     }
 
     const questClicked = () => {
@@ -92,9 +99,13 @@ export default {
       newValue === props.id ? focused.value = true : focused.value = false
     });
 
-    return { questFocused,team, edit, removed, clicked: focused, selectedQuest, questClicked, removeQuest, toggleModal, questStatus }
+    return {
+      questFocused, edit, focused, selectedQuest,
+      questClicked, removeQuest, toggleModal, questStatus,
+      data_id, data_title, data_desc, data_index, data_lat, data_lng, data_status
+    }
   },
-  props: ["id", "teamId", "title", "desc", "index", "lat", "lng", "status"],
+  props: ["id", "title", "desc", "index", "lat", "lng", "status"],
   components: {
     FormQuest,
     Modal,

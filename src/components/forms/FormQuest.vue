@@ -81,10 +81,8 @@ export default {
     async submitQuest() {
       if (this.update){
         await updateQuest(this.doc_id, this.title, this.desc, this.questStatus, this.markerCoords)
-        window.location.reload()
       } else{
         await addQuest(this.title, this.desc, this.teamId, this.questStatus, this.markerCoords)
-        window.location.reload()
       }
     }
   }
