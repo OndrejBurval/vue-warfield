@@ -10,13 +10,16 @@
       @click="returnClickedCoords"
   >
     <GMapMarker
-        v-for="(quest, index) in quests"
+        v-for="quest in quests"
+        title="tooot"
         :id="quest.id"
+        :clickable="false"
         :position="quest.marker"
         @click="passQuestId(quest.id)"
         :icon="{
           url: iconURL,
           scaledSize: {width: iconSize, height: iconSize},
+          labelOrigin: {x: 16, y: -10}
         }"
      />
 
@@ -77,7 +80,7 @@ export default {
         fullscreenControl: false,
       },
       coords: null,
-      iconURL: 'src/assets/arrow-down.svg'
+      iconURL: 'src/assets/icons/warning.svg'
     }
   },
   methods: {

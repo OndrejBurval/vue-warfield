@@ -46,7 +46,7 @@ export const filterTeamCollection = async (teamArray) => {
     return data
 }
 
-export const addQuest = async (questTitle, questDesc, teamId, marker) => {
+export const addQuest = async (questTitle, questDesc, teamId, questStatus,marker) => {
     const questSnapshot = await getDocs(query(collection(db, "quest"), where("teamId", "==", teamId)));
     let orderId = 1
     questSnapshot.forEach(e => {
@@ -59,16 +59,25 @@ export const addQuest = async (questTitle, questDesc, teamId, marker) => {
         desc: questDesc,
         teamId: teamId,
         marker: marker,
+        status: parseInt(questStatus),
         created: serverTimestamp()
     });
 }
 
-export const updateQuest = async ( questId, questTitle, questDesc, marker ) => {
+export const updateQuest = async ( questId, questTitle, questDesc, status, marker ) => {
     const docRef = doc(db, "quest", questId)
     await updateDoc(docRef, {
         title: questTitle,
         desc: questDesc,
+        status: parseInt(status),
         marker: marker
+    })
+}
+
+export const updateQuestStatus = async ( questId, status ) => {
+    const docRef = doc(db, "quest", questId)
+    await updateDoc(docRef, {
+        status: parseInt(status)
     })
 }
 

@@ -4,7 +4,16 @@
   <ul v-if="dataArray.length > 0">
     <li v-for="quest in dataArray">
       <Suspense>
-        <Quest :id="quest.id" :title="quest.title" :desc="quest.desc" :team-id="quest.teamId" :index="quest.order" :lat="quest.marker.lat" :lng="quest.marker.lng" />
+        <Quest
+            :id="quest.id"
+            :title="quest.title"
+            :desc="quest.desc"
+            :team-id="quest.teamId"
+            :index="quest.order"
+            :lat="quest.marker.lat"
+            :lng="quest.marker.lng"
+            :status="quest.status"
+        />
       </Suspense>
     </li>
   </ul>

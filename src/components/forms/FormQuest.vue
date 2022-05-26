@@ -13,6 +13,17 @@
         <textarea required v-model="desc" class="form-control" id="quest_desc" placeholder="Popis..."></textarea>
       </div>
 
+      <div class="form-group">
+        <label for="quest_desc"> Stav úkolu </label>
+        <select class="form-select" v-model="questStatus">
+          <option value="0" selected> Neutrální </option>
+          <option value="1"> Čekající</option>
+          <option value="2"> Aktivní </option>
+          <option value="3"> Dokončený</option>
+          <option value="4"> Selhal </option>
+        </select>
+      </div>
+
       <div class="form-row form-coords">
         <div class="btn btn-secondary w-100 mb-3" @click.prevent="toggleWatchMapClick()">
           <BIconPinMap  />
@@ -37,7 +48,7 @@
 
 <script>
 import { addQuest, updateQuest } from "../../firebase";
-import { ref, computed } from "vue";
+import { computed, ref } from "vue";
 import { toggleWatchMapClick, getWatchMapClick } from "../../global/stateManagement.js";
 import { getMapClickedCoords } from "../../global/storage.js";
 
@@ -47,6 +58,7 @@ export default {
   name: "QuestEditor",
   setup(props){
     const watchClick = getWatchMapClick();
+    const questStatus = ref(props.passedStatus ? props.passedStatus : 0);
 
     const coords = getMapClickedCoords()
     const markerCoords = computed(() => ({
@@ -59,19 +71,19 @@ export default {
       button: props.update ? "Uložit" : "Přidat"
     }))
 
-    return { markerCoords, watchClick, toggleWatchMapClick, status }
+    return { markerCoords, watchClick, toggleWatchMapClick, status, questStatus }
   },
   components: {
     VueGoogleMap,
   },
-  props: ["teamId", "teamName", "update", "doc_id", "title", "desc", "passedLat", "passedLng"],
+  props: ["teamId", "teamName", "update", "doc_id", "title", "desc", "passedLat", "passedLng", "passedStatus"],
   methods: {
     async submitQuest() {
       if (this.update){
-        await updateQuest(this.doc_id, this.title, this.desc, this.markerCoords)
+        await updateQuest(this.doc_id, this.title, this.desc, this.questStatus, this.markerCoords)
         window.location.reload()
       } else{
-        await addQuest(this.title, this.desc, this.teamId, this.markerCoords)
+        await addQuest(this.title, this.desc, this.teamId, this.questStatus, this.markerCoords)
         window.location.reload()
       }
     }

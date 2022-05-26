@@ -1,6 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Home from "../views/Home.vue"
-import Test from "../views/Test.vue"
+import MapEditor from "../views/MapEditor.vue"
 
 const routes = [
     {
@@ -9,9 +9,9 @@ const routes = [
         component: Home
     },
     {
-        path: "/test",
-        name: "Test",
-        component: Test
+        path: "/map-editor",
+        name: "MapEditor",
+        component: MapEditor
     },
     {
         path: "/:catchAll(.*)",

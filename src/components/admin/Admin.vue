@@ -1,6 +1,7 @@
 <template>
 
-  <BIconGear class="hover-rotate" :fill="'#ffffff'" @click="sidebarToggle" />
+  <BIconGear class="hover-rotate me-3" :fill="'#ffffff'" @click="sidebarToggle" />
+  <BIconMap :fill="'#ffffff'" />
 
   <Transition name="slide-right">
     <SideBar v-if="sidebar" :title="'Admin module'" :overlay="false" :toggle="sidebarToggle">

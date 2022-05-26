@@ -1,11 +1,11 @@
 <template>
   <Transition name="slide-fade">
-    <div v-if="!removed" class="wrapper" :class="questFocused" @click="questClicked" :data-quest="id" :data-focused="clicked">
+    <div v-if="!removed" class="wrapper" :class="questFocused" :data-quest="id" :data-focused="clicked">
 
       <div class="grid">
-        <div class="grid-item">
+        <div class="grid-item" @click="questClicked">
           <h2>
-            {{ index }}. {{ title }}
+            {{ index }}. {{ title }} <span class="badge bg-secondary" :data-status="status" > {{ questStatus }} </span>
           </h2>
           <p>
             {{ desc }}
@@ -13,6 +13,9 @@
           <span v-if="lat && lng"> Lat: {{lat}}, Lng: {{ lng }}  </span>
         </div>
         <div class="grid-item utils">
+          <ButtonEditQuestStatus :quest-id="id">
+            <BIconFlag />
+          </ButtonEditQuestStatus>
           <BIconGear class="hover-rotate" @click="toggleModal" />
           <BIconTrash @click="removeQuest" />
         </div>
@@ -22,7 +25,7 @@
 
 
     <Modal v-if="edit" :toggle="toggleModal">
-      <FormQuest update="true" :doc_id="id" :title="title" :desc="desc" :passed-lat="lat" :passed-lng="lng" />
+      <FormQuest update="true" :doc_id="id" :title="title" :desc="desc" :passed-lat="lat" :passed-lng="lng" :passed-status="status" />
     </Modal>
 </template>
 
@@ -30,6 +33,7 @@
 // Components
 import FormQuest from "./forms/FormQuest.vue";
 import Modal from "./utils/Modal.vue";
+import ButtonEditQuestStatus from "./buttons/ButtonEditQuestStatus.vue"
 
 // Functions
 import { deleteQuest, getTeam } from "../firebase.js";
@@ -45,7 +49,6 @@ export default {
     const removed = ref();
     const focused = ref(false);
     const selectedQuest = ref(getSelectedQuest())
-    const sidebar = getQuestSidebar()
 
     const team = await getTeam(props.teamId)
 
@@ -70,16 +73,32 @@ export default {
       return focused.value ? 'focused' : 'default'
     })
 
+    const questStatus = computed(() => {
+      switch (props.status){
+        case 0:
+          return "Neutrální";
+        case 1:
+          return "Čekající";
+        case 2:
+          return "Aktivní";
+        case 3:
+          return "Dokončený";
+        case 4:
+          return "Selhal";
+      }
+    })
+
     watch(() => selectedQuest.value, (newValue) => {
       newValue === props.id ? focused.value = true : focused.value = false
     });
 
-    return { questFocused,team, edit, removed, clicked: focused, selectedQuest, questClicked, removeQuest, toggleModal }
+    return { questFocused,team, edit, removed, clicked: focused, selectedQuest, questClicked, removeQuest, toggleModal, questStatus }
   },
-  props: ["id", "teamId", "title", "desc", "index", "lat", "lng"],
+  props: ["id", "teamId", "title", "desc", "index", "lat", "lng", "status"],
   components: {
     FormQuest,
-    Modal
+    Modal,
+    ButtonEditQuestStatus
   }
 }
 </script>
@@ -121,4 +140,12 @@ export default {
     display: grid;
     grid-template-columns: auto min-content;
   }
+
+  [data-status="0"]{ background: #565656 !important; } // Neutrální
+  [data-status="1"]{ background: #ef9c1e !important; } // Čekající
+  [data-status="2"]{ background: #299cc9 !important; } // Aktivní
+  [data-status="3"]{ background: #1dbb31 !important; } // Dokončený
+  [data-status="4"]{ background: #e73f3f !important; } // Selhal
+
+
 </style>
