@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import router from "./router"
 import './firebase.js'
 
 
@@ -21,6 +22,7 @@ app.use(VueGoogleMaps, {
         language: 'cz'
     },
 })
+    .use(router)
     .use(Vue3ColorPicker)
     .use(BootstrapIconsPlugin)
     .mount('#app')
