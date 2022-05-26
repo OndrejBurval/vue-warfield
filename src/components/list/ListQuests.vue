@@ -2,7 +2,7 @@
 <div class="list">
 
   <ul v-if="dataArray.length > 0">
-    <li v-for="(quest, index) in dataArray">
+    <li v-for="quest in dataArray">
       <Suspense>
         <Quest :id="quest.id" :title="quest.title" :desc="quest.desc" :team-id="quest.teamId" :index="quest.order" :lat="quest.marker.lat" :lng="quest.marker.lng" />
       </Suspense>
@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import Quest from "./Quest.vue";
+import Quest from "../Quest.vue";
 
-import { getQuestCollection, getTeamQuestCollection } from "../firebase.js";
+import { getQuestCollection, getTeamQuestCollection } from "../../firebase.js";
 import { ref } from "vue";
 
 export default {

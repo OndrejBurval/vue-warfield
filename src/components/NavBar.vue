@@ -21,9 +21,9 @@
 </template>
 
 <script>
-import Admin from "./Admin.vue";
-import SideBar from "./SideBar.vue";
-import ListQuests from "./ListQuests.vue";
+import Admin from "./admin/Admin.vue";
+import SideBar from "./utils/SideBar.vue";
+import ListQuests from "./list/ListQuests.vue";
 import TheQuestWrapper from "./TheQuestWrapper.vue";
 
 import { getQuestSidebar, toggleQuestSidebar } from "../global/stateManagement.js";

@@ -57,9 +57,9 @@
 </template>
 
 <script>
-import ListQuests from "./ListQuests.vue";
-import AdminSmallPanel from "./AdminSmallPanel.vue";
-import AdminFilterPanel from "./AdminFilterPanel.vue";
+import ListQuests from "./list/ListQuests.vue";
+import AdminSmallPanel from "./admin/AdminSmallPanel.vue";
+import AdminFilterPanel from "./admin/AdminFilterPanel.vue";
 import ButtonFormTeam from "./buttons/ButtonFormTeam.vue";
 import ButtonRemoveTeam from "./buttons/ButtonRemoveTeam.vue";
 import { getTeamsCollection } from "../firebase.js";

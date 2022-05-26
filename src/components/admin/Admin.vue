@@ -12,10 +12,10 @@
 </template>
 
 <script>
-import FormQuest from "./FormQuest.vue";
-import Modal from "./Modal.vue";
-import SideBar from "./SideBar.vue";
-import ListTeams from "./ListTeams.vue";
+import FormQuest from "../forms/FormQuest.vue";
+import Modal from "../utils/Modal.vue";
+import SideBar from "../utils/SideBar.vue";
+import ListTeams from "../list/ListTeams.vue";
 import {ref} from "vue";
 
 export default {

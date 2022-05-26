@@ -24,9 +24,9 @@
 </template>
 
 <script>
-import Modal from "./Modal.vue";
-import FormQuest from "./FormQuest.vue";
-import ButtonRemoveTeamQuests from "./buttons/ButtonRemoveTeamQuests.vue";
+import Modal from "../utils/Modal.vue";
+import FormQuest from "../forms/FormQuest.vue";
+import ButtonRemoveTeamQuests from "../buttons/ButtonRemoveTeamQuests.vue";
 import {ref} from "vue";
 
 export default {

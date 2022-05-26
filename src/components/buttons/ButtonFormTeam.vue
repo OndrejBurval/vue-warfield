@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import Modal from "../Modal.vue";
-import FormTeam from "../FormTeam.vue";
+import Modal from "../utils/Modal.vue";
+import FormTeam from "../forms/FormTeam.vue";
 
 import {ref} from "vue";
 

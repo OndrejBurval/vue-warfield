@@ -10,29 +10,15 @@
       @click="returnClickedCoords"
   >
     <GMapMarker
-        :key="index"
         v-for="(quest, index) in quests"
-        :id="quest.teamId"
+        :id="quest.id"
         :position="quest.marker"
-        :clickable="true"
-        :draggable="false"
-        @click="getClickedQuest(quest.id)"
-        :data-marker="quest.id"
+        @click="passQuestId(quest.id)"
         :icon="{
           url: iconURL,
-          scaledSize: {width: 30, height: 30},
+          scaledSize: {width: iconSize, height: iconSize},
         }"
-    >
-      <BIconTrash />
-      <GMapInfoWindow
-          :closeclick="true"
-          :opened="openedMarkerID === quest.id"
-          @closeclick="openMarker(null)"
-      >
-        <h3> {{ quest.title }} </h3>
-      </GMapInfoWindow>
-
-    </GMapMarker>
+     />
 
   </GMapMap>
 </template>
@@ -40,8 +26,8 @@
 <script>
 import { getQuestCollection } from "../firebase.js";
 import { toggleQuestSidebar, getQuestSidebar,getWatchMapClick, toggleWatchMapClick } from "../global/stateManagement.js";
-import { setMapClickedCoords } from "../global/storage.js";
-import { computed } from "vue";
+import { setMapClickedCoords, setSelectedQuest } from "../global/storage.js";
+import { computed, ref, watch } from "vue";
 
 export default {
   name: "VueGoogleMap",
@@ -49,14 +35,34 @@ export default {
     const quests = await getQuestCollection()
     const watchClick = getWatchMapClick()
     const questSidebar = getQuestSidebar()
+    const markerFocused = ref(false);
 
+    const passQuestId = (id) => {
+      toggleFocus()
 
+      if (questSidebar.value) {
+        setSelectedQuest(id)
+      } else{
+        toggleQuestSidebar()
+        setTimeout(() => {
+          setSelectedQuest(id)
+        }, 1100);
+      }
+    }
+
+    const toggleFocus = () => {
+      markerFocused.value = !markerFocused.value
+    }
 
     const watchClickClass = computed(() => {
       return watchClick.value ? 'watching' : 'nowatch'
     })
 
-    return { quests, toggleQuestSidebar, questSidebar, watchClick, toggleWatchMapClick, watchClickClass }
+    const iconSize = computed(() => {
+      return markerFocused.value ? 40 : 30
+    })
+
+    return { quests, toggleQuestSidebar, questSidebar, watchClick, toggleWatchMapClick, watchClickClass, setSelectedQuest, iconSize, markerFocused, passQuestId }
   },
   data() {
     return {
@@ -75,22 +81,13 @@ export default {
     }
   },
   methods: {
-    openMarker(id) {
-      this.openedMarkerID = id
-      if (!this.questSidebar) toggleQuestSidebar()
-    },
     returnClickedCoords(event) {
       if (this.watchClick){
         setMapClickedCoords(event.latLng.lat(), event.latLng.lng())
         toggleWatchMapClick()
       }
-    },
-    getClickedQuest(id){
-      this.openMarker(id)
-      //const associatedQuest = document.querySelector("[data-quest="+ JSON.stringify(id) +"]")
-      //associatedQuest.classList.contains("focused") ? associatedQuest.classList.remove("focused") : associatedQuest.classList.add("focused")
     }
-  },
+  }
 }
 </script>
 

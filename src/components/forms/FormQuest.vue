@@ -36,12 +36,12 @@
 </template>
 
 <script>
-import { addQuest, updateQuest } from "../firebase";
+import { addQuest, updateQuest } from "../../firebase";
 import { ref, computed } from "vue";
-import { toggleWatchMapClick, getWatchMapClick } from "../global/stateManagement.js";
-import { getMapClickedCoords, resetMapClickedCoords } from "../global/storage.js";
+import { toggleWatchMapClick, getWatchMapClick } from "../../global/stateManagement.js";
+import { getMapClickedCoords } from "../../global/storage.js";
 
-import VueGoogleMap from "./VueGoogleMap.vue";
+import VueGoogleMap from "../VueGoogleMap.vue";
 
 export default {
   name: "QuestEditor",
@@ -50,8 +50,8 @@ export default {
 
     const coords = getMapClickedCoords()
     const markerCoords = computed(() => ({
-      lat: coords.value.lat,
-      lng: coords.value.lng
+      lat: coords.value.lat !== 0 ? coords.value.lat : props.passedLat,
+      lng: coords.value.lng !== 0 ? coords.value.lng : props.passedLng
     }))
 
     const status = computed(() => ({
@@ -68,12 +68,10 @@ export default {
   methods: {
     async submitQuest() {
       if (this.update){
-        await updateQuest(this.doc_id, this.title, this.desc)
-        resetMapClickedCoords()
+        await updateQuest(this.doc_id, this.title, this.desc, this.markerCoords)
         window.location.reload()
       } else{
         await addQuest(this.title, this.desc, this.teamId, this.markerCoords)
-        resetMapClickedCoords()
         window.location.reload()
       }
     }

@@ -1,6 +1,7 @@
 <template>
   <Transition name="slide-fade">
-    <div v-if="!removed" class="wrapper" ref="reference" :class="focused" @click="getClickedQuest" :data-quest="id">
+    <div v-if="!removed" class="wrapper" :class="questFocused" @click="questClicked" :data-quest="id" :data-focused="clicked">
+
       <div class="grid">
         <div class="grid-item">
           <h2>
@@ -21,18 +22,20 @@
 
 
     <Modal v-if="edit" :toggle="toggleModal">
-      <FormQuest update="true" :doc_id="id" :title="title" :desc="desc" />
+      <FormQuest update="true" :doc_id="id" :title="title" :desc="desc" :passed-lat="lat" :passed-lng="lng" />
     </Modal>
 </template>
 
 <script>
 // Components
-import FormQuest from "./FormQuest.vue";
-import Modal from "./Modal.vue";
+import FormQuest from "./forms/FormQuest.vue";
+import Modal from "./utils/Modal.vue";
 
 // Functions
 import { deleteQuest, getTeam } from "../firebase.js";
-import { ref } from "vue";
+import { getSelectedQuest,setSelectedQuest } from "../global/storage.js";
+import { getQuestSidebar } from "../global/stateManagement.js";
+import { ref, computed, watch } from "vue";
 
 
 export default {
@@ -40,7 +43,9 @@ export default {
   async setup(props){
     const edit = ref();
     const removed = ref();
-    const focused = ref();
+    const focused = ref(false);
+    const selectedQuest = ref(getSelectedQuest())
+    const sidebar = getQuestSidebar()
 
     const team = await getTeam(props.teamId)
 
@@ -53,13 +58,23 @@ export default {
       removed.value = true
     }
 
-    const getClickedQuest = () => {
-      focused.value === false ? focused.value = "focused" : focused.value = false
-      const associatedMarker = document.querySelector("[data-marker="+ JSON.stringify(props.id) +"]")
-      associatedMarker.classList.add("selected")
+    const questClicked = () => {
+      if (focused.value){
+        setSelectedQuest(undefined)
+      } else{
+        setSelectedQuest(props.id)
+      }
     }
 
-    return { getClickedQuest, removeQuest, toggleModal, team, edit, removed, focused }
+    const questFocused = computed(() => {
+      return focused.value ? 'focused' : 'default'
+    })
+
+    watch(() => selectedQuest.value, (newValue) => {
+      newValue === props.id ? focused.value = true : focused.value = false
+    });
+
+    return { questFocused,team, edit, removed, clicked: focused, selectedQuest, questClicked, removeQuest, toggleModal }
   },
   props: ["id", "teamId", "title", "desc", "index", "lat", "lng"],
   components: {

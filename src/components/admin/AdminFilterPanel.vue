@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import ButtonRemoveAllQuests from "./buttons/ButtonRemoveAllQuests.vue";
-import { getTeamsCollection, filterTeamCollection } from "../firebase.js";
+import ButtonRemoveAllQuests from "../buttons/ButtonRemoveAllQuests.vue";
+import { getTeamsCollection, filterTeamCollection } from "../../firebase.js";
 import {ref} from "vue";
 
 export default {

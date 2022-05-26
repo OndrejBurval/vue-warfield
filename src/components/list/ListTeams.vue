@@ -54,15 +54,15 @@
 </template>
 
 <script>
-import { getTeamsCollection } from "../firebase.js";
+import { getTeamsCollection } from "../../firebase.js";
 import {ref} from "vue";
 
-import Modal from "./Modal.vue";
-import FormQuest from "./FormQuest.vue";
-import FormTeam from "./FormTeam.vue";
-import ButtonFormTeam from "./buttons/ButtonFormTeam.vue";
-import ButtonRemoveTeamQuests from "./buttons/ButtonRemoveTeamQuests.vue";
-import ButtonRemoveTeam from "./buttons/ButtonRemoveTeam.vue";
+import Modal from "../utils/Modal.vue";
+import FormQuest from "../forms/FormQuest.vue";
+import FormTeam from "../forms/FormTeam.vue";
+import ButtonFormTeam from "../buttons/ButtonFormTeam.vue";
+import ButtonRemoveTeamQuests from "../buttons/ButtonRemoveTeamQuests.vue";
+import ButtonRemoveTeam from "../buttons/ButtonRemoveTeam.vue";
 
 export default {
   name: "ListTeams",

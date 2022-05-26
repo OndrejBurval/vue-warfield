@@ -63,11 +63,12 @@ export const addQuest = async (questTitle, questDesc, teamId, marker) => {
     });
 }
 
-export const updateQuest = async ( questId, questTitle, questDesc ) => {
+export const updateQuest = async ( questId, questTitle, questDesc, marker ) => {
     const docRef = doc(db, "quest", questId)
     await updateDoc(docRef, {
         title: questTitle,
-        desc: questDesc
+        desc: questDesc,
+        marker: marker
     })
 }
 
