@@ -12,9 +12,13 @@
           <span v-if="lat && lng"> Lat: {{ data_lat }}, Lng: {{ data_lng }}  </span>
         </div>
         <div class="grid-item utils">
-          <ButtonEditQuestStatus class="col" :quest-id="data_id">
-            <BIconFlag />
-          </ButtonEditQuestStatus>
+          <div class="col">
+            <ButtonEditQuestStatus class="col" :quest-id="data_id">
+              <BIconFlag />
+            </ButtonEditQuestStatus>
+            <BIconGeo @click="zoomPoint" />
+          </div>
+
           <div class="col edits">
             <BIconGear class="hover-rotate" @click="toggleModal" />
             <BIconTrash @click="removeQuest" />
@@ -29,7 +33,7 @@
 
 
     <Modal v-if="edit" :toggle="toggleModal">
-      <FormQuest :toggle="toggleModal" update="true" :doc_id="id" :title="title" :desc="desc" :passed-lat="lat" :passed-lng="lng" :passed-status="status" />
+      <FormQuest :toggle="toggleModal" update="true" :doc_id="data_id" :title="data_title" :desc="data_desc" :passed-lat="data_lat" :passed-lng="data_lng" :passed-status="data_status" />
     </Modal>
 </template>
 
@@ -42,15 +46,14 @@ import ButtonEditQuestStatus from "./buttons/ButtonEditQuestStatus.vue"
 
 // Functions
 import { deleteQuest, moveQuestOrderUp, moveQuestOrderDown } from "../firebase.js";
-import { getSelectedQuest,setSelectedQuest } from "../global/storage.js";
-import { getQuestForm, toggleQuestForm } from "../global/stateManagement";
+import {getSelectedQuest, setSelectedQuest, setMapZoom, setMapCenterCoords} from "../global/storage.js";
 import { ref, computed, watch, toRefs } from "vue";
 
 
 export default {
   name: "Quest",
   async setup(props){
-    const edit = getQuestForm();
+    const edit = ref(false);
     const focused = ref(false);
     const selectedQuest = ref(getSelectedQuest())
 
@@ -68,7 +71,7 @@ export default {
 
 
     const toggleModal = () => {
-      toggleQuestForm()
+      edit.value = !edit.value
     }
 
     const removeQuest = () => {
@@ -89,6 +92,11 @@ export default {
 
     const moveDown = async () => {
       await moveQuestOrderDown(data_teamId.value, data_index.value)
+    }
+
+    const zoomPoint = () => {
+      setMapZoom(16)
+      setMapCenterCoords(data_lat, data_lng)
     }
 
     const questFocused = computed(() => {
@@ -118,6 +126,7 @@ export default {
       questFocused, edit, focused, selectedQuest,
       questClicked, removeQuest, toggleModal, questStatus,
       moveUp, moveDown,
+      zoomPoint,
       data_id, data_title, data_desc, data_index, data_lat, data_lng, data_status, data_listLength
     }
   },

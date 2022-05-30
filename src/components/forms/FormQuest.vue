@@ -11,6 +11,7 @@
       <div class="form-group">
         <label for="quest_desc"> Popis úkolu </label>
         <textarea required v-model="desc" class="form-control" id="quest_desc" placeholder="Popis..."></textarea>
+        <QuillEditor theme="snow" v-model="desc" />
       </div>
 
       <div class="form-group">
@@ -51,6 +52,8 @@ import { addQuest, updateQuest } from "../../firebase";
 import { computed, ref } from "vue";
 import { toggleWatchMapClick, getWatchMapClick, toggleQuestForm } from "../../global/stateManagement.js";
 import { getMapClickedCoords } from "../../global/storage.js";
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
 import VueGoogleMap from "../VueGoogleMap.vue";
 
@@ -75,6 +78,7 @@ export default {
   },
   components: {
     VueGoogleMap,
+    QuillEditor
   },
   props: ["toggle", "teamId", "teamName", "update", "doc_id", "title", "desc", "passedLat", "passedLng", "passedStatus"],
   methods: {

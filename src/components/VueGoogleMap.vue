@@ -1,9 +1,7 @@
 <template>
-
-
   <GMapMap
-      :center="{ lat: 49.9373139637294, lng: 15.688086035434784 }"
-      :zoom="13"
+      :center="{ lat: centerCoords.lat, lng: centerCoords.lng }"
+      :zoom="mapZoom"
       :options="options"
       class="map"
       :class="watchClickClass"
@@ -29,8 +27,8 @@
 <script>
 import { getQuestCollection } from "../firebase.js";
 import { toggleQuestSidebar, getQuestSidebar,getWatchMapClick, toggleWatchMapClick } from "../global/stateManagement.js";
-import { setMapClickedCoords, setSelectedQuest } from "../global/storage.js";
-import { computed, ref, watch } from "vue";
+import { setMapClickedCoords, setSelectedQuest, getMapCenterCoords, getMapZoom } from "../global/storage.js";
+import { computed, ref } from "vue";
 
 export default {
   name: "VueGoogleMap",
@@ -39,6 +37,8 @@ export default {
     const watchClick = getWatchMapClick()
     const questSidebar = getQuestSidebar()
     const markerFocused = ref(false);
+    const centerCoords = getMapCenterCoords()
+    const mapZoom = getMapZoom()
 
     const passQuestId = (id) => {
       toggleFocus()
@@ -65,7 +65,10 @@ export default {
       return markerFocused.value ? 40 : 30
     })
 
-    return { quests, toggleQuestSidebar, questSidebar, watchClick, toggleWatchMapClick, watchClickClass, setSelectedQuest, iconSize, markerFocused, passQuestId }
+    return {
+      quests, toggleQuestSidebar, questSidebar, watchClick, toggleWatchMapClick, watchClickClass,
+      setSelectedQuest, iconSize, markerFocused, passQuestId, centerCoords, mapZoom
+    }
   },
   data() {
     return {

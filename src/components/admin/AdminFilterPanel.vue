@@ -6,11 +6,19 @@
       </div>
     </Popper>
 
+    <Popper class="ms-0" hover arrow content="Přidat tým">
+      <ButtonFormTeam>
+        <BIconPlusCircle :fill="'#ffffff'" />
+      </ButtonFormTeam>
+    </Popper>
+
     <Popper class="ms-0" hover arrow content="Odebrat úplně všechny úkoly">
       <ButtonRemoveAllQuests>
         <BIconTrash :fill="'#ffffff' " />
       </ButtonRemoveAllQuests>
     </Popper>
+
+
 
 
       <div v-if="filter" class="filter-options d-flex flex-wrap">
@@ -28,6 +36,7 @@
 
 <script>
 import ButtonRemoveAllQuests from "../buttons/ButtonRemoveAllQuests.vue";
+import ButtonFormTeam from "../buttons/ButtonFormTeam.vue";
 import { getTeamsCollection, filterTeamCollection } from "../../firebase.js";
 import {ref} from "vue";
 
@@ -53,6 +62,7 @@ export default {
   },
   components: {
     ButtonRemoveAllQuests,
+    ButtonFormTeam
   }
 }
 </script>

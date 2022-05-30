@@ -3,7 +3,6 @@ import App from './App.vue'
 import router from "./router"
 import './firebase.js'
 
-
 import VueGoogleMaps from '@fawmi/vue-google-maps'
 import Popper from "vue3-popper";
 
