@@ -29,7 +29,7 @@ export default {
 
     return { pureColor, gradientColor, status }
   },
-  props: ["update", "teamName", "teamId"],
+  props: ["toggle", "update", "teamName", "teamId"],
   methods: {
     async submit() {
       try {
@@ -40,12 +40,14 @@ export default {
         if (this.update){
           try {
             await updateTeam(this.teamId, this.teamName, this.pureColor)
+            this.toggle()
           } catch (e){
             console.log(e)
           }
         } else{
           try {
             await addTeam(this.teamName, this.pureColor)
+            this.toggle()
           } catch (e){
             console.log(e)
           }

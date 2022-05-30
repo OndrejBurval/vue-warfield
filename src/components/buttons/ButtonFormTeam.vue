@@ -8,7 +8,7 @@
 
   <!-- Team Modal -->
   <Modal v-if="teamModal" :toggle="modalToggle">
-    <FormTeam :update="updateTeam" :team-name="teamName" :team-id="teamId" />
+    <FormTeam :toggle="modalToggle" :update="updateTeam" :team-name="teamName" :team-id="teamId" />
   </Modal>
 
 

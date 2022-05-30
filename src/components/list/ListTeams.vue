@@ -47,7 +47,7 @@
   <!-- Quest Modal -->
   <Teleport to="body">
       <Modal v-if="edit" :toggle="toggleModal">
-        <FormQuest :teamName="teamName" :teamId="teamId" />
+        <FormQuest :toggle="toggleModal" :teamName="teamName" :teamId="teamId" />
       </Modal>
   </Teleport>
 
@@ -55,7 +55,7 @@
 
 <script>
 import { getTeamsCollection } from "../../firebase.js";
-import {ref} from "vue";
+import { ref } from "vue";
 
 import Modal from "../utils/Modal.vue";
 import FormQuest from "../forms/FormQuest.vue";

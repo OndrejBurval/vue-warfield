@@ -5,7 +5,7 @@
     <div class="content">
       <div class="header">
         <h2> {{ title }}</h2>
-        <BIconXLg class="exit" v-if="overlay" @click="toggle" />
+        <BIconXLg class="close" v-if="overlay" @click="toggle" />
       </div>
 
       <slot></slot>
@@ -68,7 +68,7 @@ export default {
     overflow-x: hidden;
   }
 
-  .exit{
+  .close{
     position: absolute;
     inset: 10px 10px auto auto;
   }

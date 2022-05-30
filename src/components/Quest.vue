@@ -25,7 +25,7 @@
 
 
     <Modal v-if="edit" :toggle="toggleModal">
-      <FormQuest update="true" :doc_id="id" :title="title" :desc="desc" :passed-lat="lat" :passed-lng="lng" :passed-status="status" />
+      <FormQuest :toggle="toggleModal" update="true" :doc_id="id" :title="title" :desc="desc" :passed-lat="lat" :passed-lng="lng" :passed-status="status" />
     </Modal>
 </template>
 
@@ -37,15 +37,16 @@ import Modal from "./utils/Modal.vue";
 import ButtonEditQuestStatus from "./buttons/ButtonEditQuestStatus.vue"
 
 // Functions
-import { deleteQuest, getTeam } from "../firebase.js";
+import { deleteQuest } from "../firebase.js";
 import { getSelectedQuest,setSelectedQuest } from "../global/storage.js";
+import { getQuestForm, toggleQuestForm } from "../global/stateManagement";
 import { ref, computed, watch, toRefs } from "vue";
 
 
 export default {
   name: "Quest",
   async setup(props){
-    const edit = ref();
+    const edit = getQuestForm();
     const focused = ref(false);
     const selectedQuest = ref(getSelectedQuest())
 
@@ -61,7 +62,7 @@ export default {
 
 
     const toggleModal = () => {
-      edit.value = !edit.value
+      toggleQuestForm()
     }
 
     const removeQuest = () => {

@@ -3,7 +3,7 @@
     <div class="panel-inner">
 
       <Popper hover arrow content="Přidat úkol">
-        <BIconPlusCircle :cursor="'pointer'" @click="modalToggle(teamName, teamId)"/>
+        <BIconPlusCircle :cursor="'pointer'" @click="toggleModal(teamName, teamId)"/>
       </Popper>
 
       <Popper class="ms-0" hover arrow content="Odebere všechny úkoly">
@@ -17,8 +17,8 @@
 
   <!-- Quest Modal -->
   <Teleport to="body">
-      <Modal v-if="addModal" :toggle="modalToggle">
-        <FormQuest :teamName="teamName" :teamId="teamId" />
+      <Modal v-if="addModal" :toggle="toggleModal">
+        <FormQuest :toggle="toggleModal" :teamName="teamName" :teamId="teamId" />
       </Modal>
   </Teleport>
 </template>
@@ -32,13 +32,13 @@ import {ref} from "vue";
 export default {
   name: "AdminSmallPanel",
   setup(){
-    const addModal = ref()
+    const addModal = ref(false)
 
-    const modalToggle = () => {
+    const toggleModal = () => {
       addModal.value = !addModal.value
     }
 
-    return { addModal, modalToggle }
+    return { addModal, toggleModal }
   },
   props: ["teamId", "teamName"],
   components: {

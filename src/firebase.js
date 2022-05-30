@@ -75,11 +75,6 @@ export const deleteQuest = async ( questId ) => {
     await reAlignQuestOrder(docData.data().teamId)
 }
 
-export const getTeam = async (id) => {
-    const docRef = doc(db, "teams", id);
-    const document = await getDoc(docRef);
-    return document.data()
-}
 
 export const addTeam = async (teamName, teamColor) => {
     await addDoc(teamCollection, {
@@ -143,7 +138,7 @@ const snapshotLoop = (query) => {
             liveData.value.push({ id: e.id, ...e.data() })
         })
     })
-    onUnmounted(close)
+    onUnmounted(unsubscribe)
     return liveData
 }
 

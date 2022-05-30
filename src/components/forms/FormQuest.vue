@@ -49,7 +49,7 @@
 <script>
 import { addQuest, updateQuest } from "../../firebase";
 import { computed, ref } from "vue";
-import { toggleWatchMapClick, getWatchMapClick } from "../../global/stateManagement.js";
+import { toggleWatchMapClick, getWatchMapClick, toggleQuestForm } from "../../global/stateManagement.js";
 import { getMapClickedCoords } from "../../global/storage.js";
 
 import VueGoogleMap from "../VueGoogleMap.vue";
@@ -76,13 +76,15 @@ export default {
   components: {
     VueGoogleMap,
   },
-  props: ["teamId", "teamName", "update", "doc_id", "title", "desc", "passedLat", "passedLng", "passedStatus"],
+  props: ["toggle", "teamId", "teamName", "update", "doc_id", "title", "desc", "passedLat", "passedLng", "passedStatus"],
   methods: {
     async submitQuest() {
       if (this.update){
         await updateQuest(this.doc_id, this.title, this.desc, this.questStatus, this.markerCoords)
+        this.toggle()
       } else{
         await addQuest(this.title, this.desc, this.teamId, this.questStatus, this.markerCoords)
+        this.toggle()
       }
     }
   }
