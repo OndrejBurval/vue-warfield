@@ -1,5 +1,4 @@
 <template>
-  <Transition name="slide-fade">
     <div class="wrapper" :class="questFocused" :data-quest="data_id" :data-focused="focused">
 
       <div class="grid">
@@ -13,15 +12,20 @@
           <span v-if="lat && lng"> Lat: {{ data_lat }}, Lng: {{ data_lng }}  </span>
         </div>
         <div class="grid-item utils">
-          <ButtonEditQuestStatus :quest-id="data_id">
+          <ButtonEditQuestStatus class="col" :quest-id="data_id">
             <BIconFlag />
           </ButtonEditQuestStatus>
-          <BIconGear class="hover-rotate" @click="toggleModal" />
-          <BIconTrash @click="removeQuest" />
+          <div class="col edits">
+            <BIconGear class="hover-rotate" @click="toggleModal" />
+            <BIconTrash @click="removeQuest" />
+          </div>
+          <div class="col order">
+            <BIconCaretUpSquare @click="moveUp" v-if="data_index != 1" />
+            <BIconCaretDownSquare @click="moveDown" v-if="data_index != data_listLength" />
+          </div>
         </div>
       </div>
     </div>
-  </Transition>
 
 
     <Modal v-if="edit" :toggle="toggleModal">
@@ -37,7 +41,7 @@ import Modal from "./utils/Modal.vue";
 import ButtonEditQuestStatus from "./buttons/ButtonEditQuestStatus.vue"
 
 // Functions
-import { deleteQuest } from "../firebase.js";
+import { deleteQuest, moveQuestOrderUp, moveQuestOrderDown } from "../firebase.js";
 import { getSelectedQuest,setSelectedQuest } from "../global/storage.js";
 import { getQuestForm, toggleQuestForm } from "../global/stateManagement";
 import { ref, computed, watch, toRefs } from "vue";
@@ -58,6 +62,8 @@ export default {
       lat: data_lat,
       lng: data_lng,
       status: data_status,
+      teamId: data_teamId,
+      listLength: data_listLength
     } = toRefs(props)
 
 
@@ -75,6 +81,14 @@ export default {
       } else{
         setSelectedQuest(props.id)
       }
+    }
+
+    const moveUp = async () => {
+      await moveQuestOrderUp(data_teamId.value, data_index.value)
+    }
+
+    const moveDown = async () => {
+      await moveQuestOrderDown(data_teamId.value, data_index.value)
     }
 
     const questFocused = computed(() => {
@@ -103,10 +117,11 @@ export default {
     return {
       questFocused, edit, focused, selectedQuest,
       questClicked, removeQuest, toggleModal, questStatus,
-      data_id, data_title, data_desc, data_index, data_lat, data_lng, data_status
+      moveUp, moveDown,
+      data_id, data_title, data_desc, data_index, data_lat, data_lng, data_status, data_listLength
     }
   },
-  props: ["id", "title", "desc", "index", "lat", "lng", "status"],
+  props: ["id", "title", "desc", "index", "lat", "lng", "status", "teamId", "listLength"],
   components: {
     FormQuest,
     Modal,
@@ -130,13 +145,14 @@ export default {
     }
   }
 
-  .utils{
-    padding: 10px;
-    place-items: center;
+  .utils, .order{
     display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 10px;
+
+    .col{
+      padding: 10px;
+      display: grid;
+      place-items: center;
+    }
   }
 
   .focused{

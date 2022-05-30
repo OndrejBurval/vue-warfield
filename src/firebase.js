@@ -60,7 +60,27 @@ export const updateQuest = async ( questId, questTitle, questDesc, status, marke
     })
 }
 
-export const updateQuestStatus = async ( questId, status ) => {
+const updateQuestOrders = async ( teamId, oldOrder, newOrder ) => {
+    const questSnapshot = await getDocs(query(questCollection, where("teamId", "==", teamId)));
+
+    questSnapshot.forEach(e => {
+        console.log(e.data())
+        if (e.data().order === oldOrder) updateOrder(e.id, newOrder)
+        if (e.data().order === newOrder) updateOrder(e.id, oldOrder)
+    })
+}
+
+export const moveQuestOrderUp = async ( teamId, order ) => {
+    let newOrder = order - 1;
+    updateQuestOrders( teamId, order, newOrder )
+}
+
+export const moveQuestOrderDown = async ( teamId, order ) => {
+    let newOrder = order + 1;
+    updateQuestOrders( teamId, order, newOrder )
+}
+
+export const updateQuestStatus = async ( teamId, questId, status ) => {
     const docRef = doc(db, "quest", questId)
     await updateDoc(docRef, {
         status: parseInt(status)

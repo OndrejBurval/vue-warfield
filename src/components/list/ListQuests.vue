@@ -4,7 +4,6 @@
   <ul v-if="dataArray.length > 0">
     <li v-for="quest in dataArray">
       <Suspense>
-        <Transition name="fade">
           <Quest
               :id="quest.id"
               :title="quest.title"
@@ -13,8 +12,9 @@
               :lat="quest.marker.lat"
               :lng="quest.marker.lng"
               :status="quest.status"
+              :team-id="quest.teamId"
+              :list-length="dataArray.length"
           />
-        </Transition>
       </Suspense>
     </li>
   </ul>
