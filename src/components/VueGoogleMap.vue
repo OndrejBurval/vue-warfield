@@ -5,21 +5,43 @@
       :options="options"
       class="map"
       :class="watchClickClass"
+      map-type-id="terrain"
       @click="returnClickedCoords"
+      ref="myMapRef"
   >
-    <GMapMarker
-        v-for="quest in quests"
-        title="tooot"
-        :id="quest.id"
-        :clickable="false"
-        :position="quest.marker"
-        @click="passQuestId(quest.id)"
-        :icon="{
-          url: iconURL,
-          scaledSize: {width: iconSize, height: iconSize},
-          labelOrigin: {x: 16, y: -10}
-        }"
-     />
+
+      <GMapMarker
+          v-for="(quest, index) in quests"
+          :key="index"
+          :position="quest.marker"
+          @click="passQuestId(quest.id)"
+          :clickable="true"
+          :draggable="false"
+          :zoomOnClick="true"
+      >
+        <GMapInfoWindow
+            @click="openMarker(null)"
+            :opened="openedMarkerID === quest.id"
+        >
+          <div >
+            <span class="badge w-100" :style="'background:'+ quest.color + ';'"> {{ quest.teamId }} </span>
+            <h3>{{ quest.order + ". " + quest.title }}  </h3>
+
+            <p>
+              {{ quest.desc }}
+            </p>
+          </div>
+        </GMapInfoWindow>
+      </GMapMarker>
+    <!--
+    :icon="{
+      url: iconURL,
+      scaledSize: {width: iconSize, height: iconSize},
+      labelOrigin: {x: 16, y: -10}
+    }"
+     !-->
+
+    <g-map-polygon :paths="paths"></g-map-polygon>
 
   </GMapMap>
 </template>
@@ -30,6 +52,10 @@ import { toggleQuestSidebar, getQuestSidebar,getWatchMapClick, toggleWatchMapCli
 import { setMapClickedCoords, setSelectedQuest, getMapCenterCoords, getMapZoom } from "../global/storage.js";
 import { computed, ref } from "vue";
 
+const home = { lat: 49.93716915792965, lng: 15.688771198236168 }
+const kruhak = { lat: 49.946833391071756, lng: 15.685028885943728 }
+const test = { lat: 49.94216535454903, lng: 15.676689140289623 }
+
 export default {
   name: "VueGoogleMap",
   async setup () {
@@ -39,8 +65,16 @@ export default {
     const markerFocused = ref(false);
     const centerCoords = getMapCenterCoords()
     const mapZoom = getMapZoom()
+    const openedMarkerID = ref(null)
+
+
+    const openMarker = (val) => {
+      openedMarkerID.value = val
+    }
 
     const passQuestId = (id) => {
+      openMarker(id)
+
       toggleFocus()
 
       if (questSidebar.value) {
@@ -67,12 +101,12 @@ export default {
 
     return {
       quests, toggleQuestSidebar, questSidebar, watchClick, toggleWatchMapClick, watchClickClass,
-      setSelectedQuest, iconSize, markerFocused, passQuestId, centerCoords, mapZoom
+      setSelectedQuest, iconSize, markerFocused, passQuestId, centerCoords, mapZoom, openedMarkerID,
+      openMarker
     }
   },
   data() {
     return {
-      openedMarkerID: null,
       options: {
         mapId: "c8dda2d6001c33e7",
         zoomControl: false,
@@ -82,12 +116,22 @@ export default {
         rotateControl: false,
         fullscreenControl: false,
       },
+      markerArray: [
+        {
+          position: home
+        },
+        {
+          position: kruhak
+        }
+      ],
+      paths: [home, test, kruhak],
       coords: null,
       iconURL: 'src/assets/icons/warning.svg'
     }
   },
   methods: {
     returnClickedCoords(event) {
+
       if (this.watchClick){
         setMapClickedCoords(event.latLng.lat(), event.latLng.lng())
         toggleWatchMapClick()
