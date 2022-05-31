@@ -80,7 +80,7 @@ export const moveQuestOrderDown = async ( teamId, order ) => {
     updateQuestOrders( teamId, order, newOrder )
 }
 
-export const updateQuestStatus = async ( teamId, questId, status ) => {
+export const updateQuestStatus = async ( questId, status ) => {
     const docRef = doc(db, "quest", questId)
     await updateDoc(docRef, {
         status: parseInt(status)
