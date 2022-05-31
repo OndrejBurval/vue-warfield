@@ -7,26 +7,26 @@
       :class="watchClickClass"
       map-type-id="terrain"
       @click="returnClickedCoords"
-      ref="myMapRef"
   >
 
       <GMapMarker
           v-for="(quest, index) in quests"
           :key="index"
           :position="quest.marker"
-          @click="passQuestId(quest.id)"
           :clickable="true"
           :draggable="false"
           :zoomOnClick="true"
+          @click="passQuestIdToStorage(quest.id)"
       >
         <GMapInfoWindow
             @click="openMarker(null)"
             :opened="openedMarkerID === quest.id"
         >
-          <div >
-            <span class="badge w-100" :style="'background:'+ quest.color + ';'"> {{ quest.teamId }} </span>
-            <h3>{{ quest.order + ". " + quest.title }}  </h3>
-
+          <div>
+            <h3>
+              {{ quest.order }}. {{ quest.title }}
+              {{ quest.color }}
+            </h3>
             <p>
               {{ quest.desc }}
             </p>
@@ -59,12 +59,28 @@ const test = { lat: 49.94216535454903, lng: 15.676689140289623 }
 export default {
   name: "VueGoogleMap",
   async setup () {
-    const quests = await getQuestCollection()
+    // STORAGE
+    const centerCoords = getMapCenterCoords()
+
+    // STATE MANAGEMENT
     const watchClick = getWatchMapClick()
     const questSidebar = getQuestSidebar()
-    const markerFocused = ref(false);
-    const centerCoords = getMapCenterCoords()
+
+    // SETINGS
     const mapZoom = getMapZoom()
+    const iconSize = ref(30)
+    const options = ref({
+      mapId: "c8dda2d6001c33e7",
+      zoomControl: false,
+      mapTypeControl: false,
+      scaleControl: false,
+      streetViewControl: false,
+      rotateControl: false,
+      fullscreenControl: false,
+    })
+
+    // VARIABLES
+    const quests = await getQuestCollection()
     const openedMarkerID = ref(null)
 
 
@@ -72,10 +88,15 @@ export default {
       openedMarkerID.value = val
     }
 
-    const passQuestId = (id) => {
-      openMarker(id)
+    const returnClickedCoords = (event) => {
+      if (watchClick.value){
+        setMapClickedCoords(event.latLng.lat(), event.latLng.lng())
+        toggleWatchMapClick()
+      }
+    }
 
-      toggleFocus()
+    const passQuestIdToStorage = (id) => {
+      openMarker(id)
 
       if (questSidebar.value) {
         setSelectedQuest(id)
@@ -87,55 +108,29 @@ export default {
       }
     }
 
-    const toggleFocus = () => {
-      markerFocused.value = !markerFocused.value
-    }
 
+    // Pokud sledujeme click tak změní index aby bylo na vrchu
     const watchClickClass = computed(() => {
       return watchClick.value ? 'watching' : 'nowatch'
     })
 
-    const iconSize = computed(() => {
-      return markerFocused.value ? 40 : 30
-    })
-
     return {
-      quests, toggleQuestSidebar, questSidebar, watchClick, toggleWatchMapClick, watchClickClass,
-      setSelectedQuest, iconSize, markerFocused, passQuestId, centerCoords, mapZoom, openedMarkerID,
-      openMarker
+      quests,
+      options,
+      iconSize,
+      centerCoords,
+      mapZoom,
+      openedMarkerID,
+      watchClickClass,
+      returnClickedCoords,
+      openMarker,
+      passQuestIdToStorage
     }
   },
   data() {
     return {
-      options: {
-        mapId: "c8dda2d6001c33e7",
-        zoomControl: false,
-        mapTypeControl: false,
-        scaleControl: false,
-        streetViewControl: false,
-        rotateControl: false,
-        fullscreenControl: false,
-      },
-      markerArray: [
-        {
-          position: home
-        },
-        {
-          position: kruhak
-        }
-      ],
       paths: [home, test, kruhak],
-      coords: null,
       iconURL: 'src/assets/icons/warning.svg'
-    }
-  },
-  methods: {
-    returnClickedCoords(event) {
-
-      if (this.watchClick){
-        setMapClickedCoords(event.latLng.lat(), event.latLng.lng())
-        toggleWatchMapClick()
-      }
     }
   }
 }
