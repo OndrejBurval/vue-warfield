@@ -1,10 +1,10 @@
 <template>
   <form @submit.prevent="submit">
-    <h2> {{ status.title }}  </h2>
+    <h2> {{ status.title }} <span class="badge" :style="{background: color, color: color}"> color </span> </h2>
 
     <input required v-model="teamName" class="form-control" type="text" placeholder="Název...">
 
-    <color-picker class="full" v-model:pureColor="pureColor" v-model:gradientColor="gradientColor"/>
+    <color-picker v-model:pureColor="color" />
 
 
     <button type="submit" class="btn btn-primary w-100"> {{ status.button }} </button>
@@ -14,20 +14,18 @@
 <script>
 import { addTeam, updateTeam } from "../../firebase.js";
 import { ref, computed } from "vue";
-import { ColorInputWithoutInstance } from "tinycolor2";
 
 export default {
   name: "TeamAddForm",
   setup (props){
-    const pureColor = ref<ColorInputWithoutInstance>("");
-    const gradientColor = ref("linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 100%)");
+    const color = ref();
 
     const status = computed(() => ({
       title: props.update ? "Upravit" : "Přidat Tým",
       button: props.update ? "Uložit" : "Přidat"
     }))
 
-    return { pureColor, gradientColor, status }
+    return { status, color }
   },
   props: ["toggle", "update", "teamName", "teamId"],
   methods: {
@@ -39,14 +37,14 @@ export default {
         }
         if (this.update){
           try {
-            await updateTeam(this.teamId, this.teamName, this.pureColor)
+            await updateTeam(this.teamId, this.teamName)
             this.toggle()
           } catch (e){
             console.log(e)
           }
         } else{
           try {
-            await addTeam(this.teamName, this.pureColor)
+            await addTeam(this.teamName)
             this.toggle()
           } catch (e){
             console.log(e)
@@ -61,6 +59,7 @@ export default {
 </script>
 
 <style scoped>
+
   *{
     margin-block: 10px;
   }

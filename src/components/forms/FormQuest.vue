@@ -11,8 +11,13 @@
       <div class="form-group">
         <label for="quest_desc"> Popis úkolu </label>
         <textarea required v-model="desc" class="form-control" id="quest_desc" placeholder="Popis..."></textarea>
-        <QuillEditor theme="snow" v-model="desc" />
       </div>
+
+    <div class="form-group d-flex flex-column">
+      <label> Ikonka: <img :src="selectedIcon" alt=""> </label>
+
+      <ListIcons />
+    </div>
 
       <div class="form-group">
         <label for="quest_desc"> Stav úkolu </label>
@@ -48,18 +53,30 @@
 </template>
 
 <script>
-import { addQuest, updateQuest } from "../../firebase";
 import { computed, ref } from "vue";
-import { toggleWatchMapClick, getWatchMapClick, toggleQuestForm } from "../../global/stateManagement.js";
-import { getMapClickedCoords } from "../../global/storage.js";
-import { QuillEditor } from '@vueup/vue-quill'
-import '@vueup/vue-quill/dist/vue-quill.snow.css';
 
+// DATABASE
+import { addQuest, updateQuest } from "../../firebase.js";
+
+// STORAGE
+import { getMapClickedCoords, getSelectedIcon } from "../../global/storage.js";
+
+// STATE MANAGEMENT
+import { toggleWatchMapClick, getWatchMapClick, toggleQuestForm } from "../../global/stateManagement.js";
+
+// COMPONENTS
 import VueGoogleMap from "../VueGoogleMap.vue";
+import ListIcons from "../list/ListIcons.vue"
+
+
+
 
 export default {
   name: "QuestEditor",
   setup(props){
+    const iconSelectToggle = ref(false)
+    const selectedIcon = getSelectedIcon()
+
     const watchClick = getWatchMapClick();
     const questStatus = ref(props.passedStatus ? props.passedStatus : 0);
 
@@ -74,11 +91,19 @@ export default {
       button: props.update ? "Uložit" : "Přidat"
     }))
 
-    return { markerCoords, watchClick, toggleWatchMapClick, status, questStatus }
+    return {
+      iconSelectToggle,
+      selectedIcon,
+      markerCoords,
+      watchClick,
+      status,
+      questStatus,
+      toggleWatchMapClick
+    }
   },
   components: {
     VueGoogleMap,
-    QuillEditor
+    ListIcons
   },
   props: ["toggle", "teamId", "teamName", "update", "doc_id", "title", "desc", "passedLat", "passedLng", "passedStatus"],
   methods: {
@@ -87,7 +112,7 @@ export default {
         await updateQuest(this.doc_id, this.title, this.desc, this.questStatus, this.markerCoords)
         this.toggle()
       } else{
-        await addQuest(this.title, this.desc, this.teamId, this.questStatus, this.markerCoords)
+        await addQuest(this.title, this.desc, this.teamId, this.questStatus, this.markerCoords, this.selectedIcon)
         this.toggle()
       }
     }

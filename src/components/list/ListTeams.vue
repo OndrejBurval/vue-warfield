@@ -33,6 +33,7 @@
         </ButtonFormTeam>
       </li>
       <li>
+
         <ButtonRemoveTeam :team-id="team.id">
           <a class="dropdown-item">
             Odebrat

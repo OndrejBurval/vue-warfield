@@ -29,3 +29,8 @@ export const resetMapZoom = () => resetMapZoom.value = 13
 export const getMapZoom = () => mapZoom
 export const setMapZoom = (value) => mapZoom.value === value ? mapZoom.value = value - 1 : mapZoom.value = value //swapuje hodnoty, aby se procnul zoom mapy
 
+
+
+const selectedIcon = ref(null)
+export const getSelectedIcon = () => selectedIcon
+export const setSelectedIcon = (path) => selectedIcon.value = path

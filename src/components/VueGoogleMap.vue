@@ -17,6 +17,11 @@
           :draggable="false"
           :zoomOnClick="true"
           @click="passQuestIdToStorage(quest.id)"
+          :icon="{
+            url: quest.iconPath,
+            scaledSize: {width: iconSize, height: iconSize},
+            labelOrigin: {x: 16, y: -10}
+          }"
       >
         <GMapInfoWindow
             @click="openMarker(null)"
