@@ -1,3 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-down" viewBox="0 0 16 16">
-  <path fill-rule="evenodd" d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1z"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="22"
+   height="22"
+   viewBox="0 0 5.8208332 5.8208335"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   sodipodi:docname="arrow-down.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="11.730752"
+     inkscape:cx="-3.6229562"
+     inkscape:cy="12.190182"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5" />
+  <defs
+     id="defs2" />
+  <circle
+     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke-width:1.43261"
+     id="path1138"
+     cx="2.9018252"
+     cy="2.9055679"
+     r="2.9069357" />
+  <g
+     style="fill:currentColor"
+     id="g2109"
+     transform="matrix(0.26458333,0,0,0.26458333,0.83799614,0.79276859)">
+    <path
+       fill-rule="evenodd"
+       d="m 8,1 a 0.5,0.5 0 0 1 0.5,0.5 v 11.793 l 3.146,-3.147 a 0.5006316,0.5006316 0 0 1 0.708,0.708 l -4,4 a 0.5,0.5 0 0 1 -0.708,0 l -4,-4 A 0.5006316,0.5006316 0 0 1 4.354,10.146 L 7.5,13.293 V 1.5 A 0.5,0.5 0 0 1 8,1 Z"
+       id="path2100" />
+  </g>
 </svg>

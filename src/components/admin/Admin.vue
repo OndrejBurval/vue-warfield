@@ -1,7 +1,9 @@
 <template>
 
   <BIconGear class="hover-rotate me-3" :fill="'#ffffff'" @click="sidebarToggle" />
-  <BIconMap :fill="'#ffffff'" />
+  <router-link to="/map-editor">
+    <BIconMap :fill="'#ffffff'" />
+  </router-link>
 
   <Transition name="slide-right">
     <SideBar v-if="sidebar" :title="'Admin module'" :overlay="false" :toggle="sidebarToggle">

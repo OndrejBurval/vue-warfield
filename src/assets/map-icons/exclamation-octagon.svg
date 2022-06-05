@@ -1,4 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-octagon" viewBox="0 0 16 16">
-  <path d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
-  <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="22"
+   height="22"
+   viewBox="0 0 5.8208332 5.8208335"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   sodipodi:docname="exclamation-octagon.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="11.730752"
+     inkscape:cx="-3.6229562"
+     inkscape:cy="12.190182"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5" />
+  <defs
+     id="defs2" />
+  <circle
+     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke-width:1.43261"
+     id="path1138"
+     cx="2.9018252"
+     cy="2.9055679"
+     r="2.9069357" />
+  <g
+     style="fill:currentColor"
+     id="g2306"
+     transform="matrix(0.26458333,0,0,0.26458333,0.81544119,0.74777747)">
+    <path
+       d="M 4.54,0.146 A 0.5,0.5 0 0 1 4.893,0 h 6.214 A 0.5,0.5 0 0 1 11.46,0.146 L 15.854,4.54 A 0.5,0.5 0 0 1 16,4.893 v 6.214 A 0.5,0.5 0 0 1 15.854,11.46 L 11.46,15.854 A 0.5,0.5 0 0 1 11.107,16 H 4.893 A 0.5,0.5 0 0 1 4.54,15.854 L 0.146,11.46 A 0.5,0.5 0 0 1 0,11.107 V 4.893 A 0.5,0.5 0 0 1 0.146,4.54 Z M 5.1,1 1,5.1 v 5.8 L 5.1,15 h 5.8 L 15,10.9 V 5.1 L 10.9,1 Z"
+       id="path2294" />
+    <path
+       d="m 7.002,11 a 1,1 0 1 1 2,0 1,1 0 0 1 -2,0 z M 7.1,4.995 a 0.905,0.905 0 1 1 1.8,0 L 8.55,8.502 a 0.552,0.552 0 0 1 -1.1,0 z"
+       id="path2296" />
+  </g>
 </svg>

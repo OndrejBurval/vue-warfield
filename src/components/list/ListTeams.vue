@@ -11,7 +11,7 @@
 
   <div v-for="team in teams" class="dropdown" >
     <button class="text-start btn btn-primary dropdown-toggle w-100 my-1" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-      <span class="badge" :style="'background: ' + team.color + ' !important; color: ' + team.color+ ';'"> . </span>
+      <span class="badge" :style="{ background: team.color, color: team.color }"> . </span>
       {{ team.name }}
     </button>
     <ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="dropdownMenuButton">

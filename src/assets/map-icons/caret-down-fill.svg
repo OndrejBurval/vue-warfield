@@ -1,3 +1,28 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
-  <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="22"
+   height="22"
+   viewBox="0 0 5.8208332 5.8208335"
+   version="1.1"
+   id="svg5"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2" />
+  <circle
+     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke-width:1.43261"
+     id="path1138"
+     cx="2.9018252"
+     cy="2.9055679"
+     r="2.9069357" />
+  <g
+     style="fill:currentColor"
+     id="g1835"
+     transform="matrix(0.26458333,0,0,0.26458333,0.79308443,1.0645411)">
+    <path
+       d="M 7.247,11.14 2.451,5.658 C 1.885,5.013 2.345,4 3.204,4 h 9.592 a 1,1 0 0 1 0.753,1.659 l -4.796,5.48 a 1,1 0 0 1 -1.506,0 z"
+       id="path1826" />
+  </g>
 </svg>

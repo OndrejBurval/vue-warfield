@@ -1,4 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-award" viewBox="0 0 16 16">
-  <path d="M9.669.864 8 0 6.331.864l-1.858.282-.842 1.68-1.337 1.32L2.6 6l-.306 1.854 1.337 1.32.842 1.68 1.858.282L8 12l1.669-.864 1.858-.282.842-1.68 1.337-1.32L13.4 6l.306-1.854-1.337-1.32-.842-1.68L9.669.864zm1.196 1.193.684 1.365 1.086 1.072L12.387 6l.248 1.506-1.086 1.072-.684 1.365-1.51.229L8 10.874l-1.355-.702-1.51-.229-.684-1.365-1.086-1.072L3.614 6l-.25-1.506 1.087-1.072.684-1.365 1.51-.229L8 1.126l1.356.702 1.509.229z"/>
-  <path d="M4 11.794V16l4-1 4 1v-4.206l-2.018.306L8 13.126 6.018 12.1 4 11.794z"/>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="22"
+   height="22"
+   viewBox="0 0 5.8208332 5.8208335"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   sodipodi:docname="award.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#999999"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     inkscape:zoom="11.730752"
+     inkscape:cx="-3.6229562"
+     inkscape:cy="12.190182"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg5" />
+  <defs
+     id="defs2" />
+  <circle
+     style="opacity:1;fill:#ffffff;fill-opacity:1;stroke-width:1.43261"
+     id="path1138"
+     cx="2.9018252"
+     cy="2.9055679"
+     r="2.9069357" />
+  <g
+     style="fill:currentColor"
+     id="g2011"
+     transform="matrix(0.26458333,0,0,0.26458333,0.86055087,0.81544151)">
+    <path
+       d="M 9.669,0.864 8,0 6.331,0.864 4.473,1.146 3.631,2.826 2.294,4.146 2.6,6 2.294,7.854 3.631,9.174 4.473,10.854 6.331,11.136 8,12 9.669,11.136 11.527,10.854 12.369,9.174 13.706,7.854 13.4,6 13.706,4.146 12.369,2.826 11.527,1.146 Z m 1.196,1.193 0.684,1.365 1.086,1.072 L 12.387,6 12.635,7.506 11.549,8.578 10.865,9.943 9.355,10.172 8,10.874 6.645,10.172 5.135,9.943 4.451,8.578 3.365,7.506 3.614,6 3.364,4.494 4.451,3.422 5.135,2.057 6.645,1.828 8,1.126 9.356,1.828 Z"
+       id="path1999" />
+    <path
+       d="M 4,11.794 V 16 l 4,-1 4,1 V 11.794 L 9.982,12.1 8,13.126 6.018,12.1 Z"
+       id="path2001" />
+  </g>
 </svg>

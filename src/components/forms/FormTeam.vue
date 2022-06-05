@@ -30,28 +30,12 @@ export default {
   props: ["toggle", "update", "teamName", "teamId"],
   methods: {
     async submit() {
-      try {
-        if (!this.pureColor){
-          alert("Vyber barvu")
-          return
-        }
-        if (this.update){
-          try {
-            await updateTeam(this.teamId, this.teamName)
-            this.toggle()
-          } catch (e){
-            console.log(e)
-          }
-        } else{
-          try {
-            await addTeam(this.teamName)
-            this.toggle()
-          } catch (e){
-            console.log(e)
-          }
-        }
-      } catch (e){
-        console.error(e)
+      if (this.update){
+        await updateTeam(this.teamId, this.teamName)
+        this.toggle()
+      } else{
+        await addTeam(this.teamName, this.color)
+        this.toggle()
       }
     }
   }

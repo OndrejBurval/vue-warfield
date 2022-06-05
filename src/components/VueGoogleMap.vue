@@ -20,7 +20,7 @@
           :icon="{
             url: quest.iconPath,
             scaledSize: {width: iconSize, height: iconSize},
-            labelOrigin: {x: 16, y: -10}
+            labelOrigin: {x: 50, y: 50}
           }"
       >
         <GMapInfoWindow
@@ -73,7 +73,7 @@ export default {
 
     // SETINGS
     const mapZoom = getMapZoom()
-    const iconSize = ref(30)
+    const iconSize = ref(38)
     const options = ref({
       mapId: "c8dda2d6001c33e7",
       zoomControl: false,
@@ -147,6 +147,7 @@ export default {
   z-index: -1;
   inset: 0;
 }
+
 
 .selected{
   transform: scale(2);

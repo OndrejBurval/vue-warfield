@@ -31,6 +31,6 @@ export const setMapZoom = (value) => mapZoom.value === value ? mapZoom.value = v
 
 
 
-const selectedIcon = ref(null)
+const selectedIcon = ref("./src/assets/map-icons/caret-down-fill.svg")
 export const getSelectedIcon = () => selectedIcon
 export const setSelectedIcon = (path) => selectedIcon.value = path

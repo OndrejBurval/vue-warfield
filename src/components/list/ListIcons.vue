@@ -38,7 +38,7 @@ const select = (e) => {
 
 <style lang="scss" scoped>
 .wrapper{
-  background: white;
+  // background: white;
   padding: 30px;
   display: grid;
   place-items: center;
