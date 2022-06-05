@@ -10,6 +10,9 @@
       <Suspense>
         <ListTeams />
       </Suspense>
+
+      <ListMapSettings />
+
     </SideBar>
   </Transition>
 </template>
@@ -19,7 +22,8 @@ import FormQuest from "../forms/FormQuest.vue";
 import Modal from "../utils/Modal.vue";
 import SideBar from "../utils/SideBar.vue";
 import ListTeams from "../list/ListTeams.vue";
-import {ref} from "vue";
+import ListMapSettings from "../list/ListMapSettings.vue";
+import { ref } from "vue";
 
 export default {
   name: "Admin",
@@ -36,7 +40,8 @@ export default {
     FormQuest,
     Modal,
     SideBar,
-    ListTeams
+    ListTeams,
+    ListMapSettings
   }
 }
 </script>

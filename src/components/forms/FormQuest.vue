@@ -70,7 +70,7 @@
 import { computed, ref } from "vue";
 
 // DATABASE
-import { addQuest, updateQuest } from "../../firebase.js";
+import { addQuest, updateQuest } from "../../firebase/firestore.js";
 
 // STORAGE
 import { getMapClickedCoords, getSelectedIcon } from "../../global/storage.js";

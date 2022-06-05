@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { addTeam, updateTeam } from "../../firebase.js";
+import { addTeam, updateTeam } from "../../firebase/firestore.js";
 import { ref, computed } from "vue";
 
 export default {

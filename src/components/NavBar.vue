@@ -1,5 +1,7 @@
 <template>
   <nav class="navbar d-flex justify-content-end px-4 navbar-dark bg-dark">
+    <Profile />
+
     <BIconQuestionDiamond :cursor="'pointer'" :fill="'#ffffff'" @click="toggleQuestSidebar" class="me-3"/>
     <Admin />
   </nav>
@@ -25,6 +27,7 @@ import Admin from "./admin/Admin.vue";
 import SideBar from "./utils/SideBar.vue";
 import ListQuests from "./list/ListQuests.vue";
 import TheQuestWrapper from "./TheQuestWrapper.vue";
+import Profile from "./Profile.vue"
 
 import { getQuestSidebar, toggleQuestSidebar } from "../global/stateManagement.js";
 
@@ -39,7 +42,8 @@ export default {
     Admin,
     SideBar,
     ListQuests,
-    TheQuestWrapper
+    TheQuestWrapper,
+    Profile
   }
 }
 </script>

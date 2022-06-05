@@ -16,7 +16,7 @@
 
 <script>
 import { ref } from "vue";
-import { updateQuestStatus } from "../../firebase.js";
+import { updateQuestStatus } from "../../firebase/firestore.js";
 
 export default {
   name: "ButtonEditQuestStatus",

@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import { getQuestCollection } from "../firebase.js";
+import { getQuestCollection } from "../firebase/firestore.js";
 import { toggleQuestSidebar, getQuestSidebar,getWatchMapClick, toggleWatchMapClick } from "../global/stateManagement.js";
 import { setMapClickedCoords, setSelectedQuest, getMapCenterCoords, getMapZoom } from "../global/storage.js";
 import { computed, ref } from "vue";

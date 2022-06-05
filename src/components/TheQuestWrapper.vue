@@ -62,7 +62,7 @@ import AdminSmallPanel from "./admin/AdminSmallPanel.vue";
 import AdminFilterPanel from "./admin/AdminFilterPanel.vue";
 import ButtonFormTeam from "./buttons/ButtonFormTeam.vue";
 import ButtonRemoveTeam from "./buttons/ButtonRemoveTeam.vue";
-import { getTeamsCollection } from "../firebase.js";
+import { getTeamsCollection } from "../firebase/firestore.js";
 import {ref} from "vue";
 
 export default {

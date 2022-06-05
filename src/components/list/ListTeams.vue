@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { getTeamsCollection } from "../../firebase.js";
+import { getTeamsCollection } from "../../firebase/firestore.js";
 import { ref } from "vue";
 
 import Modal from "../utils/Modal.vue";

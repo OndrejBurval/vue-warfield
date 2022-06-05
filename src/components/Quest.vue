@@ -45,7 +45,7 @@ import Modal from "./utils/Modal.vue";
 import ButtonEditQuestStatus from "./buttons/ButtonEditQuestStatus.vue"
 
 // Functions
-import { deleteQuest, moveQuestOrderUp, moveQuestOrderDown } from "../firebase.js";
+import { deleteQuest, moveQuestOrderUp, moveQuestOrderDown } from "../firebase/firestore.js";
 import {getSelectedQuest, setSelectedQuest, setMapZoom, setMapCenterCoords} from "../global/storage.js";
 import { ref, computed, watch, toRefs } from "vue";
 

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { deleteAllQuests } from "../../firebase.js";
+import { deleteAllQuests } from "../../firebase/firestore.js";
 
 export default {
   name: "ButtonRemoveAllQuests",

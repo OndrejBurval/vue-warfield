@@ -28,7 +28,7 @@
 <script>
 import Quest from "../Quest.vue";
 
-import { getQuestCollection, getTeamQuestCollection } from "../../firebase.js";
+import { getQuestCollection, getTeamQuestCollection } from "../../firebase/firestore.js";
 import { ref } from "vue";
 
 export default {

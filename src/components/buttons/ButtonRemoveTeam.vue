@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { deleteTeam, deleteTeamQuests } from "../../firebase";
+import { deleteTeam, deleteTeamQuests } from "../../firebase/firestore.js";
 
 export default {
   name: "ButtonRemoveTeam",
