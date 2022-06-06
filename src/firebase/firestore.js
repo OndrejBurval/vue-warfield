@@ -96,10 +96,11 @@ export const deleteQuest = async ( questId ) => {
 }
 
 
-export const addTeam = async (teamName, teamColor) => {
+export const addTeam = async (teamName, teamColor, userName) => {
     await addDoc(teamCollection, {
         name: teamName,
         color: teamColor,
+        userName: userName,
         created: serverTimestamp()
     });
 }

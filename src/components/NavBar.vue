@@ -1,9 +1,15 @@
 <template>
-  <nav class="navbar d-flex justify-content-end px-4 navbar-dark bg-dark">
-    <Profile />
+  <nav class="navbar navbar-dark bg-dark px-5">
 
-    <BIconQuestionDiamond :cursor="'pointer'" :fill="'#ffffff'" @click="toggleQuestSidebar" class="me-3"/>
-    <Admin />
+    <div class="navbar--left">
+      <Profile />
+    </div>
+
+    <div class="navbar--right">
+      <BIconQuestionDiamond :cursor="'pointer'" :fill="'#ffffff'" @click="toggleQuestSidebar" class="me-3"/>
+      <Admin />
+    </div>
+
   </nav>
 
 

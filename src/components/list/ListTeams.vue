@@ -9,7 +9,7 @@
   </h3>
   <hr>
 
-  <div v-for="team in teams" class="dropdown" >
+  <div v-for="team in teams" :key="team.id" class="dropdown" >
     <button class="text-start btn btn-primary dropdown-toggle w-100 my-1" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
       <span class="badge" :style="{ background: team.color, color: team.color }"> . </span>
       {{ team.name }}

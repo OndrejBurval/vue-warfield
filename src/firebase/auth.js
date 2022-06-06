@@ -1,11 +1,9 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, deleteUser } from "firebase/auth";
 import { ref } from "vue";
 
 const auth = getAuth()
 const user = ref()
-const isLoggedIn = ref()
 
-user ? isLoggedIn.value = true : isLoggedIn.value = false
 
 export const createUser = (email, password) => {
     const warfieldEmail = email + "@warfield.cz"
@@ -23,7 +21,7 @@ export const createUser = (email, password) => {
 export const logOut = () => {
     signOut(auth)
         .then(() => {
-            //window.location.replace("/login");
+            window.location.replace("/");
         })
         .catch((e) => {
             console.log(e)
@@ -35,18 +33,16 @@ export const logIn = (email, password) => {
 
     signInWithEmailAndPassword(auth, warfieldEmail, password)
         .then(() => {
-           // window.location.replace("/");
+           //window.location.replace("/");
         })
         .catch((error) => {
             console.log(error.message)
         })
 }
 
-onAuthStateChanged(auth, (newUser) => {
-    if (newUser){
-        user.value = newUser
-    }
+
+onAuthStateChanged(auth, (loggedUser) => {
+    if(loggedUser) user.value = loggedUser
 })
 
 export const getUser = () => user
-export const getIsLoggedIn = () => isLoggedIn

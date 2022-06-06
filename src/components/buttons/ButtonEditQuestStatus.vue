@@ -6,7 +6,7 @@
       <slot />
     </div>
     <ul class="dropdown-menu">
-      <li v-for="(status, index) in statusArray"><a class="dropdown-item" @click.prevent="updateQuestStatus(questId, index)"> {{ status }}</a> </li>
+      <li v-for="(status, index) in statusArray" :key="status"><a class="dropdown-item" @click.prevent="updateQuestStatus(questId, index)"> {{ status }}</a> </li>
     </ul>
   </div>
 

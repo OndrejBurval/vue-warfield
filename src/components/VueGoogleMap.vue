@@ -15,7 +15,7 @@
           :position="quest.marker"
           :clickable="true"
           :draggable="false"
-          :zoomOnClick="true"
+          title="marker"
           @click="passQuestIdToStorage(quest.id)"
           :icon="{
             url: quest.iconPath,
@@ -55,7 +55,7 @@
 import { getQuestCollection } from "../firebase/firestore.js";
 import { toggleQuestSidebar, getQuestSidebar,getWatchMapClick, toggleWatchMapClick } from "../global/stateManagement.js";
 import { setMapClickedCoords, setSelectedQuest, getMapCenterCoords, getMapZoom } from "../global/storage.js";
-import { computed, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 
 const home = { lat: 49.93716915792965, lng: 15.688771198236168 }
 const kruhak = { lat: 49.946833391071756, lng: 15.685028885943728 }
@@ -64,6 +64,38 @@ const test = { lat: 49.94216535454903, lng: 15.676689140289623 }
 export default {
   name: "VueGoogleMap",
   async setup () {
+
+    onMounted(() => {
+      setTimeout( () => {
+        const markers = document.querySelectorAll("[title='marker']")
+        console.log(markers)
+
+        markers.forEach(marker => {
+          marker.addEventListener("click", () => {
+            const activeMarker = document.querySelectorAll(".activeMarker")
+            console.log(activeMarker)
+            if (activeMarker) {
+              activeMarker.forEach(e => {
+                e.classList.remove("activeMarker")
+                e.style.background = "rgba(52, 168, 83, 0)"
+              })
+            }
+
+            if (marker.classList.contains("activeMarker")){
+              marker.classList.remove("activeMarker")
+              marker.style.background = "rgba(52, 168, 83, 0)"
+
+            } else{
+              marker.classList.add("activeMarker")
+              marker.style.background = "rgba(52, 168, 83, 0.5)"
+            }
+
+          })
+          marker.style.borderRadius = "50%"
+        })
+      }, 1500 )
+    })
+
     // STORAGE
     const centerCoords = getMapCenterCoords()
 
@@ -119,6 +151,8 @@ export default {
       return watchClick.value ? 'watching' : 'nowatch'
     })
 
+
+
     return {
       quests,
       options,
@@ -156,6 +190,7 @@ export default {
 
 .watching{
   z-index: 99999999;
+  cursor: crosshair !important;
 }
 
 </style>

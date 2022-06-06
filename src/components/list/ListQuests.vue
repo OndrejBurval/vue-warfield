@@ -2,7 +2,7 @@
 <div class="list">
 
   <ul v-if="dataArray.length > 0">
-    <li v-for="quest in dataArray">
+    <li v-for="quest in dataArray" :key="quest.id">
       <Suspense>
           <Quest
               :id="quest.id"
