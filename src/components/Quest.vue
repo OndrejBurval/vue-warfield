@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper" :class="questFocused" :data-quest="data_id" :data-focused="focused">
+    <div class="wrapper" :class="questFocused" :data-quest="data_id" :data-focused="focused" @click="zoom">
 
       <div class="grid">
         <div class="grid-item" @click="questClicked">
@@ -16,7 +16,7 @@
             <ButtonEditQuestStatus class="col" :quest-id="data_id">
               <BIconFlag />
             </ButtonEditQuestStatus>
-            <BIconGeo @click="zoomPoint" />
+            <BIconGeo @click="zoom" />
           </div>
 
           <div class="col edits">
@@ -24,8 +24,8 @@
             <BIconTrash @click="removeQuest" />
           </div>
           <div class="col order">
-            <BIconCaretUpSquare @click="moveUp" v-if="data_index != 1" />
-            <BIconCaretDownSquare @click="moveDown" v-if="data_index != data_listLength" />
+            <BIconCaretUpSquare @click="moveUp" v-if="data_index !== 1" />
+            <BIconCaretDownSquare @click="moveDown" v-if="data_index !== data_listLength" />
           </div>
         </div>
       </div>
@@ -46,7 +46,7 @@ import ButtonEditQuestStatus from "./buttons/ButtonEditQuestStatus.vue"
 
 // Functions
 import { deleteQuest, moveQuestOrderUp, moveQuestOrderDown } from "../firebase/firestore.js";
-import {getSelectedQuest, setSelectedQuest, setMapZoom, setMapCenterCoords} from "../global/storage.js";
+import { getSelectedQuest, setSelectedQuest, setMapZoom, setMapCenterCoords, resetMapCenterCoords } from "../global/storage.js";
 import { ref, computed, watch, toRefs } from "vue";
 
 
@@ -94,9 +94,14 @@ export default {
       await moveQuestOrderDown(data_teamId.value, data_index.value)
     }
 
-    const zoomPoint = () => {
-      setMapZoom(16)
-      setMapCenterCoords(data_lat, data_lng)
+    const zoom = () => {
+      if (focused.value === false){
+        setMapZoom(14)
+        resetMapCenterCoords()
+      } else{
+        setMapZoom(16)
+        setMapCenterCoords(data_lat, data_lng)
+      }
     }
 
     const questFocused = computed(() => {
@@ -126,7 +131,7 @@ export default {
       questFocused, edit, focused, selectedQuest,
       questClicked, removeQuest, toggleModal, questStatus,
       moveUp, moveDown,
-      zoomPoint,
+      zoom,
       data_id, data_title, data_desc, data_index, data_lat, data_lng, data_status, data_listLength
     }
   },

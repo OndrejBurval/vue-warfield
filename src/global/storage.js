@@ -27,7 +27,7 @@ export const setMapCenterCoords = (lat, lng) => mapCenterCoords.value = { lat: l
 const mapZoom = ref(13)
 export const resetMapZoom = () => resetMapZoom.value = 13
 export const getMapZoom = () => mapZoom
-export const setMapZoom = (value) => mapZoom.value === value ? mapZoom.value = value - 1 : mapZoom.value = value //swapuje hodnoty, aby se procnul zoom mapy
+export const setMapZoom = (value) => mapZoom.value === value ? mapZoom.value = value : mapZoom.value = value //swapuje hodnoty, aby se procnul zoom mapy
 
 
 
