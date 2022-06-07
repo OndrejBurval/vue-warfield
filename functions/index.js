@@ -22,3 +22,27 @@ exports.addAdminRole = functions.https.onCall((data, context) => {
             return e
         });
 });
+
+exports.removeUserByEmail = functions.https.onCall((data, context) => {
+    // check admin status
+    if ( context.auth.token.admin !== true ){
+        return { error: "Odebrat účet může jen admin" }
+    }
+
+    // get user add custom claim (admin)
+    return admin.auth().getUserByEmail(data.email)
+        .then(user => {
+            admin.auth().deleteUser(user.uid)
+                .then(() => {
+                    console.log("Deleted")
+                }).catch(e => {
+                console.log(e)
+            })
+        }).then(() => {
+            return {
+                message: `Success! ${ data.email } has been deleted`
+            }
+        }).catch(e => {
+            return e
+        });
+});

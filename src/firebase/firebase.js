@@ -19,4 +19,5 @@ export const auth = getAuth(firebaseApp)
 const functions = getFunctions(firebaseApp);
 
 export const addAdminRole = httpsCallable(functions, "addAdminRole");
+export const removeUserByEmail = httpsCallable(functions, "removeUserByEmail");
 
