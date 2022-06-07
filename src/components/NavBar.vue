@@ -5,7 +5,7 @@
       <Profile />
     </div>
 
-    <div class="navbar--right">
+    <div class="navbar--right" v-if="user">
       <BIconQuestionDiamond :cursor="'pointer'" :fill="'#ffffff'" @click="toggleQuestSidebar" class="me-3"/>
       <Admin />
     </div>
@@ -36,13 +36,16 @@ import TheQuestWrapper from "./TheQuestWrapper.vue";
 import Profile from "./Profile.vue"
 
 import { getQuestSidebar, toggleQuestSidebar } from "../global/stateManagement.js";
+import { getUser } from "../firebase/auth.js";
 
 export default {
   name: "NavBar",
   setup(){
+    const user = getUser()
+
     const questBar = getQuestSidebar()
 
-    return { questBar, toggleQuestSidebar }
+    return { user, questBar, toggleQuestSidebar }
   },
   components: {
     Admin,

@@ -1,5 +1,5 @@
 <template>
-  <section class="panel">
+  <section class="panel" v-if="user && user.admin">
     <div class="panel-inner">
 
       <Popper hover arrow content="Přidat úkol">
@@ -16,7 +16,7 @@
   </section>
 
   <!-- Quest Modal -->
-  <Teleport to="body">
+  <Teleport to="body" v-if="user && user.admin">
       <Modal v-if="addModal" :toggle="toggleModal">
         <FormQuest :toggle="toggleModal" :teamName="teamName" :teamId="teamId" />
       </Modal>
@@ -27,18 +27,20 @@
 import Modal from "../utils/Modal.vue";
 import FormQuest from "../forms/FormQuest.vue";
 import ButtonRemoveTeamQuests from "../buttons/ButtonRemoveTeamQuests.vue";
-import {ref} from "vue";
+import { getUser } from "../../firebase/auth.js";
+import { ref } from "vue";
 
 export default {
   name: "AdminSmallPanel",
   setup(){
+    const user = getUser()
     const addModal = ref(false)
 
     const toggleModal = () => {
       addModal.value = !addModal.value
     }
 
-    return { addModal, toggleModal }
+    return { user, addModal, toggleModal }
   },
   props: ["teamId", "teamName"],
   components: {

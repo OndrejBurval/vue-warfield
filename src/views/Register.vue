@@ -17,15 +17,23 @@
     <button type="submit" @click.prevent="getUser"> Get current user </button>
   </div>
 
+  <div>
+    Vytvořit admina
+    <input type="text" placeholder="email" v-model="adminEmail" />
+    <button type="submit" @click.prevent="createAdmin"> Přidat status </button>
+  </div>
+
 </template>
 
 <script setup>
 import { createUser } from "../firebase/auth.js";
 import { onMounted, ref} from "vue";
 import { deleteUser, getAuth } from "firebase/auth";
+import { addAdminRole } from "../firebase/firebase.js";
 
 const email = ref()
 const password = ref()
+const adminEmail = ref()
 
 const auth = getAuth()
 const user = ref()
@@ -33,6 +41,13 @@ user.value = auth.currentUser
 
 const create = () => {
   createUser(email.value, password.value)
+}
+
+const createAdmin = () => {
+  addAdminRole({ email: adminEmail.value })
+      .then(result => {
+        console.log(result)
+      })
 }
 
 const remove = async () => {

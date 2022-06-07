@@ -1,8 +1,9 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, deleteUser } from "firebase/auth";
-import { ref } from "vue";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, deleteUser, getIdTokenResult } from "firebase/auth";
+import { ref, computed } from "vue";
+import { auth } from "./firebase.js";
 
-const auth = getAuth()
 const user = ref()
+user.value = auth.currentUser
 
 
 export const createUser = (email, password) => {
@@ -42,7 +43,27 @@ export const logIn = (email, password) => {
 
 
 onAuthStateChanged(auth, (loggedUser) => {
-    if(loggedUser) user.value = loggedUser
+    if(loggedUser) {
+        getIdTokenResult(loggedUser, true)
+            .then(idTokenResult => {
+                loggedUser.admin = idTokenResult.claims.admin
+                user.value = loggedUser
+            })
+    }
 })
+
+export const testUser = () => {
+    onAuthStateChanged(auth, (loggedUser) => {
+        if(loggedUser) {
+            getIdTokenResult(loggedUser)
+                .then(idTokenResult => {
+                    loggedUser.admin = idTokenResult.claims.admin
+                })
+            return loggedUser
+        } else {
+            return undefined
+        }
+    })
+}
 
 export const getUser = () => user

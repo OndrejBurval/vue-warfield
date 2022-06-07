@@ -1,5 +1,5 @@
 <template>
-  <section class="d-flex flex-wrap justify-content-center">
+  <section class="d-flex flex-wrap justify-content-center" v-if="user && user.admin">
     <Popper class="ms-0" hover arrow content="Filtr">
       <div @click="filter = !filter">
         <BIconFunnel :cursor="'pointer'" :fill="'#ffffff' " />
@@ -37,17 +37,19 @@
 <script>
 import ButtonRemoveAllQuests from "../buttons/ButtonRemoveAllQuests.vue";
 import ButtonFormTeam from "../buttons/ButtonFormTeam.vue";
-import { getTeamsCollection, filterTeamCollection } from "../../firebase/firestore.js";
-import {ref} from "vue";
+import { getTeamsCollection, } from "../../firebase/firestore.js";
+import { getUser } from "../../firebase/auth.js";
+import { ref } from "vue";
 
 export default {
   name: "AdminFilterPanel",
   async setup() {
+    const user = getUser()
     const filter = ref();
     const filteredTeams = ref([]);
 
     const teams = await getTeamsCollection()
-    return { teams, filter, filteredTeams }
+    return { user, teams, filter, filteredTeams }
   },
   watch: {
     filteredTeams(newValue, oldValue) {

@@ -1,20 +1,21 @@
-<template>
+<template >
+  <div v-if="user && user.admin">
+    <BIconGear class="hover-rotate me-3" :fill="'#ffffff'" @click="sidebarToggle" />
+    <router-link to="/map-editor">
+      <BIconMap :fill="'#ffffff'" />
+    </router-link>
 
-  <BIconGear class="hover-rotate me-3" :fill="'#ffffff'" @click="sidebarToggle" />
-  <router-link to="/map-editor">
-    <BIconMap :fill="'#ffffff'" />
-  </router-link>
+    <Transition name="slide-right">
+      <SideBar v-if="sidebar" :title="'Admin module'" :overlay="false" :toggle="sidebarToggle">
+        <Suspense>
+          <ListTeams />
+        </Suspense>
+  
+        <ListMapSettings />
 
-  <Transition name="slide-right">
-    <SideBar v-if="sidebar" :title="'Admin module'" :overlay="false" :toggle="sidebarToggle">
-      <Suspense>
-        <ListTeams />
-      </Suspense>
-
-      <ListMapSettings />
-
-    </SideBar>
-  </Transition>
+      </SideBar>
+    </Transition>
+  </div>
 </template>
 
 <script>
@@ -24,17 +25,19 @@ import SideBar from "../utils/SideBar.vue";
 import ListTeams from "../list/ListTeams.vue";
 import ListMapSettings from "../list/ListMapSettings.vue";
 import { ref } from "vue";
+import { getUser } from "../../firebase/auth.js";
 
 export default {
   name: "Admin",
   setup(){
+    const user = getUser()
     const sidebar = ref(false)
 
     const sidebarToggle = () => {
       sidebar.value = !sidebar.value
     }
 
-    return { sidebar, sidebarToggle }
+    return { user, sidebar, sidebarToggle }
   },
   components: {
     FormQuest,

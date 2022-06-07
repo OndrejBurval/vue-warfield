@@ -1,5 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore'
+import { getFunctions, httpsCallable } from "firebase/functions"
+import { getAuth } from "firebase/auth";
 import { ref } from "vue";
 
 const firebaseConfig = {
@@ -13,3 +15,8 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 export const db = getFirestore(firebaseApp);
+export const auth = getAuth(firebaseApp)
+const functions = getFunctions(firebaseApp);
+
+export const addAdminRole = httpsCallable(functions, "addAdminRole");
+

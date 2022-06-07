@@ -26,29 +26,21 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { getUser, logOut  } from "../firebase/auth.js";
+import { getUser, logOut } from "../firebase/auth.js";
 
 const user = getUser()
 const toggleContent = ref(false)
-
 
 const userName = computed(()=> {
   const splited = user.value.email.split("@")
   return splited[0]
 })
 
-
-
-
-
 </script>
 
 <style lang="scss" scoped>
   h2{
     font-size: 1rem;
-  }
-  .profileImg{
-
   }
 
   .profileWrapper{

@@ -11,7 +11,7 @@
           </p>
           <span v-if="lat && lng"> Lat: {{ data_lat }}, Lng: {{ data_lng }}  </span>
         </div>
-        <div class="grid-item utils">
+        <div class="grid-item utils" v-if="user && user.admin">
           <div class="col">
             <ButtonEditQuestStatus class="col" :quest-id="data_id">
               <BIconFlag />
@@ -48,11 +48,13 @@ import ButtonEditQuestStatus from "./buttons/ButtonEditQuestStatus.vue"
 import { deleteQuest, moveQuestOrderUp, moveQuestOrderDown } from "../firebase/firestore.js";
 import { getSelectedQuest, setSelectedQuest, setMapZoom, setMapCenterCoords, resetMapCenterCoords } from "../global/storage.js";
 import { ref, computed, watch, toRefs } from "vue";
+import { getUser } from "../firebase/auth.js";
 
 
 export default {
   name: "Quest",
   async setup(props){
+    const user = getUser()
     const edit = ref(false);
     const focused = ref(false);
     const selectedQuest = ref(getSelectedQuest())
@@ -128,6 +130,7 @@ export default {
     });
 
     return {
+      user,
       questFocused, edit, focused, selectedQuest,
       questClicked, removeQuest, toggleModal, questStatus,
       moveUp, moveDown,
