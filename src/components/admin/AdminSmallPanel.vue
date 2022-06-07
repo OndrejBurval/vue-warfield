@@ -7,7 +7,7 @@
       </Popper>
 
       <Popper class="ms-0" hover arrow content="Odebere všechny úkoly">
-        <ButtonRemoveTeamQuests :team-id="teamId">
+        <ButtonRemoveTeamQuests :team-id="teamId" >
           <BIconTrash />
         </ButtonRemoveTeamQuests>
       </Popper>

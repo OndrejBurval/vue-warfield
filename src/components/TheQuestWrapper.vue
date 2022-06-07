@@ -23,7 +23,7 @@
           </Popper>
 
           <Popper hover arrow content="Odebrat tým">
-            <ButtonRemoveTeam :team-id="team.id">
+            <ButtonRemoveTeam :team-id="team.id" :team-email="team.userName">
               <BIconTrash />
             </ButtonRemoveTeam>
           </Popper>

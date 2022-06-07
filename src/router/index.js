@@ -25,7 +25,10 @@ const routes = [
     {
         path: "/login",
         name: "Login",
-        component: Login
+        component: Login,
+        meta: {
+            logged: true
+        }
     },
     {
         path: "/register",
@@ -57,6 +60,7 @@ router.beforeEach((to, from, next) => {
     } else {
         next();
     }
+
 })
 
 export default router

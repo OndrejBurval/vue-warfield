@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { onUnmounted, ref } from "vue";
 import { db } from "./firebase.js";
+import { removeUserByEmail } from "./firebase.js";
 
 const teamCollection = collection(db,"teams")
 const questCollection = collection(db, "quest")
@@ -72,12 +73,12 @@ const updateQuestOrders = async ( teamId, oldOrder, newOrder ) => {
 
 export const moveQuestOrderUp = async ( teamId, order ) => {
     let newOrder = order - 1;
-    updateQuestOrders( teamId, order, newOrder )
+    await updateQuestOrders( teamId, order, newOrder )
 }
 
 export const moveQuestOrderDown = async ( teamId, order ) => {
     let newOrder = order + 1;
-    updateQuestOrders( teamId, order, newOrder )
+    await updateQuestOrders( teamId, order, newOrder )
 }
 
 export const updateQuestStatus = async ( questId, status ) => {

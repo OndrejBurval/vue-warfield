@@ -34,7 +34,7 @@
       </li>
       <li>
 
-        <ButtonRemoveTeam :team-id="team.id">
+        <ButtonRemoveTeam :team-id="team.id" :team-email="team.userName">
           <a class="dropdown-item">
             Odebrat
           </a>

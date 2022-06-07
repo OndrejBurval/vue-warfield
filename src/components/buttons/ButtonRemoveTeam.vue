@@ -8,6 +8,7 @@
 
 <script>
 import { deleteTeam, deleteTeamQuests } from "../../firebase/firestore.js";
+import { removeUserByEmail } from "../../firebase/firebase.js";
 
 export default {
   name: "ButtonRemoveTeam",
@@ -15,14 +16,18 @@ export default {
 
     const removeTeam = async () => {
       if (confirm("Opravdu chcete odebrat tým ? (Odebere i všechny úkoly)")){
-        await deleteTeam(props.teamId)
+        removeUserByEmail({ email: props.teamEmail })
+            .then(result => {
+              console.log(result)
+            })
         await deleteTeamQuests(props.teamId)
+        await deleteTeam(props.teamId)
       }
     }
 
     return { removeTeam }
   },
-  props: ["teamId"]
+  props: ["teamId", "teamEmail"]
 }
 </script>
 
