@@ -1,5 +1,5 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, deleteUser, getIdTokenResult } from "firebase/auth";
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { auth } from "./firebase.js";
 
 const user = ref()

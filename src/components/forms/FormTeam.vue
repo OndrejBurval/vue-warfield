@@ -40,9 +40,9 @@ export default {
         await updateTeam(this.teamId, this.teamName)
         this.toggle()
       } else{
-        const userName = this.teamName.replace(" ", "-")
-        //const password = "123456"
-        //await createUser(userName, password)
+        const userName = this.teamName.replaceAll(" ", "-").toLocaleLowerCase();
+        const password = "123456"
+        await createUser(userName, password)
         await addTeam(this.teamName, this.color, userName + "@warfield.cz")
         this.toggle()
       }
