@@ -8,14 +8,15 @@ import {
     query,
     serverTimestamp,
     updateDoc,
-    where
+    where,
+    GeoPoint
 } from "firebase/firestore";
 import { onUnmounted, ref } from "vue";
 import { db } from "./firebase.js";
-import { removeUserByEmail } from "./firebase.js";
 
 const teamCollection = collection(db,"teams")
 const questCollection = collection(db, "quest")
+const placesCollection = collection(db, "places")
 
 
 
@@ -140,6 +141,20 @@ const updateOrder = async (questId, orderValue) => {
     })
 }
 
+export const getMapSettings = async () => {
+    const docRef = doc(db, "map", "settings")
+    return await getDoc(docRef)
+}
+
+
+export const addPlace = async (placeName, lat, long) => {
+    await addDoc(placesCollection, {
+        name: placeName,
+        coords: new GeoPoint(lat, long),
+        created: serverTimestamp()
+    });
+}
+
 
 const reAlignQuestOrder = async (team) => {
     const questSnapshot = await getDocs(query(questCollection, where("teamId", "==", team)));
@@ -176,6 +191,12 @@ export const getTeamQuestCollection = async (teamId) => {
 
 export const getQuestCollection = async () => {
     const q = query(questCollection, orderBy("order", "asc"))
+    return snapshotLoop(q)
+}
+
+
+export const getPlacesCollection = async () => {
+    const q = query(placesCollection, orderBy("created", "asc"))
     return snapshotLoop(q)
 }
 

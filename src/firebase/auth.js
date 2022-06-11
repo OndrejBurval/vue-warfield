@@ -12,7 +12,7 @@ export const createUser = (email, password) => {
     createUserWithEmailAndPassword(auth, warfieldEmail, password)
         .then((data) => {
             console.log(data.user)
-            //window.location.replace("/");
+            window.location.replace("/");
         })
         .catch((error) => {
             console.log(error.message)
@@ -34,7 +34,7 @@ export const logIn = (email, password) => {
 
     signInWithEmailAndPassword(auth, warfieldEmail, password)
         .then(() => {
-           //window.location.replace("/");
+           window.location.replace("/");
         })
         .catch((error) => {
             console.log(error.message)

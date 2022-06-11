@@ -4,6 +4,7 @@ import Home from "../views/Home.vue"
 import MapEditor from "../views/MapEditor.vue"
 import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
+import GameSettings from "../views/GameSettings.vue"
 
 const routes = [
     {
@@ -34,6 +35,14 @@ const routes = [
         path: "/register",
         name: "Register",
         component: Register,
+        meta: {
+            requireAuth: true
+        }
+    },
+    {
+        path: "/game-settings",
+        name: "Game settings",
+        component: GameSettings,
         meta: {
             requireAuth: true
         }

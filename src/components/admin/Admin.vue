@@ -1,7 +1,7 @@
 <template >
   <div v-if="user && user.admin">
     <BIconGear class="hover-rotate me-3" :fill="'#ffffff'" @click="sidebarToggle" />
-    <router-link to="/map-editor">
+    <router-link to="/game-settings">
       <BIconMap :fill="'#ffffff'" />
     </router-link>
 

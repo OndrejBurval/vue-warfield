@@ -5,7 +5,7 @@
       :options="options"
       class="map"
       :class="watchClickClass"
-      map-type-id="terrain"
+      :map-type-id="mapType"
       @click="returnClickedCoords"
   >
 
@@ -54,7 +54,7 @@
 <script>
 import { getQuestCollection } from "../firebase/firestore.js";
 import { toggleQuestSidebar, getQuestSidebar,getWatchMapClick, toggleWatchMapClick } from "../global/stateManagement.js";
-import { setMapClickedCoords, setSelectedQuest, getMapCenterCoords, getMapZoom } from "../global/storage.js";
+import { setMapClickedCoords, setSelectedQuest, getMapCenterCoords, getMapZoom, getMapType } from "../global/storage.js";
 import { computed, ref, onMounted } from "vue";
 
 const home = { lat: 49.93716915792965, lng: 15.688771198236168 }
@@ -105,6 +105,7 @@ export default {
 
     // SETINGS
     const mapZoom = getMapZoom()
+    const mapType = getMapType()
     const iconSize = ref(38)
     const options = ref({
       mapId: "c8dda2d6001c33e7",
@@ -159,6 +160,7 @@ export default {
       iconSize,
       centerCoords,
       mapZoom,
+      mapType,
       openedMarkerID,
       watchClickClass,
       returnClickedCoords,

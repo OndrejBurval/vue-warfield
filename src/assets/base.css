@@ -30,6 +30,22 @@ svg:hover path{
   fill: #d33e3e;
 }
 
+a{
+  text-decoration: none !important;
+  color: black !important;
+  transition: .3s;
+}
+
+a:hover{
+  color: #d33e3e !important;
+}
+
+.text-light a{
+  color: white !important;
+}
+
+
+
 
 :root {
   --popper-theme-background-color: #333333;

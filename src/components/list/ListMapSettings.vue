@@ -4,12 +4,14 @@
   </h3>
   <hr>
 
+  <Suspense>
+    <SelectMapCenter />
+  </Suspense>
 </template>
 
-<script>
-export default {
-  name: "ListMapSettings"
-}
+<script setup>
+import SelectMapCenter from "../buttons/SelectMapCenter.vue";
+
 </script>
 
 <style scoped>
