@@ -87,23 +87,10 @@ watch( () => picked.value, async () => {
 
 <style lang="scss" scoped>
   .box{
-    position: relative;
-    width: calc(100% / 4 - 15px);
     height: auto;
     aspect-ratio: 1;
-    background: #e4f1f1;
-    border-radius: 15px;
-    box-shadow: #efefef 0 0 10px;
-    cursor: pointer;
-    transition: .3s;
 
-    &.active{
-      border: solid #0d6efd 8px;
 
-      &:hover{
-        border: solid #0f56c4 8px;
-      }
-    }
 
     &:hover{
       box-shadow: #bebebe 0 0 20px;
@@ -114,10 +101,14 @@ watch( () => picked.value, async () => {
     }
 
     &-wrapper{
-      display: flex;
+      display: grid;
+      grid-auto-rows: minmax(200px, max-content);
       gap: 20px;
-      flex-wrap: wrap;
-      flex-direction: row;
+      margin-block: 40px;
+
+      @media (min-width: 768px){
+        grid-template-columns: repeat(3 ,1fr);
+      }
     }
 
     &-content{

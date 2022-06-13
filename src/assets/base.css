@@ -74,6 +74,14 @@ a .box{
   z-index: 9999;
 }
 
+.box.active{
+   border: solid #0d6efd 8px;
+}
+
+.box.active:hover{
+   border: solid #0f56c4 8px;
+ }
+
 .box:hover{
   box-shadow: #bebebe 0 0 20px;
 }

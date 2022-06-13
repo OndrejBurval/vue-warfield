@@ -19,7 +19,6 @@
         </h2>
       </div>
 
-      <VueGoogleMap class="map" />
     </section>
 
 
@@ -119,26 +118,15 @@ export default {
 
   section{
     display: grid;
-    grid-template-columns: repeat(3 ,1fr);
-    grid-auto-rows: min-content;
+    grid-auto-rows: minmax(200px, max-content);
     gap: 20px;
     margin-block: 40px;
-  }
-  .map{
-    height: 100%;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: #efefef 0 0 50px;
-    opacity: .7;
-    transition: .3s;
 
-    position: relative;
-    z-index: 5;
-
-    &:hover{
-      opacity: 1;
+    @media (min-width: 768px){
+      grid-template-columns: repeat(3 ,1fr);
     }
   }
+
 
   .overlay{
     content: "";
@@ -150,16 +138,6 @@ export default {
   }
 
   .box{
-    width: 100%;
-    height: auto;
-    position: relative;
-    min-height: 250px;
-    background: #e4f1f1;
-    border-radius: 15px;
-    box-shadow: #efefef 0 0 10px;
-    cursor: pointer;
-    transition: .3s;
-    padding: 20px;
     display: grid;
     place-items: center;
 

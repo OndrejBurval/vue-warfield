@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <nav class="navbar navbar-dark bg-dark px-5">
+    <nav class="navbar bg-dark">
 
       <router-link to="/">
         <div class="link">
@@ -27,8 +27,16 @@
     </nav>
 
     <div class="content container">
+
+      <VueGoogleMap class="map" />
+
       <Suspense>
-        <AdminOverview v-if="!showOverview && !teams" :lokace-toggle="locationToggle" :teams-toggle="teamsToggle" />
+        <template #default>
+          <AdminOverview v-if="!showOverview && !teams" :lokace-toggle="locationToggle" :teams-toggle="teamsToggle" />
+        </template>
+        <template #fallback>
+          <BIconArrowClockwise class="loading" />
+        </template>
       </Suspense>
 
       <Suspense>
@@ -50,6 +58,7 @@ import { ref, computed } from "vue";
 import ListPlaces from "../components/list/ListPlaces.vue";
 import ListTeamsBoxes from "../components/list/ListTeamsBoxes.vue";
 import AdminOverview from "../components/admin/AdminOverview.vue";
+import VueGoogleMap from "../components/VueGoogleMap.vue";
 
 
 const location = ref(false)
@@ -80,6 +89,12 @@ const showOverview = computed(() => {
 
 <style lang="scss" scoped>
 
+  .navbar{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
   a{
     cursor: pointer;
   }
@@ -93,6 +108,7 @@ const showOverview = computed(() => {
     display: grid;
     place-items: center;
     color: white;
+    text-align: center;
 
 
     &:hover{
@@ -102,6 +118,23 @@ const showOverview = computed(() => {
 
   .active{
     color: #d33e3e !important;
+  }
+
+  .map{
+    height: 200px;
+    margin-block: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: #efefef 0 0 50px;
+    opacity: .7;
+    transition: .3s;
+
+    position: relative;
+    z-index: 5;
+
+    &:hover{
+      opacity: 1;
+    }
   }
 
 

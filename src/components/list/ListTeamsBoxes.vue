@@ -14,8 +14,11 @@
 
   <div class="wrapper">
     <div v-for="team in teams" :key="team.id" class="box" >
-      <span class="badge" :style="{ background: team.color, color: team.color }"> . </span>
-      {{ team.name }}
+      <h2>
+        <span class="badge" :style="{ background: team.color, color: team.color }"> . </span>
+
+        {{ team.name }}
+      </h2>
 
 
       <div class="actions">
@@ -24,7 +27,9 @@
             Odebrat úkoly
         </ButtonRemoveTeamQuests>
         <ButtonFormTeam class="btn btn-primary" update="true" :team-name="team.name" :team-id="team.id">
+          <button class="btn btn-primary">
             Upravit
+          </button>
         </ButtonFormTeam>
         <ButtonRemoveTeam class="btn btn-primary" :team-id="team.id" :team-email="team.userName">
             Odebrat
@@ -95,28 +100,35 @@ export default {
   z-index: 1;
 }
 
-svg, a{
-  cursor: pointer;
-}
-
-.dropdown-toggle::after{
+.badge{
+  content: "";
   position: absolute;
-  right: 20px;
-  top: 50%;
-
+  top: 0;
+  left: 0;
+  width: 100%;
 }
 
-.btn{
-  padding-right: 35px !important;
+
+.actions{
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+button{
+  width: 100%;
 }
 
 
 .wrapper{
   display: grid;
-  grid-template-columns: repeat(3 ,1fr);
-  grid-auto-rows: min-content;
+  grid-auto-rows: minmax(200px, max-content);
   gap: 20px;
   margin-block: 40px;
+
+  @media (min-width: 768px){
+    grid-template-columns: repeat(3 ,1fr);
+  }
 }
 
 
