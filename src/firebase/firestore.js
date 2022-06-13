@@ -17,6 +17,7 @@ import { db } from "./firebase.js";
 const teamCollection = collection(db,"teams")
 const questCollection = collection(db, "quest")
 const placesCollection = collection(db, "places")
+const mapSettingsCollection = collection(db, "map")
 
 
 
@@ -146,6 +147,25 @@ export const getMapSettings = async () => {
     return await getDoc(docRef)
 }
 
+export const getPlaceByID = async (placeID) => {
+    const docRef = doc(db, "places", placeID)
+    return await getDoc(docRef)
+}
+
+export const updateMapLocation = async ( placeID ) => {
+    const place = await getPlaceByID(placeID)
+    const docRef = doc(db, "map", "settings")
+    await updateDoc(docRef, {
+        placeID: placeID,
+        placeName: place.data().name,
+        center: new GeoPoint(place.data().coords._lat, place.data().coords._long)
+    })
+}
+
+export const deleteLocation = async ( locationID ) => {
+    await deleteDoc(doc(db, "places", locationID));
+}
+
 
 export const addPlace = async (placeName, lat, long) => {
     await addDoc(placesCollection, {
@@ -153,6 +173,14 @@ export const addPlace = async (placeName, lat, long) => {
         coords: new GeoPoint(lat, long),
         created: serverTimestamp()
     });
+}
+
+export const updatePlace = async ( placeID, placeName, lat, long ) => {
+    const docRef = doc(db, "places", placeID)
+    await updateDoc(docRef, {
+        name: placeName,
+        coords: new GeoPoint(lat, long)
+    })
 }
 
 
@@ -193,7 +221,6 @@ export const getQuestCollection = async () => {
     const q = query(questCollection, orderBy("order", "asc"))
     return snapshotLoop(q)
 }
-
 
 export const getPlacesCollection = async () => {
     const q = query(placesCollection, orderBy("created", "asc"))
