@@ -162,6 +162,20 @@ export const updateMapLocation = async ( placeID ) => {
     })
 }
 
+export const updateMapZoom = async ( zoomValue ) => {
+    const docRef = doc(db, "map", "settings")
+    await updateDoc(docRef, {
+        zoom: zoomValue
+    })
+}
+
+export const updateMapType = async ( mapType ) => {
+    const docRef = doc(db, "map", "settings")
+    await updateDoc(docRef, {
+        type: mapType
+    })
+}
+
 export const deleteLocation = async ( locationID ) => {
     await deleteDoc(doc(db, "places", locationID));
 }

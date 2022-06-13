@@ -13,12 +13,12 @@
             <span>Lat: {{ place.coords._lat }} </span>
             <span>Lng: {{ place.coords._long }} </span>
           </label>
+
           <input type="radio" :id="place.id" :value="place.id" @click="check" v-model="picked" :checked="mapSettings.data().placeID === place.id" />
         </div>
 
         <div v-if="updateFormToggle && updatePlaceID === place.id" class="p-3 cursor-default box-content">
           <BIconXCircle  @click="updateToggleOff" class="exit" />
-          {{place.id}}
           <FormLocation :toggle-form="updateToggleOff" :active="place.id === mapSettings.data().placeID" :update="true" :name="place.name" :placeID="place.id" :lat="place.coords._lat" :long="place.coords._long" />
         </div>
       </div>

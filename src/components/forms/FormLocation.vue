@@ -4,7 +4,7 @@
     <input required v-model="locationName" class="form-control" type="text" placeholder="Název...">
 
     <div class="form-row form-coords">
-      <label> Souřadnice {{ active }} </label>
+      <label> Souřadnice </label>
       <div class="d-flex justify-content-between">
         <div class="col-md-6">
           <label for="lat_input"> Lat: </label>

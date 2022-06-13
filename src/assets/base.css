@@ -7,7 +7,7 @@
 html{
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 svg{
@@ -44,6 +44,39 @@ a:hover{
   color: white !important;
 }
 
+
+
+.box{
+  width: 100%;
+  height: auto;
+  position: relative;
+  min-height: 250px;
+  background: #e4f1f1;
+  border-radius: 15px;
+  box-shadow: #efefef 0 0 10px;
+  cursor: pointer;
+  transition: .3s;
+  padding: 20px;
+  display: grid;
+  place-items: center;
+}
+
+a .box{
+  height: 100% !important;
+}
+
+.box span{
+  width: 100%;
+  text-align: center;
+  font-weight: 400;
+  color: #2a2f34;
+  position: relative;
+  z-index: 9999;
+}
+
+.box:hover{
+  box-shadow: #bebebe 0 0 20px;
+}
 
 
 

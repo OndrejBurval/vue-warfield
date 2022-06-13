@@ -108,7 +108,7 @@ export default {
     const mapType = getMapType()
     const iconSize = ref(38)
     const options = ref({
-      mapId: "c8dda2d6001c33e7",
+      //mapId: "c8dda2d6001c33e7",
       zoomControl: false,
       mapTypeControl: false,
       scaleControl: false,
@@ -191,8 +191,15 @@ export default {
 }
 
 .watching{
-  z-index: 99999999;
+  z-index: 99999999 !important;
+  position: fixed !important;
+  inset: 0 !important;
+  margin: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
   cursor: crosshair !important;
+  overflow: hidden !important;
+  opacity: 1 !important;
 }
 
 </style>

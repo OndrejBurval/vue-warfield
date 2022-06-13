@@ -10,33 +10,34 @@
       </router-link>
 
 
-      <div class="link"  @click="toggleOffAll" :class="!location ? 'active' : ''">
+      <div class="link"  @click="toggleOffAll" :class="!location && !teams ? 'active' : ''">
         <BIconWrenchAdjustableCircle />
-        Přehled nastavení
+        Přehled
+      </div>
+
+      <div class="link"  @click="teamsToggle" :class="teams ? 'active' : ''">
+        <BIconPeople />
+        Týmy
       </div>
 
       <div class="link" @click="locationToggle" :class="location ? 'active' : ''">
         <BIconGeo />
         Lokace
       </div>
-
-
-      <div class="link">
-        <BIconMap />
-
-          Typ mapy
-      </div>
-
     </nav>
 
-    <div class="content">
+    <div class="content container">
       <Suspense>
-        <AdminOverview v-if="!showOverview" :lokace-toggle="locationToggle" />
+        <AdminOverview v-if="!showOverview && !teams" :lokace-toggle="locationToggle" :teams-toggle="teamsToggle" />
       </Suspense>
+
       <Suspense>
         <ListPlaces v-if="location" />
       </Suspense>
 
+      <Suspense>
+        <ListTeamsBoxes v-if="teams" />
+      </Suspense>
     </div>
 
 
@@ -47,18 +48,26 @@
 import { ref, computed } from "vue";
 
 import ListPlaces from "../components/list/ListPlaces.vue";
+import ListTeamsBoxes from "../components/list/ListTeamsBoxes.vue";
 import AdminOverview from "../components/admin/AdminOverview.vue";
 
 
 const location = ref(false)
+const teams = ref(false)
 
 
 const locationToggle = () => {
+  toggleOffAll()
   location.value = !location.value
+}
+const teamsToggle = () => {
+  toggleOffAll()
+  teams.value = !teams.value
 }
 
 const toggleOffAll = () => {
   location.value = false
+  teams.value = false
 }
 
 const showOverview = computed(() => {

@@ -1,54 +1,115 @@
 <template>
-  <div class="overview container">
 
-    <router-link to="/">
-      <div class="box">
-        <BIconHouse />
+  <div class="overview">
+    <section>
+      <router-link to="/">
+        <div class="box">
+          <BIconHouse />
+          <h2>
+            Hlavní stránka
+          </h2>
+        </div>
+      </router-link>
 
+
+      <div class="box" @click="teamsToggle">
+        <BIconPeople />
         <h2>
-          Hlavní stránka
+          Týmy
         </h2>
       </div>
-    </router-link>
 
-    <div class="box" @click="lokaceToggle">
-      <BIconGeo />
+      <VueGoogleMap class="map" />
+    </section>
 
-      <h2>
-        Lokace
-      </h2>
-      <span>
-            {{ mapSettings.data().placeName }}
-          </span>
+
+    <div @click="toggleMapSettings" :class="mapSettingsToggle ? 'toggler active' : 'toggler'">
+      <h2>Nastavení mapy</h2>
+      <BIconCaretDownFill />
+      <hr>
     </div>
-    <div class="box">
-      <BIconMap />
-      <h2>
-        Typ mapy
-      </h2>
-      <span>
-            {{ mapSettings.data().type }}
-          </span>
-    </div>
+
+    <section v-if="mapSettingsToggle">
+      <div class="box" @click="lokaceToggle">
+        <BIconGeo />
+        <h2>
+          Lokace
+        </h2>
+        <span>
+          {{ mapSettings.data().placeName }}
+        </span>
+      </div>
+
+      <div class="box">
+        <div class="overlay" @click="toggleType"></div>
+        <BIconMap />
+        <h2>
+          Typ mapy
+        </h2>
+        <span v-if="typeToggle">
+          <FormMapType :db_type="mapSettings.data().type" />
+        </span>
+      </div>
+
+      <div class="box">
+        <div class="overlay" @click="toggleZoom"></div>
+        <BIconZoomIn />
+        <h2>
+          Přiblížení mapy
+        </h2>
+        <span>
+          <FormMapZoom v-if="zoomToggle" :db-zoom="mapSettings.data().zoom"/>
+        </span>
+      </div>
+    </section>
+
+
+
+
+
+
   </div>
 
 </template>
 
 <script>
 import { getMapSettings } from "../../firebase/firestore.js";
+import { ref, computed } from "vue";
+
+import FormMapZoom from "../forms/FormMapZoom.vue";
+import FormMapType from "../forms/FormMapType.vue";
+import VueGoogleMap from "../VueGoogleMap.vue";
 
 
 export default {
   name: "AdminOverview",
   async setup(){
     const mapSettings = await getMapSettings()
+    const zoomToggle = ref(false)
+    const typeToggle = ref(false)
+    const mapSettingsToggle = ref(false)
+
+    const toggleMapSettings = () => mapSettingsToggle.value = !mapSettingsToggle.value
+    const toggleZoom = () => zoomToggle.value = !zoomToggle.value
+    const toggleType = () => typeToggle.value = !typeToggle.value
 
 
     return {
-      mapSettings
+      mapSettingsToggle,
+      mapSettings,
+      zoomToggle,
+      typeToggle,
+      toggleMapSettings,
+      toggleZoom,
+      toggleType
     }
   },
-  props: ["lokaceToggle"]
+  props: ["lokaceToggle", "teamsToggle"],
+  components: {
+    FormMapZoom,
+    FormMapType,
+    VueGoogleMap
+  }
 }
 
 
@@ -56,18 +117,43 @@ export default {
 
 <style lang="scss" scoped>
 
-  .overview{
+  section{
     display: grid;
     grid-template-columns: repeat(3 ,1fr);
     grid-auto-rows: min-content;
     gap: 20px;
     margin-block: 40px;
   }
+  .map{
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: #efefef 0 0 50px;
+    opacity: .7;
+    transition: .3s;
+
+    position: relative;
+    z-index: 5;
+
+    &:hover{
+      opacity: 1;
+    }
+  }
+
+  .overlay{
+    content: "";
+    position: absolute;
+    background: lightcoral;
+    inset: 0;
+    z-index: 10;
+    opacity: 0;
+  }
 
   .box{
     width: 100%;
+    height: auto;
     position: relative;
-    min-height: 200px;
+    min-height: 250px;
     background: #e4f1f1;
     border-radius: 15px;
     box-shadow: #efefef 0 0 10px;
@@ -80,5 +166,44 @@ export default {
     &:hover{
       box-shadow: #bebebe 0 0 20px;
     }
+
+    a &{
+      height: 100% !important;
+    }
+
+    span{
+      width: 100%;
+      text-align: center;
+      font-weight: 400;
+      color: #2a2f34;
+      position: relative;
+      z-index: 9999;
+    }
   }
+
+  .toggler{
+    cursor: pointer;
+    transition: .3s;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    width: 100%;
+
+    hr{
+      grid-column: 1 / 3;
+    }
+
+    svg{
+      place-self: end;
+    }
+
+    &.active{
+      color: #d33e3e;
+
+      svg{
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+
 </style>

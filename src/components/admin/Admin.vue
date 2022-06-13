@@ -10,8 +10,6 @@
         <Suspense>
           <ListTeams />
         </Suspense>
-  
-        <ListMapSettings />
 
       </SideBar>
     </Transition>
@@ -23,7 +21,6 @@ import FormQuest from "../forms/FormQuest.vue";
 import Modal from "../utils/Modal.vue";
 import SideBar from "../utils/SideBar.vue";
 import ListTeams from "../list/ListTeams.vue";
-import ListMapSettings from "../list/ListMapSettings.vue";
 import { ref } from "vue";
 import { getUser } from "../../firebase/auth.js";
 
@@ -44,7 +41,6 @@ export default {
     Modal,
     SideBar,
     ListTeams,
-    ListMapSettings
   }
 }
 </script>
