@@ -98,10 +98,10 @@ export default {
 
     const zoom = () => {
       if (focused.value === false){
-        setMapZoom(14)
+        setMapZoom(16)
         resetMapCenterCoords()
       } else{
-        setMapZoom(16)
+        setMapZoom(19)
         setMapCenterCoords(data_lat, data_lng)
       }
     }

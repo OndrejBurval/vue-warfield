@@ -125,7 +125,7 @@ const showOverview = computed(() => {
     margin-block: 20px;
     border-radius: 10px;
     overflow: hidden;
-    box-shadow: #efefef 0 0 50px;
+    box-shadow: #565656 0 0 10px;
     opacity: .7;
     transition: .3s;
 

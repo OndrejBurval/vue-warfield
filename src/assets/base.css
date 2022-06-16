@@ -6,12 +6,19 @@
 
 html{
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   overflow-x: hidden;
 }
 
+body{
+  min-height: 100vh;
+}
+
+#app{
+  min-height: 100vh;
+}
+
 svg{
-  transition: .3s;
   width: 30px;
   height: auto;
   aspect-ratio: 1;
@@ -30,10 +37,27 @@ svg:hover path{
   fill: #d33e3e;
 }
 
+.nav-link, .nav-link a{
+  display: grid !important;
+  place-items: center;
+  color: white !important;
+  cursor: pointer;
+  gap: 10px;
+}
+
+.nav-link:hover{
+  fill: #d33e3e !important;
+  color: #d33e3e !important;
+}
+
+.nav-link:hover svg{
+  fill: #d33e3e !important;
+  color: #d33e3e !important;
+}
+
 a{
   text-decoration: none !important;
   color: black !important;
-  transition: .3s;
 }
 
 a:hover{

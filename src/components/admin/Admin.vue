@@ -1,9 +1,19 @@
 <template >
-  <div v-if="user && user.admin">
-    <BIconGear class="hover-rotate me-3" :fill="'#ffffff'" @click="sidebarToggle" />
-    <router-link to="/game-settings">
-      <BIconMap :fill="'#ffffff'" />
-    </router-link>
+    <div class="nav-link" @click="sidebarToggle" >
+      <BIconGear :fill="'#ffffff'" />
+      <span>
+        Rychlé nastavení
+      </span>
+    </div>
+
+    <div class="nav-link">
+      <router-link to="/game-settings">
+        <BIconWrenchAdjustableCircle :fill="'#ffffff'" />
+        <span>
+         Nastavení
+        </span>
+      </router-link>
+    </div>
 
     <Transition name="slide-right">
       <SideBar v-if="sidebar" :title="'Admin module'" :overlay="false" :toggle="sidebarToggle">
@@ -13,7 +23,6 @@
 
       </SideBar>
     </Transition>
-  </div>
 </template>
 
 <script>

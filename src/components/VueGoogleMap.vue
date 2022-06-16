@@ -32,7 +32,7 @@
           <div>
             <h3>
               {{ quest.order }}. {{ quest.title }}
-              {{ quest.color }}
+              <span class="badge bg-black" :data-status="quest.status"> {{ displayStatus(quest.status) }} </span>
             </h3>
             <p>
               {{ quest.desc }}
@@ -141,6 +141,21 @@ export default {
       }
     }
 
+    const displayStatus = (status) => {
+      switch (status){
+        case 0:
+          return "Neutrální";
+        case 1:
+          return "Čekající";
+        case 2:
+          return "Aktivní";
+        case 3:
+          return "Dokončený";
+        case 4:
+          return "Selhal";
+      }
+    }
+
     const passQuestIdToStorage = (id) => {
       openMarker(id)
 
@@ -175,7 +190,8 @@ export default {
       watchClickClass,
       returnClickedCoords,
       openMarker,
-      passQuestIdToStorage
+      passQuestIdToStorage,
+      displayStatus
     }
   },
   data() {
@@ -189,9 +205,9 @@ export default {
 
 <style lang="scss" scoped>
 .map{
-  position: fixed;
-  z-index: -1;
-  inset: 0;
+  //position: fixed;
+  z-index: 0;
+  //inset: 0;
 }
 
 
@@ -211,5 +227,11 @@ export default {
   overflow: hidden !important;
   opacity: 1 !important;
 }
+
+[data-status="0"]{ background: #565656 !important; } // Neutrální
+[data-status="1"]{ background: #ef9c1e !important; } // Čekající
+[data-status="2"]{ background: #299cc9 !important; } // Aktivní
+[data-status="3"]{ background: #1dbb31 !important; } // Dokončený
+[data-status="4"]{ background: #e73f3f !important; } // Selhal
 
 </style>

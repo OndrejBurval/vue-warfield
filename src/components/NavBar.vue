@@ -6,8 +6,19 @@
     </div>
 
     <div class="navbar--right" v-if="user">
-      <BIconQuestionDiamond :cursor="'pointer'" :fill="'#ffffff'" @click="toggleQuestSidebar" class="me-3"/>
-      <Admin />
+      <div class="nav-link">
+        <BIconInfoSquare :cursor="'pointer'" :fill="'#ffffff'" />
+        <span>
+          Scénář
+        </span>
+      </div>
+      <div class="nav-link" @click="toggleQuestSidebar">
+        <BIconJournalText :cursor="'pointer'" :fill="'#ffffff'"  />
+        <span>
+          Úkoly
+        </span>
+      </div>
+      <Admin v-if="user.admin" />
     </div>
 
   </nav>
@@ -57,6 +68,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+.navbar{
+  height: 100px;
+}
 
+ .navbar--right{
+   display: grid;
+   grid-auto-columns: 1fr;
+   grid-auto-flow: column;
+ }
 </style>
