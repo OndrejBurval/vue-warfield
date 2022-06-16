@@ -8,7 +8,7 @@
 
   <!-- Team Modal -->
   <Modal v-if="teamModal" :toggle="modalToggle">
-    <FormTeam :toggle="modalToggle" :update="updateTeam" :team-name="teamName" :team-id="teamId" />
+    <FormTeam :toggle="modalToggle" :update="updateTeam" :team-name="teamName" :team-id="teamId" :scenary="teamScenary" />
   </Modal>
 
 
@@ -34,7 +34,7 @@ export default {
 
     return { teamModal, updateTeam, modalToggle }
   },
-  props: ["teamId", "teamName", "update"],
+  props: ["teamId", "teamName", "update", "teamScenary"],
   components: {
     Modal,
     FormTeam

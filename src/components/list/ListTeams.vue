@@ -26,7 +26,7 @@
         </ButtonRemoveTeamQuests>
       </li>
       <li>
-        <ButtonFormTeam update="true" :team-name="team.name" :team-id="team.id">
+        <ButtonFormTeam update="true" :team-name="team.name" :team-id="team.id" :team-scenary="team.scenary">
           <a class="dropdown-item">
             Upravit
           </a>

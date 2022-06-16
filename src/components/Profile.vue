@@ -6,7 +6,11 @@
       </div>
 
       <div class="profileName" v-if="user">
-        {{ userName }}
+
+        {{ userData.name ? userData.name : "Missing user data" }}
+
+        <span class="badge" v-if="userData.color" :style="{ background: userData.color, color: userData.color }">.</span>
+
       </div>
       <div class="login" v-else>
         <router-link to="/login">
@@ -26,9 +30,10 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import { getUser, logOut } from "../firebase/auth.js";
+import { getUser, logOut, getUserData } from "../firebase/auth.js";
 
 const user = getUser()
+const userData = getUserData()
 const toggleContent = ref(false)
 
 const userName = computed(()=> {
@@ -59,13 +64,10 @@ const userName = computed(()=> {
     border-radius: 5px;
     color: #2a2f34;
     padding: 5px 10px;
-
-
-
   }
 
   a{
-    color: white;
+    color: black !important;
     transition: .2s;
     &:hover{
       text-decoration: underline !important;

@@ -1,9 +1,10 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, deleteUser, getIdTokenResult } from "firebase/auth";
 import { ref } from "vue";
 import { auth } from "./firebase.js";
+import { getTeamByEmail } from "./firestore.js";
 
-const user = ref()
-user.value = auth.currentUser
+const user = ref(auth.currentUser)
+const userData = ref({})
 
 
 export const createUser = (email, password) => {
@@ -49,21 +50,13 @@ onAuthStateChanged(auth, (loggedUser) => {
                 loggedUser.admin = idTokenResult.claims.admin
                 user.value = loggedUser
             })
+            .then(async () => {
+                if (!loggedUser.admin) userData.value = await getTeamByEmail(loggedUser.email)
+                if (loggedUser.admin) userData.value = { name: "Warfield", color: "#ffffff", id: "admin" }
+                if (userData.value.length === 0) userData.value = false
+            })
     }
 })
 
-export const testUser = () => {
-    onAuthStateChanged(auth, (loggedUser) => {
-        if(loggedUser) {
-            getIdTokenResult(loggedUser)
-                .then(idTokenResult => {
-                    loggedUser.admin = idTokenResult.claims.admin
-                })
-            return loggedUser
-        } else {
-            return undefined
-        }
-    })
-}
-
 export const getUser = () => user
+export const getUserData = () => userData

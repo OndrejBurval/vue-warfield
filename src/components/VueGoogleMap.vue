@@ -9,8 +9,10 @@
       @click="returnClickedCoords"
   >
 
+    <section v-for="(quest, index) in quests">
+
       <GMapMarker
-          v-for="(quest, index) in quests"
+          v-if="quest.teamId == userData.id || user.admin"
           :key="index"
           :position="quest.marker"
           :clickable="true"
@@ -38,6 +40,9 @@
           </div>
         </GMapInfoWindow>
       </GMapMarker>
+
+    </section>
+
     <!--
     :icon="{
       url: iconURL,
@@ -52,9 +57,10 @@
 </template>
 
 <script>
-import { getQuestCollection } from "../firebase/firestore.js";
+import { getQuestCollection, getTeamQuestCollection } from "../firebase/firestore.js";
 import { toggleQuestSidebar, getQuestSidebar,getWatchMapClick, toggleWatchMapClick } from "../global/stateManagement.js";
 import { setMapClickedCoords, setSelectedQuest, getMapCenterCoords, getMapZoom, getMapType } from "../global/storage.js";
+import { getUser, getUserData } from "../firebase/auth.js";
 import { computed, ref, onMounted } from "vue";
 
 const home = { lat: 49.93716915792965, lng: 15.688771198236168 }
@@ -102,6 +108,8 @@ export default {
     // STATE MANAGEMENT
     const watchClick = getWatchMapClick()
     const questSidebar = getQuestSidebar()
+    const user = getUser()
+    const userData = getUserData()
 
     // SETINGS
     const mapZoom = getMapZoom()
@@ -119,7 +127,7 @@ export default {
 
     // VARIABLES
     const quests = await getQuestCollection()
-    const openedMarkerID = ref(null)
+    const openedMarkerID = ref()
 
 
     const openMarker = (val) => {
@@ -155,6 +163,8 @@ export default {
 
 
     return {
+      user,
+      userData,
       quests,
       options,
       iconSize,

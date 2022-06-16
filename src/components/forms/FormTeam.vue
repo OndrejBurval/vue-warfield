@@ -7,6 +7,11 @@
     <color-picker class="ed" useType="pure" v-model:pureColor="color" />
 
 
+    <label for="scenary_textarea"> Scénář </label>
+    <textarea required v-model="scenary" class="form-control" id="scenary_textarea" placeholder="Text..."></textarea>
+
+
+
     <button type="submit" class="btn btn-primary w-100"> {{ status.button }} </button>
   </form>
 </template>
@@ -33,17 +38,17 @@ export default {
 
     return { status, color }
   },
-  props: ["toggle", "update", "teamName", "teamId"],
+  props: ["toggle", "update", "teamName", "teamId", "scenary"],
   methods: {
     async submit() {
       if (this.update){
-        await updateTeam(this.teamId, this.teamName, this.color)
+        await updateTeam(this.teamId, this.teamName, this.color, this.scenary)
         this.toggle()
       } else{
         const userName = this.teamName.replaceAll(" ", "-").toLocaleLowerCase();
         const password = "123456"
         await createUser(userName, password)
-        await addTeam(this.teamName, this.color, userName + "@warfield.cz")
+        await addTeam(this.teamName, this.color, userName + "@warfield.cz", this.scenary)
         this.toggle()
       }
     }

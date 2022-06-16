@@ -31,7 +31,7 @@
         <ButtonRemoveTeamQuests class="btn btn-primary" :team-id="team.id">
             Odebrat úkoly
         </ButtonRemoveTeamQuests>
-        <ButtonFormTeam class="btn btn-primary" update="true" :team-name="team.name" :team-id="team.id">
+        <ButtonFormTeam class="btn btn-primary" update="true" :team-name="team.name" :team-id="team.id" :team-scenary="team.scenary">
           <button class="btn btn-primary">
             Upravit
           </button>

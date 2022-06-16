@@ -99,19 +99,21 @@ export const deleteQuest = async ( questId ) => {
 }
 
 
-export const addTeam = async (teamName, teamColor, userName) => {
+export const addTeam = async (teamName, teamColor, userName, teamScenary) => {
     await addDoc(teamCollection, {
         name: teamName,
         color: teamColor,
         userName: userName,
+        scenary: teamScenary,
         created: serverTimestamp()
     });
 }
 
-export const updateTeam = async ( teamId, teamName, teamColor ) => {
+export const updateTeam = async ( teamId, teamName, teamColor, teamScenary ) => {
     const docRef = doc(db, "teams", teamId)
     await updateDoc(docRef, {
         name: teamName,
+        scenary: teamScenary,
         color: teamColor
     })
 }
@@ -241,3 +243,15 @@ export const getPlacesCollection = async () => {
     return snapshotLoop(q)
 }
 
+
+
+
+
+export const getTeamByEmail = async (email) => {
+    const questSnapshot = await getDocs(query(teamCollection, where("userName","==", email)));
+    let data = []
+    questSnapshot.forEach(e => {
+            data = ({ id: e.id, ...e.data() })
+    })
+    return data
+}
