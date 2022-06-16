@@ -6,7 +6,7 @@
     </div>
 
     <div class="navbar--right" v-if="user">
-      <div class="nav-link">
+      <div class="nav-link" @click="modalToggle">
         <BIconInfoSquare :cursor="'pointer'" :fill="'#ffffff'" />
         <span>
           Scénář
@@ -37,6 +37,13 @@
       </Suspense>
     </SideBar>
   </Transition>
+
+  <Modal v-if="scenaryModal" :toggle="modalToggle">
+    <h2> Scénář </h2>
+    <p>
+      ff
+    </p>
+  </Modal>
 </template>
 
 <script>
@@ -44,26 +51,32 @@ import Admin from "./admin/Admin.vue";
 import SideBar from "./utils/SideBar.vue";
 import ListQuests from "./list/ListQuests.vue";
 import TheQuestWrapper from "./TheQuestWrapper.vue";
+import Modal from "./utils/Modal.vue"
 import Profile from "./Profile.vue"
 
 import { getQuestSidebar, toggleQuestSidebar } from "../global/stateManagement.js";
 import { getUser } from "../firebase/auth.js";
+import { ref } from "vue";
 
 export default {
   name: "NavBar",
   setup(){
     const user = getUser()
+    const scenaryModal = ref(false)
 
     const questBar = getQuestSidebar()
 
-    return { user, questBar, toggleQuestSidebar }
+    const modalToggle = () => scenaryModal.value = !scenaryModal.value
+
+    return { user, questBar, scenaryModal, toggleQuestSidebar, modalToggle }
   },
   components: {
     Admin,
     SideBar,
     ListQuests,
     TheQuestWrapper,
-    Profile
+    Profile,
+    Modal,
   }
 }
 </script>
