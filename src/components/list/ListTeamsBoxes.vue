@@ -14,11 +14,16 @@
 
   <div class="wrapper">
     <div v-for="team in teams" :key="team.id" class="box" >
-      <h2>
+      <h2 class="teamName">
         <span class="badge" :style="{ background: team.color, color: team.color }"> . </span>
 
         {{ team.name }}
       </h2>
+
+      <div class="login">
+        username: {{ team.userName }}<br>
+        password: 123456
+      </div>
 
 
       <div class="actions">
@@ -98,6 +103,11 @@ export default {
 
 *{
   z-index: 1;
+}
+
+.teamName{
+  margin-bottom: 0;
+  padding-top: 20px;
 }
 
 .badge{

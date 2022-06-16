@@ -20,23 +20,20 @@ const routes = [
         name: "MapEditor",
         component: MapEditor,
         meta: {
-            requireAuth: true
+            requireAdmin: true
         }
     },
     {
         path: "/login",
         name: "Login",
-        component: Login,
-        meta: {
-            logged: true
-        }
+        component: Login
     },
     {
         path: "/register",
         name: "Register",
         component: Register,
         meta: {
-            requireAuth: true
+            requireAdmin: true
         }
     },
     {
@@ -44,7 +41,7 @@ const routes = [
         name: "Game settings",
         component: GameSettings,
         meta: {
-            requireAuth: true
+            requireAdmin: true
         }
     },
     {
@@ -58,7 +55,6 @@ const router = createRouter({
     routes
 })
 
-
 router.beforeEach((to, from, next) => {
     if (to.matched.some((record) => record.meta.requireAuth)) {
         if (auth.currentUser){
@@ -66,10 +62,18 @@ router.beforeEach((to, from, next) => {
         } else{
             next("/login");
         }
-    } else {
+    } else if (to.matched.some((record) => record.meta.requireAdmin)){
+        if (auth.currentUser && auth.currentUser.admin){
+            next();
+        } else{
+            next("/");
+        }
+    } else{
         next();
     }
 
 })
+
+
 
 export default router

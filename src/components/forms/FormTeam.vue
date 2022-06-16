@@ -37,7 +37,7 @@ export default {
   methods: {
     async submit() {
       if (this.update){
-        await updateTeam(this.teamId, this.teamName)
+        await updateTeam(this.teamId, this.teamName, this.color)
         this.toggle()
       } else{
         const userName = this.teamName.replaceAll(" ", "-").toLocaleLowerCase();
