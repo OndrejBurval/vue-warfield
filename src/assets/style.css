@@ -13,6 +13,30 @@
   animation: loading 1s infinite;
 }
 
+@keyframes slide-x {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+@keyframes slide-y {
+  0% {
+    height: 0;
+  }
+  100% {
+    height: 100%;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease;
@@ -63,6 +87,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Manrope", sans-serif;
 }
 
 html {
@@ -101,6 +126,15 @@ a:hover {
 
 .text-light a {
   color: white !important;
+}
+
+.gmnoprint, .gm-style-cc, [rel=noopener] {
+  display: none !important;
+}
+
+label {
+  font-weight: 500;
+  font-size: 1.1rem !important;
 }
 
 :root {
@@ -213,6 +247,18 @@ a .box {
   top: 100% !important;
 }
 
+.form-modal {
+  width: min(98vw, 1200px);
+  height: min-content;
+  padding-block: 30px !important;
+  resize: both;
+}
+
+input, select, button, textarea {
+  padding: 10px 15px !important;
+  margin-block: 5px !important;
+}
+
 .main {
   height: calc(100vh - 110px);
   overflow: hidden;
@@ -229,6 +275,7 @@ a .box {
   height: 100% !important;
 }
 .main .content--main {
+  animation: slide-y 1s;
   transition: 0.25s;
   height: 100%;
   max-height: calc(50vh - 110px);
@@ -237,6 +284,7 @@ a .box {
 }
 
 [data-questbar=overlay] .content--main {
+  animation: fade-in 1s;
   position: fixed !important;
   inset: 0;
   z-index: 10;
@@ -256,6 +304,7 @@ a .box {
   max-width: 100vw;
 }
 [data-questbar=right] .content--main, [data-questbar=left] .content--main {
+  animation: slide-x 1s;
   width: 100%;
   max-width: 0;
   transition: 0.3s;

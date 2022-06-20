@@ -18,7 +18,7 @@
   <!-- Quest Modal -->
   <Teleport to="body" v-if="user && user.admin">
       <Modal v-if="addModal" :toggle="toggleModal">
-        <FormQuest :toggle="toggleModal" :teamName="teamName" :teamId="teamId" />
+        <FormQuest :toggle="toggleModal" :teamId="teamId" />
       </Modal>
   </Teleport>
 </template>

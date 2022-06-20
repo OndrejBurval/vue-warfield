@@ -1,0 +1,13 @@
+.form-modal{
+    width: min(98vw, 1200px);
+    height: min-content;
+    padding-block: 30px !important;
+    resize: both;
+}
+
+input, select, button, textarea{
+    padding: 10px 15px !important;
+    margin-block: 5px !important;
+}
+
+

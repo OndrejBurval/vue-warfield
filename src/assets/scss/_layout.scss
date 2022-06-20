@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Manrope', sans-serif;
 }
 
 html{
@@ -48,14 +49,19 @@ a{
 }
 
 
+// čištění mapy od google věciček
+.gmnoprint, .gm-style-cc, [rel="noopener"]{
+  display: none !important;
+}
 
 
 
 
 
-
-
-
+label{
+  font-weight: 500;
+  font-size: 1.1rem !important;
+}
 
 
 

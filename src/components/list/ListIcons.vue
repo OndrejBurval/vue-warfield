@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper">
+    <div class="overlay" @click="toggleFunc"></div>
     <div class="wrapper--inner">
       <div class="svg-wrapper" @click="select" data-path="./src/assets/map-icons/alarm.svg">
         <BIconAlarm  />
@@ -25,32 +26,67 @@
   </div>
 </template>
 
-<script setup>
-import { ref, computed } from "vue";
-import { getSelectedIcon, setSelectedIcon } from "../../global/storage.js";
+<script>
+import {
+  getSelectedIcon,
+  setSelectedIcon,
+} from "../../global/storage.js";
 
-const selected = getSelectedIcon()
 
-const select = (e) => {
-  setSelectedIcon(e.target.getAttribute("data-path"))
+
+
+
+export default {
+  name: "ListIcons",
+  setup(props){
+
+    const selected = getSelectedIcon()
+
+    const select = (e) => {
+      setSelectedIcon(e.target.getAttribute("data-path"))
+      props.toggleFunc()
+    }
+
+    return{
+      selected,
+      select
+    }
+  },
+  props: ["toggleFunc"]
+
 }
+
 </script>
 
 <style lang="scss" scoped>
+.overlay{
+  background: rgba(0, 0, 0, 0.75);
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  inset: 0;
+}
+
 .wrapper{
-  // background: white;
-  padding: 30px;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999;
+  inset: 0;
+
   display: grid;
   place-items: center;
-  width: min-content;
-  margin-inline: auto;
-  border-radius: 20px;
 
 
   &--inner{
+    background: #ffffff;
     display: grid;
     gap: 20px;
-    grid-template-columns: repeat(5, min-content);
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    padding: 30px;
+    border-radius: 20px;
   }
 }
 

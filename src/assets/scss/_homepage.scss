@@ -23,6 +23,8 @@
     }
 
     &--main{
+      animation: slide-y 1s;
+
       transition: $transition-time-def;
 
       height: 100%;
@@ -37,6 +39,7 @@
 
 [data-questbar="overlay"]{
   .content--main{
+    animation: fade-in 1s;
     position: fixed !important;
     inset: 0;
     z-index: 10;
@@ -44,8 +47,10 @@
     max-height: 100vh;
   }
 
+
   &.opened{
     .content--map{
+
       max-height: $heightWithountNavbar !important;
     }
   }
@@ -53,6 +58,7 @@
 
 
 [data-questbar="right"], [data-questbar="left"]{
+
   display: flex !important;
   width: 100vw;
   .content--map{
@@ -60,6 +66,8 @@
     max-width: 100vw;
   }
   .content--main{
+    animation: slide-x 1s;
+
     width: 100%;
     max-width: 0;
     transition: .3s;

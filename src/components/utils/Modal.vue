@@ -44,5 +44,10 @@ export default {
     background: white;
     padding: 40px 30px;
     border-radius: 20px;
+
+
+    height: min-content;
+    max-height: 90vh;
+    overflow: auto;
   }
 </style>
