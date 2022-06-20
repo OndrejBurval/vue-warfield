@@ -35,9 +35,13 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { logOut, logIn, getUser } from "../firebase/auth.js";
-import {getAuth, onAuthStateChanged} from "firebase/auth";
+
+onMounted(() => {
+
+  logSendedUser()
+})
 
 const user = getUser()
 
@@ -47,6 +51,18 @@ const password = ref()
 
 const login = () => {
   logIn(email.value, password.value)
+}
+
+const logSendedUser = () => {
+  const userEmail = localStorage.getItem("loginUser")
+  const password = localStorage.getItem("loginPassword")
+  if ( userEmail && password ){
+    if ( user.value && user.value.email !== userEmail) logOut()
+    const userName = userEmail.split("@")[0]
+    logIn(userName, password)
+    localStorage.removeItem("loginUser")
+    localStorage.removeItem("loginPassword")
+  }
 }
 
 

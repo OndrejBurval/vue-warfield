@@ -74,12 +74,10 @@ export default {
     onMounted(() => {
       setTimeout( () => {
         const markers = document.querySelectorAll("[title='marker']")
-        console.log(markers)
 
         markers.forEach(marker => {
           marker.addEventListener("click", () => {
             const activeMarker = document.querySelectorAll(".activeMarker")
-            console.log(activeMarker)
             if (activeMarker) {
               activeMarker.forEach(e => {
                 e.classList.remove("activeMarker")

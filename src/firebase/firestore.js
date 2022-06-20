@@ -154,6 +154,12 @@ export const getPlaceByID = async (placeID) => {
     return await getDoc(docRef)
 }
 
+export const getTeamByID = async (teamID) => {
+    const docRef = doc(db, "teams", teamID)
+    const data = await getDoc(docRef)
+    return data.data()
+}
+
 export const updateMapLocation = async ( placeID ) => {
     const place = await getPlaceByID(placeID)
     const docRef = doc(db, "map", "settings")
@@ -209,6 +215,13 @@ const reAlignQuestOrder = async (team) => {
     })
 }
 
+export const updateTeamScenary = async ( teamID, teamScenary ) => {
+    const docRef = doc(db, "teams", teamID)
+    await updateDoc(docRef, {
+        scenary: teamScenary
+    })
+}
+
 
 // LIVE DATA
 const snapshotLoop = (query) => {
@@ -242,9 +255,6 @@ export const getPlacesCollection = async () => {
     const q = query(placesCollection, orderBy("created", "asc"))
     return snapshotLoop(q)
 }
-
-
-
 
 
 export const getTeamByEmail = async (email) => {

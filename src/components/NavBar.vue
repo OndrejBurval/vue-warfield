@@ -39,10 +39,7 @@
   </Transition>
 
   <Modal v-if="scenaryModal" :toggle="modalToggle">
-    <h2> Scénář </h2>
-    <p>
-      ff
-    </p>
+    <Scenary />
   </Modal>
 </template>
 
@@ -52,6 +49,7 @@ import SideBar from "./utils/SideBar.vue";
 import ListQuests from "./list/ListQuests.vue";
 import TheQuestWrapper from "./TheQuestWrapper.vue";
 import Modal from "./utils/Modal.vue"
+import Scenary from "../Scenary.vue";
 import Profile from "./Profile.vue"
 
 import { getQuestSidebar, toggleQuestSidebar } from "../global/stateManagement.js";
@@ -77,6 +75,7 @@ export default {
     TheQuestWrapper,
     Profile,
     Modal,
+    Scenary
   }
 }
 </script>

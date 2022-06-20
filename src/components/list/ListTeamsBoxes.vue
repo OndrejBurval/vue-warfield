@@ -23,6 +23,9 @@
       <div class="login">
         username: {{ team.userName }}<br>
         password: 123456
+
+        <button class="btn btn-primary w-100 my-3" @click.prevent="loginAsTeam(team.userName)" > Přihlásit se </button>
+
       </div>
 
 
@@ -56,6 +59,7 @@
 
 <script>
 import { getTeamsCollection } from "../../firebase/firestore.js";
+import { logOut, logIn } from "../../firebase/auth.js";
 import { ref } from "vue";
 
 import Modal from "../utils/Modal.vue";
@@ -86,7 +90,14 @@ export default {
       teamId.value = selectedTeamId
     }
 
-    return { teams, edit, teamModal, updateTeam, teamName, teamId, addQuest, toggleModal }
+    const loginAsTeam = (userName) => {
+      const password = "123456"
+      localStorage.setItem("loginUser", userName)
+      localStorage.setItem("loginPassword", password)
+      logOut()
+    }
+
+    return { teams, edit, teamModal, updateTeam, teamName, teamId, addQuest, toggleModal, loginAsTeam }
   },
   components: {
     FormQuest,
