@@ -20,6 +20,9 @@
 
 
       <div class="toggleContent" v-if="toggleContent && user">
+        <router-link to="/customize">
+          Přizpůsobit
+        </router-link>
         <a @click.prevent="logOut"> Odhlásit </a>
       </div>
 
@@ -63,16 +66,22 @@ const userName = computed(()=> {
     background: white;
     border-radius: 5px;
     color: #2a2f34;
-    padding: 5px 10px;
-  }
+    padding: 10px 15px;
+    z-index: 55;
+    display: grid;
+    grid-auto-flow: row;
+    row-gap: 10px;
 
-  a{
-    color: black !important;
-    transition: .2s;
-    &:hover{
-      text-decoration: underline !important;
+    a{
+      color: black !important;
+      transition: .2s;
+      &:hover{
+        text-decoration: underline !important;
+      }
     }
   }
+
+
 
   svg:hover{
     &, *{

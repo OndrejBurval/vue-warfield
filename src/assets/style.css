@@ -48,6 +48,17 @@
   opacity: 0;
 }
 
+.slide-top-enter-active,
+.slide-top-leave-active {
+  transition: all 0.5s;
+}
+
+.slide-top-enter-from,
+.slide-top-leave-to {
+  transform: translateY(30%);
+  opacity: 0;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -120,6 +131,22 @@ path {
   transition: 0.25s;
 }
 
+#svgPhoneBox {
+  fill: gray !important;
+  stroke: gray !important;
+  transition: 0.25s;
+}
+
+.selectedIcon #svgPhoneBox {
+  fill: #d33e3e !important;
+  stroke: #d33e3e !important;
+}
+
+.inputs .option:hover #svgPhoneBox {
+  fill: #d33e3e !important;
+  stroke: #d33e3e !important;
+}
+
 .box {
   width: 100%;
   height: auto;
@@ -157,15 +184,92 @@ a .box {
 }
 
 .navbar {
-  min-height: 100px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  min-height: 110px;
   display: grid !important;
   grid-auto-flow: column;
+}
+.navbar:not([data-navbar=top]) {
+  position: fixed !important;
+}
+.navbar:not([data-navbar=top]) .toggleContent {
+  bottom: 0 !important;
+  left: 110% !important;
+  top: auto !important;
 }
 .navbar--left, .navbar--right {
   display: grid;
   grid-auto-columns: 1fr;
   grid-auto-flow: column;
   height: 100%;
+}
+
+[data-navbar=top] {
+  bottom: auto !important;
+}
+[data-navbar=top] .toggleContent {
+  top: 100% !important;
+}
+
+.main {
+  height: calc(100vh - 110px);
+  overflow: hidden;
+}
+.main.opened:not(.main[data-questbar]) .content--map {
+  max-height: 50vh;
+}
+.main .content--map {
+  transition: 0.25s;
+  height: 100%;
+  max-height: 100%;
+}
+.main .content--map .map {
+  height: 100% !important;
+}
+.main .content--main {
+  transition: 0.25s;
+  height: 100%;
+  max-height: calc(50vh - 110px);
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+[data-questbar=overlay] .content--main {
+  position: fixed !important;
+  inset: 0;
+  z-index: 10;
+  background: white;
+  max-height: 100vh;
+}
+[data-questbar=overlay].opened .content--map {
+  max-height: calc(100vh - 110px) !important;
+}
+
+[data-questbar=right], [data-questbar=left] {
+  display: flex !important;
+  width: 100vw;
+}
+[data-questbar=right] .content--map, [data-questbar=left] .content--map {
+  width: 100%;
+  max-width: 100vw;
+}
+[data-questbar=right] .content--main, [data-questbar=left] .content--main {
+  width: 100%;
+  max-width: 0;
+  transition: 0.3s;
+}
+[data-questbar=right].opened .content--main, [data-questbar=left].opened .content--main {
+  max-height: calc(100vh - 110px);
+  max-width: 45vw;
+}
+
+[data-questbar=left] .content--main {
+  order: 1;
+}
+[data-questbar=left] .content--map {
+  order: 2;
 }
 
 /*# sourceMappingURL=style.css.map */

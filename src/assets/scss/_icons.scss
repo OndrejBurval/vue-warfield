@@ -13,3 +13,30 @@ svg{
 path{
   transition: $transition-time-def;
 }
+
+
+#svgPhoneBox{
+  fill: gray !important;
+  stroke: gray !important;
+  transition: $transition-time-def;
+}
+
+.selectedIcon{
+  #svgPhoneBox{
+    fill: $color-main !important;
+    stroke: $color-main !important;
+  }
+}
+
+.inputs{
+  .option{
+
+    &:hover{
+      #svgPhoneBox{
+        fill: $color-main !important;
+        stroke: $color-main !important;
+      }
+    }
+  }
+
+}

@@ -5,6 +5,7 @@ import MapEditor from "../views/MapEditor.vue"
 import Login from "../views/Login.vue"
 import Register from "../views/Register.vue"
 import GameSettings from "../views/GameSettings.vue"
+import Customize from "../views/Customize.vue"
 
 const routes = [
     {
@@ -42,6 +43,14 @@ const routes = [
         component: GameSettings,
         meta: {
             requireAdmin: true
+        }
+    },
+    {
+        path: "/customize",
+        name: "Customize settings",
+        component: Customize,
+        meta: {
+            requireAuth: true
         }
     },
     {

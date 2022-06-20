@@ -96,10 +96,9 @@ export default {
 <style lang="scss" scoped>
 
 .adminFilter{
-  width: calc(100% + 60px);
-  margin-left: -30px;
-  margin-top: -15px;
-  margin-bottom: 40px;
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
 }
 
 

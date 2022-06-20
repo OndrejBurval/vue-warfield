@@ -30,9 +30,19 @@
 .slide-right-leave-active {
   transition: all .5s;
 }
-
 .slide-right-enter-from,
 .slide-right-leave-to {
   transform: translateX(30%);
+  opacity: 0;
+}
+
+
+.slide-top-enter-active,
+.slide-top-leave-active {
+  transition: all .5s;
+}
+.slide-top-enter-from,
+.slide-top-leave-to {
+  transform: translateY(30%);
   opacity: 0;
 }

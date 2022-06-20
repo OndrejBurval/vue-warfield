@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-dark bg-dark px-5">
+  <nav class="navbar navbar-dark bg-dark px-5" :data-navbar="navBarSettings">
 
     <div class="navbar--left">
       <Profile />
@@ -25,18 +25,7 @@
 
 
 
-  <Transition name="slide-right">
-    <SideBar v-if="questBar" :title="'Úkoly'" overlay="false" :toggle="toggleQuestSidebar">
-      <Suspense>
-        <template #default>
-          <TheQuestWrapper />
-        </template>
-        <template #fallback>
-          <BIconArrowClockwise class="loading" />
-        </template>
-      </Suspense>
-    </SideBar>
-  </Transition>
+
 
   <Modal v-if="scenaryModal" :toggle="modalToggle">
     <Scenary />
@@ -54,7 +43,7 @@ import Profile from "./Profile.vue"
 
 import { getQuestSidebar, toggleQuestSidebar } from "../global/stateManagement.js";
 import { getUser } from "../firebase/auth.js";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 export default {
   name: "NavBar",
@@ -66,7 +55,11 @@ export default {
 
     const modalToggle = () => scenaryModal.value = !scenaryModal.value
 
-    return { user, questBar, scenaryModal, toggleQuestSidebar, modalToggle }
+    const navBarSettings = computed(() => localStorage.getItem("navBar"))
+
+
+
+    return { user, questBar, scenaryModal, toggleQuestSidebar, modalToggle, navBarSettings }
   },
   components: {
     Admin,

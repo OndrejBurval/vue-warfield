@@ -1,4 +1,10 @@
 <template>
+
+  <p>
+    local storage test:
+    <button @click.prevent="setLocal"> Set local </button>
+    {{ local }}
+  </p>
   <h2>
     Vytvořit účet
   </h2>
@@ -30,6 +36,8 @@ import { ref} from "vue";
 import { getAuth } from "firebase/auth";
 import { addAdminRole, removeUserByEmail } from "../firebase/firebase.js";
 
+const local = ref(localStorage.getItem("local"))
+
 const email = ref()
 const password = ref()
 const adminEmail = ref()
@@ -40,6 +48,10 @@ const user = ref()
 
 const create = () => {
   createUser(email.value, password.value)
+}
+
+const setLocal = () => {
+  localStorage.setItem('local', 'fasfhasf')
 }
 
 const createAdmin = () => {
