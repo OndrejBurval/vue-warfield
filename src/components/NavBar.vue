@@ -81,13 +81,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.navbar{
-  height: 100px;
-}
 
- .navbar--right{
-   display: grid;
-   grid-auto-columns: 1fr;
-   grid-auto-flow: column;
- }
 </style>
