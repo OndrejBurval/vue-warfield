@@ -15,14 +15,16 @@
       </router-link>
     </div>
 
+  <Teleport to="body">
     <Transition name="slide-right">
-      <SideBar v-if="sidebar" :title="'Admin module'" :overlay="false" :toggle="sidebarToggle">
-        <Suspense>
-          <ListTeams />
-        </Suspense>
+        <SideBar v-if="sidebar" :title="'Admin module'" :overlay="false" :toggle="sidebarToggle">
+          <Suspense>
+            <ListTeams />
+          </Suspense>
+        </SideBar>
+      </Transition>
+  </Teleport>
 
-      </SideBar>
-    </Transition>
 </template>
 
 <script>

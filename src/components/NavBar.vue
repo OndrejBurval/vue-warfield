@@ -1,31 +1,30 @@
 <template>
-  <nav class="navbar navbar-dark bg-dark px-5" :data-navbar="navBarSettings">
+  <Transition :name="animation">
+    <nav v-if="!questBar" class="navbar navbar-dark bg-dark px-5" :data-navbar="navBarSettings">
 
-    <div class="navbar--left">
-      <Profile />
-    </div>
-
-    <div class="navbar--right" v-if="user">
-      <div class="nav-link" @click="modalToggle">
-        <BIconInfoSquare :cursor="'pointer'" :fill="'#ffffff'" />
-        <span>
-          Scénář
-        </span>
+      <div class="navbar--left">
+        <Profile />
       </div>
-      <div class="nav-link" @click="toggleQuestSidebar">
-        <BIconJournalText :cursor="'pointer'" :fill="'#ffffff'"  />
-        <span>
-          Úkoly
-        </span>
+
+      <div class="navbar--right" v-if="user">
+
+        <div class="nav-link" @click="modalToggle">
+          <BIconInfoSquare :cursor="'pointer'" :fill="'#ffffff'" />
+          <span>
+            Scénář
+          </span>
+        </div>
+        <div class="nav-link" @click="toggleQuestSidebar">
+          <BIconJournalText :cursor="'pointer'" :fill="'#ffffff'"  />
+          <span>
+            Úkoly
+          </span>
+        </div>
+        <Admin v-if="user.admin" />
       </div>
-      <Admin v-if="user.admin" />
-    </div>
 
-  </nav>
-
-
-
-
+    </nav>
+  </Transition>
 
   <Modal v-if="scenaryModal" :toggle="modalToggle">
     <Scenary />
@@ -51,15 +50,17 @@ export default {
     const user = getUser()
     const scenaryModal = ref(false)
 
+
     const questBar = getQuestSidebar()
 
     const modalToggle = () => scenaryModal.value = !scenaryModal.value
 
     const navBarSettings = computed(() => localStorage.getItem("navBar"))
 
+    const animation = computed(() => navBarSettings.value === "top" ? "slide-top" : "slide-down")
 
 
-    return { user, questBar, scenaryModal, toggleQuestSidebar, modalToggle, navBarSettings }
+    return { user, questBar, scenaryModal, toggleQuestSidebar, modalToggle, animation, navBarSettings }
   },
   components: {
     Admin,
@@ -74,5 +75,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 
 </style>

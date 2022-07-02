@@ -68,8 +68,7 @@
 
 .slide-right-enter-from,
 .slide-right-leave-to {
-  transform: translateX(30%);
-  opacity: 0;
+  transform: translateX(100%);
 }
 
 .slide-top-enter-active,
@@ -79,8 +78,17 @@
 
 .slide-top-enter-from,
 .slide-top-leave-to {
-  transform: translateY(30%);
-  opacity: 0;
+  transform: translateY(-100%);
+}
+
+.slide-down-enter-active,
+.slide-down-leave-active {
+  transition: all 0.5s;
+}
+
+.slide-down-enter-from,
+.slide-down-leave-to {
+  transform: translateY(100%);
 }
 
 * {
@@ -221,12 +229,12 @@ a .box {
   bottom: 0;
   left: 0;
   right: 0;
+  transition: 0.3s;
+  position: fixed !important;
+  z-index: 99;
   min-height: 110px;
   display: grid !important;
   grid-auto-flow: column;
-}
-.navbar:not([data-navbar=top]) {
-  position: fixed !important;
 }
 .navbar:not([data-navbar=top]) .toggleContent {
   bottom: 0 !important;
@@ -260,11 +268,8 @@ input, select, button, textarea {
 }
 
 .main {
-  height: calc(100vh - 110px);
+  height: 100vh;
   overflow: hidden;
-}
-.main.opened:not(.main[data-questbar]) .content--map {
-  max-height: 50vh;
 }
 .main .content--map {
   transition: 0.25s;
@@ -278,9 +283,13 @@ input, select, button, textarea {
   animation: slide-y 1s;
   transition: 0.25s;
   height: 100%;
-  max-height: calc(50vh - 110px);
+  max-height: 50vh;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+.main.opened:not(.main[data-questbar]) .content--map {
+  max-height: 50vh !important;
 }
 
 [data-questbar=overlay] .content--main {
@@ -290,6 +299,9 @@ input, select, button, textarea {
   z-index: 10;
   background: white;
   max-height: 100vh;
+}
+[data-questbar=overlay].opened {
+  height: 100vh !important;
 }
 [data-questbar=overlay].opened .content--map {
   max-height: calc(100vh - 110px) !important;
@@ -310,7 +322,7 @@ input, select, button, textarea {
   transition: 0.3s;
 }
 [data-questbar=right].opened .content--main, [data-questbar=left].opened .content--main {
-  max-height: calc(100vh - 110px);
+  max-height: 100vh;
   max-width: 45vw;
 }
 

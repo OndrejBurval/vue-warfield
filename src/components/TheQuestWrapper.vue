@@ -6,10 +6,12 @@
     </Suspense>
   </div>
 
+  <div class="close">
+    <BIconXLg @click="toggleQuestSidebar" />
+  </div>
+
   <Suspense>
-
     <template #default>
-
       <div v-if="teamsCollection.length > 0" v-for="team in teamsCollection" :id="team.id" class="teamContainer">
         <section class="teamContent" v-if="team.id === userData.id || user.admin">
 
@@ -66,6 +68,7 @@ import ButtonFormTeam from "./buttons/ButtonFormTeam.vue";
 import ButtonRemoveTeam from "./buttons/ButtonRemoveTeam.vue";
 import { getTeamsCollection } from "../firebase/firestore.js";
 import { getUser, getUserData } from "../firebase/auth.js";
+import { toggleQuestSidebar } from "../global/stateManagement.js";
 import { ref } from "vue";
 
 export default {
@@ -81,7 +84,7 @@ export default {
     const teamsCollection = await getTeamsCollection()
 
 
-    return { user, userData, teamsCollection, addModal, teamName, teamId }
+    return { user, userData, teamsCollection, addModal, teamName, teamId, toggleQuestSidebar }
   },
   components: {
     ListQuests,
@@ -99,6 +102,16 @@ export default {
   width: 100vw;
   margin-left: 50%;
   transform: translateX(-50%);
+}
+
+.close{
+  display: grid;
+  width: 100%;
+  place-items: end;
+
+  svg{
+    cursor: pointer;
+  }
 }
 
 

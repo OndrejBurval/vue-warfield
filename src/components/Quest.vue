@@ -33,7 +33,7 @@
 
 
     <Modal v-if="edit" :toggle="toggleModal">
-      <FormQuest :toggle="toggleModal" update="true" :doc_id="data_id" :title="data_title" :desc="data_desc" :passed-lat="data_lat" :passed-lng="data_lng" :passed-status="data_status" />
+      <FormQuest :toggle="toggleModal" update="true" :team-id="data_teamId" :doc_id="data_id" :title="data_title" :desc="data_desc" :passed-lat="data_lat" :passed-lng="data_lng" :passed-status="data_status" />
     </Modal>
 </template>
 
@@ -45,7 +45,7 @@ import Modal from "./utils/Modal.vue";
 import ButtonEditQuestStatus from "./buttons/ButtonEditQuestStatus.vue"
 
 // Functions
-import { deleteQuest, moveQuestOrderUp, moveQuestOrderDown } from "../firebase/firestore.js";
+import { deleteQuest, moveQuestOrderUp, moveQuestOrderDown, getMapSettings } from "../firebase/firestore.js";
 import { getSelectedQuest, setSelectedQuest, setMapZoom, setMapCenterCoords, resetMapCenterCoords } from "../global/storage.js";
 import { ref, computed, watch, toRefs } from "vue";
 import { getUser } from "../firebase/auth.js";
@@ -58,6 +58,8 @@ export default {
     const edit = ref(false);
     const focused = ref(false);
     const selectedQuest = ref(getSelectedQuest())
+
+    const mapSettings = await getMapSettings()
 
     const {
       id: data_id,
@@ -99,7 +101,8 @@ export default {
     const zoom = () => {
       if (focused.value === false){
         setMapZoom(16)
-        resetMapCenterCoords()
+        console.log(mapSettings.data().center._lat)
+        setMapCenterCoords(mapSettings.data().center._lat, mapSettings.data().center._long)
       } else{
         setMapZoom(19)
         setMapCenterCoords(data_lat, data_lng)
@@ -135,7 +138,7 @@ export default {
       questClicked, removeQuest, toggleModal, questStatus,
       moveUp, moveDown,
       zoom,
-      data_id, data_title, data_desc, data_index, data_lat, data_lng, data_status, data_listLength
+      data_id, data_title, data_desc, data_index, data_lat, data_lng, data_status, data_listLength, data_teamId
     }
   },
   props: ["id", "title", "desc", "index", "lat", "lng", "status", "teamId", "listLength"],

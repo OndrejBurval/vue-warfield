@@ -1,7 +1,4 @@
 import { ref } from "vue";
-import {getMapSettings} from "../firebase/firestore.js";
-
-const mapSettingsDoc = await getMapSettings()
 
 
 const mapClickedCoords = ref({ lat: 0, lng: 0 })
@@ -21,20 +18,24 @@ export const setSelectedQuest = (id) => {
 }
 
 
-const mapCenterDefaultCoords = { lat: mapSettingsDoc.data().center._lat, lng: mapSettingsDoc.data().center._long }
-const mapCenterCoords = ref(mapCenterDefaultCoords)
+const mapCenterDefaultCoords = ref({ lat: 0, lng: 0 })
+export const setMapCenterDefaultCoords = (lat, lng) => {
+    mapCenterDefaultCoords.value.lat = lat;
+    mapCenterDefaultCoords.value.lng = lng
+}
+const mapCenterCoords = ref(mapCenterDefaultCoords.value)
 export const resetMapCenterCoords = () => mapCenterCoords.value = mapCenterDefaultCoords
 export const getMapCenterCoords = () => mapCenterCoords
 export const setMapCenterCoords = (lat, lng) => mapCenterCoords.value = { lat: lat, lng: lng }
 
 
-const mapZoom = ref(mapSettingsDoc.data().zoom)
+const mapZoom = ref(14)
 export const resetMapZoom = () => resetMapZoom.value = 13
 export const getMapZoom = () => mapZoom
 export const setMapZoom = (value) => mapZoom.value === value ? mapZoom.value = value : mapZoom.value = value //swapuje hodnoty, aby se procnul zoom mapy
 
 
-const mapType = ref(mapSettingsDoc.data().type)
+const mapType = ref("terrain")
 export const getMapType = () => mapType
 export const setMapType = (type) => mapType.value = type
 

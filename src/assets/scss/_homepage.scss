@@ -1,14 +1,13 @@
 
 
 .main{
-  height: $heightWithountNavbar;
+  //height: $heightWithountNavbar;
+  height: 100vh;
   overflow: hidden;
 
-  &.opened:not(&[data-questbar]){
-    .content--map{
-      max-height: 50vh;
-    }
-  }
+
+
+
 
   .content{
     &--map{
@@ -28,13 +27,22 @@
       transition: $transition-time-def;
 
       height: 100%;
-      max-height: calc(50vh - 110px);
+      //max-height: calc(50vh - 110px);
+      max-height: 50vh;
       overflow-y: scroll;
       overflow-x: hidden;
     }
   }
 }
 
+
+// quest bottom
+.main.opened:not(.main[data-questbar]){
+
+  .content--map{
+    max-height: 50vh !important;
+  }
+}
 
 
 [data-questbar="overlay"]{
@@ -47,10 +55,10 @@
     max-height: 100vh;
   }
 
-
   &.opened{
-    .content--map{
+    height: 100vh !important;
 
+    .content--map{
       max-height: $heightWithountNavbar !important;
     }
   }
@@ -61,6 +69,8 @@
 
   display: flex !important;
   width: 100vw;
+
+
   .content--map{
     width: 100%;
     max-width: 100vw;
@@ -74,7 +84,8 @@
   }
   &.opened{
     .content--main{
-      max-height: $heightWithountNavbar;
+      //max-height: $heightWithountNavbar;
+      max-height: 100vh;
       max-width: 45vw;
     }
   }

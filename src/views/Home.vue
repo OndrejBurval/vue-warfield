@@ -24,15 +24,7 @@
         </Suspense>
       </div>
     </Transition>
-
-
-
-
-
   </div>
-
-
-
 </template>
 
 <script setup>

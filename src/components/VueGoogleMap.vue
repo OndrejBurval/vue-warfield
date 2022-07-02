@@ -57,9 +57,9 @@
 </template>
 
 <script>
-import { getQuestCollection, getTeamQuestCollection } from "../firebase/firestore.js";
+import { getQuestCollection, getMapSettings } from "../firebase/firestore.js";
 import { toggleQuestSidebar, getQuestSidebar,getWatchMapClick, toggleWatchMapClick } from "../global/stateManagement.js";
-import { setMapClickedCoords, setSelectedQuest, getMapCenterCoords, getMapZoom, getMapType } from "../global/storage.js";
+import { setMapClickedCoords, setSelectedQuest, getMapZoom, getMapType, setMapZoom, setMapCenterDefaultCoords, setMapType, getMapCenterCoords } from "../global/storage.js";
 import { getUser, getUserData } from "../firebase/auth.js";
 import { computed, ref, onMounted } from "vue";
 
@@ -72,6 +72,15 @@ export default {
   async setup () {
 
     onMounted(() => {
+
+      setMapZoom(mapSettings.data().zoom)
+      setMapType(mapSettings.data().type)
+      setMapCenterDefaultCoords(mapSettings.data().center._lat, mapSettings.data().center._long)
+      const storageCoords = ref(getMapCenterCoords())
+      centerCoords.value.lat = storageCoords.value.lat
+      centerCoords.value.lng = storageCoords.value.lng
+
+
       setTimeout( () => {
         const markers = document.querySelectorAll("[title='marker']")
 
@@ -101,7 +110,8 @@ export default {
     })
 
     // STORAGE
-    const centerCoords = getMapCenterCoords()
+    const mapSettings = await getMapSettings()
+    const centerCoords = ref(getMapCenterCoords())
 
     // STATE MANAGEMENT
     const watchClick = getWatchMapClick()
@@ -160,10 +170,10 @@ export default {
       if (questSidebar.value) {
         setSelectedQuest(id)
       } else{
-        toggleQuestSidebar()
-        setTimeout(() => {
-          setSelectedQuest(id)
-        }, 1100);
+        // toggleQuestSidebar()
+        // setTimeout(() => {
+        //   setSelectedQuest(id)
+        // }, 1100);
       }
     }
 
