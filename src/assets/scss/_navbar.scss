@@ -5,6 +5,14 @@
   transition: .3s;
   position: fixed !important;
   z-index: 99;
+  min-height: $navbar-height;
+  display: grid !important;
+  grid-auto-flow: column;
+
+
+  @media (max-width: 767px){
+      padding-inline: 10px !important;
+  }
 
   &:not([data-navbar="top"]){
     .toggleContent{
@@ -14,13 +22,13 @@
     }
   }
 
-  min-height: $navbar-height;
-  display: grid !important;
-  grid-auto-flow: column;
+
 
 
   &--left, &--right{
     display: grid;
+    place-items: center;
+    text-align: center;
     grid-auto-columns: 1fr;
     grid-auto-flow: column;
     height: 100%;
@@ -30,6 +38,7 @@
 
 [data-navbar="top"]{
   bottom: auto !important;
+  top: 0;
 
   .toggleContent{
     top: 100% !important;

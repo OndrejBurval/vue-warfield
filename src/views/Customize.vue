@@ -90,11 +90,30 @@ import { ref } from "vue";
 
 <style lang="scss" scoped>
 
+h2{
+  font-weight: bold;
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  @media (max-width: 767px){
+   font-size: 2rem;
+  }
+}
+
 .inputs{
   display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: 1fr;
-  gap: 50px;
+
+
+  @media (min-width: 768px){
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 50px;
+  }
+  
+  @media (max-width: 767px){
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 50px;
+  }
 
 }
 
@@ -121,6 +140,10 @@ import { ref } from "vue";
 
   svg{
     width: 300px;
+
+    @media (max-width: 767px){
+      width: 100%;
+    }
   }
 }
 

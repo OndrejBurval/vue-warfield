@@ -138,6 +138,10 @@ export default {
     margin-block: 50px;
   }
 
+  .form-modal{
+    padding-inline: 15px;
+  }
+
 
 
   .header{
@@ -145,14 +149,17 @@ export default {
     top: 0;
     left: 0;
     width: 100%;
-    padding: 20px 30px;
+    padding: 20px 45px;
   }
 
 
   .questFormHeader{
     display: grid;
-    grid-template-columns: 100px 6fr 2fr;
     gap: 20px;
+
+    @media (min-width: 768px){
+      grid-template-columns: 100px 6fr 2fr;
+    }
 
 
     .icon{
@@ -178,11 +185,13 @@ export default {
   .form-coords{
     display: grid;
     gap: 20px;
-
-    grid-auto-flow: column;
-    grid-template-columns: 1fr 1fr 1fr;
-
     margin: 0 !important;
+
+    @media (min-width: 768px){
+      grid-auto-flow: column;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
 
     div{
       margin: 0 !important;

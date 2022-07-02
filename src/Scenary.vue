@@ -13,11 +13,11 @@
     <div class="accordion" id="teamScenaryList">
       <div class="accordion-item" v-for="team in teamCollection" :key="team.id">
         <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target="edit ? '' : `#${team.id}`">
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" :data-bs-target="edit ? '' : `#${team.id}scenary`">
             {{ team.name }}
           </button>
         </h2>
-        <div :id="team.id" class="accordion-collapse collapse" data-bs-parent="#teamScenaryList">
+        <div :id="team.id+'scenary'" class="accordion-collapse collapse" data-bs-parent="#teamScenaryList">
           <div class="accordion-body d-flex flex-column">
 
             <p v-if="!edit">

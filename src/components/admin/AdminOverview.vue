@@ -155,7 +155,7 @@ export default {
       font-weight: 400;
       color: #2a2f34;
       position: relative;
-      z-index: 9999;
+      z-index: 50;
     }
   }
 

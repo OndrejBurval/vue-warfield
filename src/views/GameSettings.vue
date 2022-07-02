@@ -1,6 +1,6 @@
 <template>
-  <div class="wrapper">
-    <nav class="navbar bg-dark">
+  <div class="wrapper" :data-navPosition="navBarPosition">
+    <nav class="navbar bg-dark" :data-navbar="navBarPosition">
 
       <router-link to="/">
         <div class="link">
@@ -65,6 +65,7 @@ const location = ref(false)
 const teams = ref(false)
 
 
+
 const locationToggle = () => {
   toggleOffAll()
   location.value = !location.value
@@ -79,15 +80,13 @@ const toggleOffAll = () => {
   teams.value = false
 }
 
-const showOverview = computed(() => {
-  return !!location.value
-})
-
-
+const showOverview = computed(() => !!location.value)
+const navBarPosition = computed(() => localStorage.getItem("navBar"))
 
 </script>
 
 <style lang="scss" scoped>
+
 
   .navbar{
     display: grid;
@@ -135,6 +134,15 @@ const showOverview = computed(() => {
     &:hover{
       opacity: 1;
     }
+  }
+
+  .wrapper{
+    padding-bottom: 110px;
+  }
+
+  [data-navposition="top"]{
+    padding-top: 110px;
+    padding-bottom: 0;
   }
 
 

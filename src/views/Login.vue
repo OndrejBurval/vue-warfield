@@ -39,7 +39,6 @@ import { ref, onMounted } from "vue";
 import { logOut, logIn, getUser } from "../firebase/auth.js";
 
 onMounted(() => {
-
   logSendedUser()
 })
 

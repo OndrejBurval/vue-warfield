@@ -1,6 +1,6 @@
 <template>
   <Transition :name="animation">
-    <nav v-if="!questBar" class="navbar navbar-dark bg-dark px-5" :data-navbar="navBarSettings">
+    <nav v-if="!questBar" class="navbar navbar-dark bg-dark px-md-5" :data-navbar="navBarSettings">
 
       <div class="navbar--left">
         <Profile />

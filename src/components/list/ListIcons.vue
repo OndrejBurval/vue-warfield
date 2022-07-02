@@ -87,6 +87,11 @@ export default {
     grid-auto-columns: 1fr;
     padding: 30px;
     border-radius: 20px;
+    
+    @media (max-width: 767px){
+        grid-auto-flow: unset;
+        grid-template-columns: repeat(4, 1fr);
+    }
   }
 }
 
