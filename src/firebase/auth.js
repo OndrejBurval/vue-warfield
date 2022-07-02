@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, on
 import { ref } from "vue";
 import { auth } from "./firebase.js";
 import { getTeamByEmail } from "./firestore.js";
+import router from "../router";
 
 const user = ref(auth.currentUser)
 const userData = ref({})
@@ -13,7 +14,8 @@ export const createUser = (email, password) => {
     createUserWithEmailAndPassword(auth, warfieldEmail, password)
         .then((data) => {
             console.log(data.user)
-            window.location.replace("/");
+            //window.location.replace("/");
+            router.push("/")
         })
         .catch((error) => {
             console.log(error.message)
@@ -23,7 +25,8 @@ export const createUser = (email, password) => {
 export const logOut = () => {
     signOut(auth)
         .then(() => {
-            window.location.replace("/");
+            //window.location.replace("/");
+            router.push("/")
         })
         .catch((e) => {
             console.log(e)
@@ -35,7 +38,8 @@ export const logIn = (email, password) => {
 
     signInWithEmailAndPassword(auth, warfieldEmail, password)
         .then(() => {
-           window.location.replace("/");
+           //window.location.replace("/");
+            router.push("/")
         })
         .catch((error) => {
             console.log(error.message)

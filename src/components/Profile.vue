@@ -1,5 +1,5 @@
 <template>
-  <div class="profileWrapper text-light me-4" @click="toggleContent = !toggleContent">
+  <div class="profileWrapper text-light me-md-4" @click="toggleContent = !toggleContent">
       <div class="profileImg">
         <BIconPersonFill v-if="user" />
         <BIconPerson v-else />
@@ -58,6 +58,16 @@ const userName = computed(()=> {
     flex-direction: column;
     position: relative;
     cursor: pointer;
+    
+    @media (max-width: 767px){
+        font-size: .8rem;
+    }
+  }
+
+  span{
+    @media (max-width: 767px){
+      width: 100%;
+    }
   }
 
   .toggleContent{

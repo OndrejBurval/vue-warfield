@@ -69,6 +69,7 @@ import PhoneRight from "../assets/icons/PhoneRight.vue";
 import PhoneTop from "../assets/icons/PhoneTop.vue";
 import PhoneBottom from "../assets/icons/PhoneBottom.vue";
 import PhoneOverlay from "../assets/icons/PhoneOverlay.vue";
+import router from "../router";
 import { ref } from "vue";
 
     const pickedQuestBar = ref(localStorage.getItem("questBar") ? localStorage.getItem("questBar") : "bottom")
@@ -82,7 +83,7 @@ import { ref } from "vue";
     const submit = () => {
       pickedQuestBar.value === "bottom" ? localStorage.removeItem("questBar") : localStorage.setItem("questBar", pickedQuestBar.value)
       pickedNavBar.value === "bottom" ? localStorage.removeItem("navBar") : localStorage.setItem("navBar", pickedNavBar.value)
-      window.location.replace("/")
+      router.push("/")
     }
 
 

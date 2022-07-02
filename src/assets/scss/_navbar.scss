@@ -8,10 +8,12 @@
   min-height: $navbar-height;
   display: grid !important;
   grid-auto-flow: column;
+  
 
 
   @media (max-width: 767px){
       padding-inline: 10px !important;
+    min-height: 70px;
   }
 
   &:not([data-navbar="top"]){
@@ -34,6 +36,8 @@
     height: 100%;
   }
 }
+
+
 
 
 [data-navbar="top"]{

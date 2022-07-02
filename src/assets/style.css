@@ -114,6 +114,18 @@ body, #app {
   color: white !important;
   cursor: pointer;
   gap: 10px;
+  height: 100%;
+}
+@media (max-width: 767px) {
+  .nav-link, .nav-link a {
+    font-size: 0.8rem !important;
+    gap: 5px;
+  }
+}
+@media (max-width: 767px) {
+  .nav-link svg, .nav-link a svg {
+    height: 25px;
+  }
 }
 .nav-link:hover, .nav-link a:hover {
   fill: #d33e3e !important;
@@ -239,6 +251,7 @@ a .box {
 @media (max-width: 767px) {
   .navbar {
     padding-inline: 10px !important;
+    min-height: 70px;
   }
 }
 .navbar:not([data-navbar=top]) .toggleContent {

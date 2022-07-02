@@ -23,6 +23,18 @@ body, #app{
   color: white !important;
   cursor: pointer;
   gap: 10px;
+  height: 100%;
+
+  @media (max-width: 767px){
+    font-size: .8rem !important;
+    gap: 5px;
+  }
+
+  svg{
+    @media (max-width: 767px){
+      height: 25px;
+    }
+  }
 
   &:hover{
     fill: $color-main !important;

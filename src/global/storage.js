@@ -39,6 +39,6 @@ const mapType = ref("terrain")
 export const getMapType = () => mapType
 export const setMapType = (type) => mapType.value = type
 
-const selectedIcon = ref("./src/assets/map-icons/caret-down-fill.svg")
+const selectedIcon = ref("https://firebasestorage.googleapis.com/v0/b/vue-warfield.appspot.com/o/map_icons%2Fexclamation-octagon.svg?alt=media&token=7c1fe6d6-d268-4a6b-96b9-4a5b9d959b2c")
 export const getSelectedIcon = () => selectedIcon
 export const setSelectedIcon = (path) => selectedIcon.value = path
